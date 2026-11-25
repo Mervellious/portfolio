@@ -88,23 +88,25 @@
 
 
 /* ---------- Dividing lines ---------- */
-/* Each line draws in from the left the first time it comes into view
-   (straight away if it's already on screen). main.js adds .is-waiting
-   (collapsed) and then .is-drawn; --draw-delay staggers lines that
-   come into view together by .15s. Without JS, or with reduced
-   motion, the lines are simply there. */
+/* Each case-study line draws in from the left once per page view,
+   when it is well on screen (main.js adds .is-drawn; --draw-delay keeps
+   the second line 300ms behind the first). Until then it's collapsed,
+   from the first paint: <html class="js"> is set in the <head>.
+   Without JS, or with reduced motion, the lines are simply there. */
 .line {
   height: 1px;
   background: var(--ink);
   transform-origin: left;
 }
 
-.line.is-waiting {
-  transform: scaleX(0);
-}
+@media (prefers-reduced-motion: no-preference) {
+  .js .work-section--cases .line {
+    transform: scaleX(0);
+  }
 
-.line.is-drawn {
-  animation: line-draw .9s cubic-bezier(.2, .8, .2, 1) var(--draw-delay, 0s) both;
+  .js .work-section--cases .line.is-drawn {
+    animation: line-draw 1.8s cubic-bezier(.65, 0, .35, 1) var(--draw-delay, 0s) both;
+  }
 }
 
 @keyframes line-draw {

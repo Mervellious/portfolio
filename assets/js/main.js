@@ -1071,24 +1071,50 @@ initWorkLines();
 
 /* =========================================================
    8. Work lines (homepage): each dividing line under a case-study row
-   draws in from the left the first time it comes into view (at once
-   if it's already on screen). Lines that come into view together
-   start .15s apart. Reduced motion: no animation, they're just there.
+   draws in from the left (work.css) once per page view, when it is
+   actually on screen (threshold .6). The second line starts at
+   least 300ms after the first. Coming back with the Back button
+   (page restored from the back/forward cache) plays them again.
+   Reduced motion: no animation, they're just there.
    ========================================================= */
 function initWorkLines() {
-  const lines = document.querySelectorAll('.work-section--cases .line');
-  if (!lines.length || reducedMotion.matches || !('IntersectionObserver' in window)) return;
+  const lines = Array.from(document.querySelectorAll('.work-section--cases .line'));
+  if (!lines.length || reducedMotion.matches) return;
+  if (!('IntersectionObserver' in window)) {
+    lines.forEach((line) => line.classList.add('is-drawn'));
+    return;
+  }
 
-  lines.forEach((line) => line.classList.add('is-waiting'));
+  const GAP = 300;     // ms between one line's start and the next
+  let lastStart = -Infinity;
+
   const observer = new IntersectionObserver((entries) => {
-    let n = 0;
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      const line = entry.target;
-      line.style.setProperty('--draw-delay', (n++ * 0.15) + 's');
-      line.classList.replace('is-waiting', 'is-drawn');
-      observer.unobserve(line);
+    entries
+      .filter((entry) => entry.isIntersecting)
+      .sort((a, b) => lines.indexOf(a.target) - lines.indexOf(b.target))
+      .forEach((entry) => {
+        const now = performance.now();
+        const delay = Math.max(0, lastStart + GAP - now);
+        lastStart = now + delay;
+        entry.target.style.setProperty('--draw-delay', delay + 'ms');
+        entry.target.classList.add('is-drawn');
+        observer.unobserve(entry.target);
+      });
+  }, { threshold: 0.6 });
+
+  function start() {
+    lastStart = -Infinity;
+    lines.forEach((line) => {
+      line.classList.remove('is-drawn');
+      observer.observe(line);
     });
-  }, { rootMargin: '0px 0px -10% 0px' });
-  lines.forEach((line) => observer.observe(line));
+  }
+
+  start();
+  // Restored from the back/forward cache: collapse and play again
+  window.addEventListener('pageshow', (event) => {
+    if (!event.persisted) return;
+    observer.disconnect();
+    start();
+  });
 }
