@@ -99,6 +99,5 @@ The sheet shows `assets/cv/merve-uzuner-cv.pdf` as images, one PNG per page, and
 ## TODO
 
 - Real email address (footer link text and both `mailto:` links, on both pages)
-- LinkedIn URL (footer, both pages)
 - WaitWell case study (`work/waitwell.html`): hero subtitle; content for Design process, Development and Final product
 - Real cover images (see above)
