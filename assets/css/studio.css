@@ -5,12 +5,9 @@
 
 
 /* ---------- 0. Page colour ---------- */
-/* This page only (studio.css loads only here): the page and the header
-   use the stage's paper colour, so they read as one surface.
-   --bg is the page background token from base.css. */
-:root {
-  --bg: #F6F1E4;
-}
+/* The page, header, stage and work sheets all use the site's own
+   background colour (--bg in base.css), like the other pages. The
+   sheets stand out by their borders and inner frame. */
 
 
 /* ---------- 1. Stage ---------- */
@@ -26,7 +23,7 @@
   position: relative;
   width: 960px;
   aspect-ratio: 1600 / 900;
-  background: #F6F1E4;
+  background: var(--bg);
   container-type: size;
   overflow: hidden;
 }
@@ -325,7 +322,7 @@
 .sheet-rest {
   position: absolute;
   inset: 0;
-  background: #FBF8F0;
+  background: var(--bg);
   border: 1px solid #0B0B0B;
   opacity: 0;
 }
