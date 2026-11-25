@@ -296,41 +296,47 @@
   }
 }
 
-/* ----- WaitWell hero: video on top, then title | facts -----
-   Video. .hero-wide is full-bleed: negative margins cancel the page's
-   side padding (gutter on phones; side menu column and gutter on
-   desktop), so it runs edge to edge like the homepage's blue band,
-   without 100vw and so without a horizontal scrollbar. The side menu's
-   anchor comes after the hero, so the menu never sits on it.
-   Height: never taller than the screen below the header
-   (--hero-top, set by main.js, initHeroVideo: the distance from the
-   top of the page to the video). When the full-width 16:9 video is
-   taller than that, it keeps the full width and object-fit: cover
-   trims the top and bottom, but only up to 5% each: the phone in the
-   video starts 5.6% from each edge, so it is never cut. Past that the
-   video gets narrower instead, keeping 16:9 at that 5% crop, and is
-   centred on the page background (in effect: contain).
+/* ----- Case-study hero (Dreamlab, WaitWell): video on top, then
+   title | facts -----
+   .hero-wide spans the whole page width: negative margins cancel the
+   page's side padding (gutter on phones; side menu column and gutter
+   on desktop), without 100vw and so without a horizontal scrollbar.
+   The side menu's anchor comes after the hero, so the menu never sits
+   on it.
+   Width (--hero-w), shared by the video and the info row, so the row
+   has exactly the video's left and right edges:
+   - never closer to the screen edges than the page gutter (the same
+     inset as the header's "MERVE UZUNER"), so the video is never
+     full-bleed;
+   - never taller than the screen below the header (--hero-top, set by
+     main.js, initHeroVideo: the distance from the top of the page to
+     the video). When the 16:9 video would be taller than that,
+     object-fit: cover trims the top and bottom, but only up to 5% each
+     (the phone in each video starts 5.6% from the top and bottom, so
+     it is never cut). Past that the video gets narrower, keeping 16:9
+     at that 5% crop, and the side margins grow.
+   Both are centred in .hero-wide.
 
-   Info row (.hero-info). It stays in the main column and starts on its
-   left edge, right after the video.
-   The facts are .case-facts, so labels and values look exactly like the
-   Dreamlab hero facts; .case-facts--row only changes how they are laid
-   out: side by side, each column as wide as its content, 48px apart.
-   From 1280px the facts follow the title on the same row (48px gap)
-   when they fit beside it, otherwise they go under it; 900–1279px they
-   always go under it. Value lines never wrap: if the columns don't
-   fit, the facts row wraps instead.
-   Below 900px: Role on its own row, then two columns (Type, Timeline /
-   Tools). */
+   Info row (.hero-info). From 900px: the title on the left, the facts
+   on the same row with the last column (Tools) ending on the right
+   edge; the space between the title and the facts takes what is left.
+   Only when they can't fit on one row do the facts go under the title
+   (32px down), from the left edge. The facts are .case-facts;
+   .case-facts--row lays them out side by side, each column as wide as
+   its content, 48px apart. Value lines never wrap: if the columns
+   don't fit, the facts row wraps instead.
+   Below 900px: title, then Role on its own row, then two columns
+   (Type, Timeline / Tools). */
 .hero-wide {
   --hero-room: calc(100svh - var(--hero-top, 102px));
+  --hero-w: min(100% - 2 * var(--gutter), calc(var(--hero-room) * 16 / 9 / .9));
   margin-inline: calc(-1 * var(--gutter));
 }
 
 /* The video is shown as it is: no blend mode, no filter */
 .hero-video {
   display: block;
-  width: min(100%, calc(var(--hero-room) * 16 / 9 / .9));
+  width: var(--hero-w);
   height: auto;
   aspect-ratio: 16 / 9;
   max-height: var(--hero-room);
@@ -339,7 +345,8 @@
 }
 
 .hero-info {
-  margin-top: 48px;
+  width: var(--hero-w);
+  margin: 48px auto 0;
 }
 
 /* Text title, for a case study without a logo */
@@ -380,32 +387,12 @@
     margin-left: calc(-1 * var(--side-menu-w));
   }
 
-  /* Each value line stays on one line, and the columns are never
-     squeezed: if they don't all fit, the row wraps (28px between rows). */
-  .case-facts--row {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 28px 48px;
-    margin-top: 32px;
-  }
-
-  .case-facts--row > div {
-    flex: 0 0 auto;
-  }
-
-  .case-facts--row dd {
-    white-space: nowrap;
-  }
-}
-
-@media (min-width: 1280px) {
-  /* Title and facts on one row when the facts fit beside the title;
-     otherwise the facts go under it, 32px down (as at 900–1279px). */
+  /* Title | facts: the facts sit on the title's row, ending on the
+     right edge; they go under the title only when they can't fit. */
   .hero-info {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     align-items: flex-start;
     gap: 32px 48px;
   }
@@ -414,9 +401,24 @@
     flex: none;
   }
 
+  /* Each value line stays on one line, and the columns are never
+     squeezed: if they don't all fit, the row wraps (28px between rows). */
   .case-facts--row {
+    display: flex;
     flex: 0 1 auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 28px 48px;
     margin-top: 0;
+  }
+
+  .case-facts--row > div {
+    flex: 0 0 auto;
+  }
+
+  .case-facts--row dd {
+    white-space: nowrap;
   }
 }
 

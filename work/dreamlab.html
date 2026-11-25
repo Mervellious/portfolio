@@ -48,7 +48,8 @@
          Video: full-bleed (edge to edge), 16:9, never taller than the
          screen below the header (case.css; main.js, initHeroVideo).
          It has its own background: no blend mode.
-         Info row: stays in the main column and starts on its left edge. -->
+         Info row: inside the same box as the video, so it has exactly
+         the video's width and left/right edges. -->
     <section class="case-hero" id="overview" aria-labelledby="case-title">
       <div class="hero-wide" data-hero-video>
         <video class="hero-video load-up load-1" data-play-in-view
@@ -57,18 +58,18 @@
                width="1920" height="1080"
                autoplay muted loop playsinline
                aria-label="Dreamlab taster video: the DreamLab logo, &quot;A dream journal built for clinical dream research&quot;, then a phone on a soft pink and blue background goes through one dream entry: write your dream before it fades, go through a guided questionnaire, select how you felt, rate last night's sleep, and submit. It ends on &quot;Sent to your specialist&quot;."></video>
-      </div>
-      <div class="hero-info">
-        <div class="hero-info-title">
-          <h1 class="case-title case-title--text load-up load-2" id="case-title">Dreamlab</h1>
-          <p class="case-kind small-label load-up load-2">Case study</p>
+        <div class="hero-info">
+          <div class="hero-info-title">
+            <h1 class="case-title case-title--text load-up load-2" id="case-title">Dreamlab</h1>
+            <p class="case-kind small-label load-up load-2">Case study</p>
+          </div>
+          <dl class="case-facts case-facts--row load-up load-3">
+            <div class="case-fact--role"><dt class="small-label">Role</dt><dd>Designed and built end to end:<br>Product concept<br>UX research<br>UX/UI design<br>Full-stack development</dd></div>
+            <div><dt class="small-label">Type</dt><dd>Academic project,<br>SAE Institute</dd></div>
+            <div><dt class="small-label">Timeline</dt><dd>Jan–May 2026</dd></div>
+            <div><dt class="small-label">Tools</dt><dd>Figma<br>VS Code<br>Claude Code<br>Flask<br>MySQL<br>Chart.js<br>GitHub</dd></div>
+          </dl>
         </div>
-        <dl class="case-facts case-facts--row load-up load-3">
-          <div class="case-fact--role"><dt class="small-label">Role</dt><dd>Designed and built end to end:<br>Product concept<br>UX research<br>UX/UI design<br>Full-stack development</dd></div>
-          <div><dt class="small-label">Type</dt><dd>Academic project,<br>SAE Institute</dd></div>
-          <div><dt class="small-label">Timeline</dt><dd>Jan–May 2026</dd></div>
-          <div><dt class="small-label">Tools</dt><dd>Figma<br>VS Code<br>Claude Code<br>Flask<br>MySQL<br>Chart.js<br>GitHub</dd></div>
-        </dl>
       </div>
     </section>
 
