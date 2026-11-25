@@ -1073,7 +1073,7 @@ initWorkLines();
    8. Work lines (homepage): each dividing line under a case-study row
    draws in from the left (work.css) once per page view, when it is
    actually on screen (threshold .6). The second line starts at
-   least 300ms after the first. Coming back with the Back button
+   least 200ms after the first. Coming back with the Back button
    (page restored from the back/forward cache) plays them again.
    Reduced motion: no animation, they're just there.
    ========================================================= */
@@ -1085,7 +1085,7 @@ function initWorkLines() {
     return;
   }
 
-  const GAP = 300;     // ms between one line's start and the next
+  const GAP = 200;     // ms between one line's start and the next
   let lastStart = -Infinity;
 
   const observer = new IntersectionObserver((entries) => {
