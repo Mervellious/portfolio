@@ -1,6 +1,6 @@
 /* =========================================================
    cv.css (homepage)
-   1. "View my CV" row   2. CV pages (placeholder or image)
+   1. "View my CV" row   2. CV pages (images)
    3. CV sheet (dialog)
    The row's arrow, hover slide and peek come from .row (layout.css)
    and .row-peek (work.css); main.js (section 7) builds the pages
@@ -49,33 +49,16 @@
 
 
 /* ---------- 2. CV pages ---------- */
-/* A4 (1 : 1.414). A placeholder is a white page with a centred
-   label; a real page is an image at the same proportions. */
+/* A4 (1 : 1.414): the box keeps its shape (white) while the image
+   is still loading. */
 .cv-page {
   display: block;
   width: 100%;
+  height: auto;
   aspect-ratio: 1 / 1.414;
+  object-fit: contain;
   background: var(--white);
   border: 1px solid #D9D6CF;
-}
-
-.cv-page--placeholder {
-  display: grid;
-  place-items: center;
-  container-type: inline-size;
-}
-
-.cv-page-label {
-  font-family: var(--font-label);
-  font-size: max(7px, 1.5cqi);
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  color: var(--grey);
-}
-
-img.cv-page {
-  height: auto;
-  object-fit: contain;
 }
 
 /* In the peek the page fills the 156 x 220 box */
@@ -126,7 +109,7 @@ img.cv-page {
 .cv-paper {
   position: absolute;
   inset: 0;
-  background: #FBF8F0;
+  background: var(--bg);
   border: 1px solid #0B0B0B;
 }
 
@@ -137,8 +120,9 @@ img.cv-page {
   border: 1px solid #0B0B0B;
 }
 
-/* Download + ×: sticks to the top of the screen while the sheet
-   scrolls. Its negative bottom margin cancels its height, so it
+/* Download (centred) + × (top right): sticks to the top of the screen
+   while the sheet scrolls. Its side margins stretch it to the sheet's
+   full width; its negative bottom margin cancels its height, so it
    takes no room: page 1 sits below it via .cv-pages' top padding. */
 .cv-bar {
   position: sticky;
@@ -151,27 +135,32 @@ img.cv-page {
   align-items: flex-start;
   gap: 24px;
   padding: 18px 22px 0 0;
+  margin-left: -40px;
   margin-right: -40px;
   pointer-events: none;
 }
 
+/* Each control sits on a small patch of paper, so it stays readable
+   when the CV scrolls under it */
 .cv-bar > * {
   pointer-events: auto;
+  background: var(--bg);
+  box-shadow: 0 0 0 6px var(--bg);
 }
 
 .cv-download {
-  position: relative;
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
   font-family: var(--font-label);
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 15px;
+  line-height: 20px;
+  box-shadow: 0 0 0 4px var(--bg);   /* 4px: clears the inner frame */
   text-transform: uppercase;
   letter-spacing: .06em;
   color: var(--blue);
   text-decoration: none;
-}
-
-.cv-download[hidden] {
-  display: none;
 }
 
 /* × : 16px with an invisible 44 x 44 hit area (same as the Studio sheets) */
@@ -181,7 +170,6 @@ img.cv-page {
   height: 16px;
   padding: 0;
   border: 0;
-  background: none;
   font-family: var(--font-sans);
   font-size: 16px;
   line-height: 16px;
@@ -227,6 +215,7 @@ img.cv-page {
   }
 
   .cv-bar {
+    margin-left: -20px;
     margin-right: -20px;
   }
 

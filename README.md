@@ -66,19 +66,18 @@ Each frame's position and size come from the drawing's pixels (`--x`, `--y`, `--
 
 The homepage's "View my CV" button (`id="cv"`, after the Skills row) opens the CV sheet. The footer CV links open it too: `#cv` on the homepage, `index.html#cv` (or `../index.html#cv`) on the other pages, which scrolls to the button and opens the sheet straight away.
 
-For now the pages are placeholders (white A4 pages with a label), built by `main.js` from the `CV_PAGES` array, and the "Download PDF" link is hidden. To swap in the real CV:
+The sheet shows `assets/cv/merve-uzuner-cv.pdf` as images, one PNG per page, and the "Download PDF" link downloads the PDF itself. To update the CV:
 
-1. Put the PDF in `assets/cv/` as `merve-uzuner-cv.pdf`.
-2. Convert each page to a PNG named `cv-page-1.png`, `cv-page-2.png`… in the same folder, about 1800 px wide (twice the sheet's 900 px, so it stays sharp on retina screens). Keep the pages A4 (1 : 1.414).
-3. In `assets/js/main.js`, section 7, replace the `CV_PAGES` entries with the images, one per page:
+1. Replace `assets/cv/merve-uzuner-cv.pdf` (keep the name).
+2. Convert each page to a PNG 1700 px wide (twice A4 at 850 px, so it stays sharp on retina screens): `cv-page-1.png`, `cv-page-2.png`… in the same folder. Also make `cv-peek.png` from page 1 at 312 px wide (the 156 × 220 hover peek at 2×). Any PDF-to-PNG tool that renders at that width (rather than enlarging a small image) will do.
+3. In `assets/js/main.js`, section 7, list one image per page in `CV_PAGES`:
    ```js
    const CV_PAGES = [
-     { src: 'assets/cv/cv-page-1.png' },
-     { src: 'assets/cv/cv-page-2.png' }
+     'assets/cv/cv-page-1.png',
+     'assets/cv/cv-page-2.png'
    ];
    ```
-   The alt text ("CV, page 1 of 2"…) and the small page 1 in the hover peek come from this list.
-4. In `index.html`, remove `hidden` from the `<a class="cv-download" …>` link inside the CV dialog.
+   The alt text ("CV, page 1 of 2"…) comes from this list.
 
 ## How the cover column works (short version)
 
@@ -101,6 +100,5 @@ For now the pages are placeholders (white A4 pages with a label), built by `main
 
 - Real email address (footer link text and both `mailto:` links, on both pages)
 - LinkedIn URL (footer, both pages)
-- Real CV: PDF and page images (see "CV" above)
 - WaitWell case study (`work/waitwell.html`): hero subtitle; content for Design process, Development and Final product
 - Real cover images (see above)

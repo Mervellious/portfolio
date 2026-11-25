@@ -830,44 +830,30 @@ function initStripControls() {
 
 /* =========================================================
    7. CV: "View my CV" row + CV sheet (homepage)
-   The pages come from CV_PAGES. Each one is a placeholder (label) or
-   an image (src); the peek on the row shows a small page 1. Opening:
+   The pages come from CV_PAGES (one image per page); the peek on the
+   row shows a small page 1 (CV_PEEK). Opening:
    page 1 grows out of the peek (or the arrow below 1280px, where
    there is no peek), then the sheet around it fades in. Closing is
    the reverse. index.html#cv (the footer CV links on other pages)
    opens it straight away, scrolled to the button.
    ========================================================= */
 
-/* Real CV: replace these with the converted pages, e.g.
-     { src: 'assets/cv/cv-page-1.png' },
-     { src: 'assets/cv/cv-page-2.png' }
-   and remove `hidden` from the Download link in index.html.
-   See "CV" in the README. */
+/* The CV pages, made from assets/cv/merve-uzuner-cv.pdf (one PNG per
+   page, 1700px wide), and the peek: page 1 at 312px wide (156px at
+   2x). A new CV: see "CV" in the README. */
 const CV_PAGES = [
-  { label: 'CV — page 1' },
-  { label: 'CV — page 2' }
+  'assets/cv/cv-page-1.png'
 ];
+const CV_PEEK = 'assets/cv/cv-peek.png';
 
-// One CV page: an <img> for a real page, a labelled box for a placeholder
-function cvPage(page, index, total) {
-  const name = 'CV, page ' + (index + 1) + ' of ' + total;
-  if (page.src) {
-    const img = document.createElement('img');
-    img.className = 'cv-page';
-    img.src = page.src;
-    img.alt = name;
-    return img;
-  }
-  const box = document.createElement('div');
-  box.className = 'cv-page cv-page--placeholder';
-  box.setAttribute('role', 'img');
-  box.setAttribute('aria-label', name);
-  const label = document.createElement('span');
-  label.className = 'cv-page-label';
-  label.setAttribute('aria-hidden', 'true');
-  label.textContent = page.label;
-  box.appendChild(label);
-  return box;
+// One CV page, alt "CV, page 1 of N". The full-size images get their
+// src later (see initCvSheet), so they don't slow the homepage's load.
+function cvPage(index, total) {
+  const img = document.createElement('img');
+  img.className = 'cv-page';
+  img.alt = 'CV, page ' + (index + 1) + ' of ' + total;
+  img.decoding = 'async';
+  return img;
 }
 
 function initCvSheet() {
@@ -882,15 +868,25 @@ function initCvSheet() {
   const pagesBox = dialog.querySelector('.cv-pages');
   const closeButton = dialog.querySelector('.cv-close');
 
-  // Build the pages, and the peek's small copy of page 1 (decorative)
-  CV_PAGES.forEach((page, i) => pagesBox.appendChild(cvPage(page, i, CV_PAGES.length)));
-  const small = cvPage(CV_PAGES[0], 0, CV_PAGES.length);
-  small.removeAttribute('role');
-  small.removeAttribute('aria-label');
-  if (small.alt) small.alt = '';
+  // Build the pages, and the peek's small page 1 (decorative, alt "")
+  const pages = CV_PAGES.map((src, i) => pagesBox.appendChild(cvPage(i, CV_PAGES.length)));
+  const small = document.createElement('img');
+  small.className = 'cv-page';
+  small.src = CV_PEEK;
+  small.alt = '';
   peek.appendChild(small);
 
-  const first = pagesBox.firstElementChild;
+  // The full-size pages load once the rest of the page has loaded, or
+  // as soon as someone heads for the button, whichever comes first
+  function loadPages() {
+    pages.forEach((img, i) => { if (!img.src) img.src = CV_PAGES[i]; });
+  }
+  if (document.readyState === 'complete') loadPages();
+  else window.addEventListener('load', loadPages, { once: true });
+  button.addEventListener('pointerenter', loadPages, { once: true });
+  button.addEventListener('focus', loadPages, { once: true });
+
+  const first = pages[0];
   // Everything but page 1: fades in once page 1 has landed
   const rest = [
     dialog.querySelector('.cv-paper'),
@@ -946,6 +942,7 @@ function initCvSheet() {
   async function open(instant) {
     if (state !== 'closed') return;
     state = 'opening';
+    loadPages();
     const from = originBox();   // measured before the page is locked
 
     lockPage(true);
