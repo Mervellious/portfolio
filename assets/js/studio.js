@@ -1,27 +1,10 @@
-/* Studio page: two large views, with no backdrop (the studio stays
-   exactly as it is behind them).
+/* Studio page: the work sheets and the artwork sheets, with no
+   backdrop (the studio stays exactly as it is behind them).
    Every wall item hangs slightly tilted (--tilt on its button, in deg).
    When it opens, the image straightens while it lifts off the wall;
    when it closes, it tilts back as it settles.
-   A. The artworks (ART 1–5) are taken off the wall into their own
-      <dialog> (below).
-   B. Strip box 1 opens the ELLE Magazine work sheet (further down). */
-
-/* A. Artworks (ART 1–5): taken off the wall.
-   - Open: the artwork lifts off the wall (150ms: up 6px, scale 1.03),
-     then glides to the middle of the screen and grows to 62% of the
-     screen height (400ms), keeping the frame's shape; never wider than
-     60% of the screen (below 960px: the screen minus 16px each side).
-     Its place on the wall stays empty. Then the title and note fade in
-     (200ms), to the right of it, or under it if there's no room.
-   - FLIP: the large view is laid out at its final place once, then
-     animated from the frame's measured place with transform only (the
-     text and × with opacity only).
-   - Close (Escape, a click anywhere but the artwork, or ×): the text
-     fades out, then the artwork goes back to its place on the wall and
-     settles. Focus goes back to the frame.
-   - Reduced motion: it simply appears and disappears, no movement.
-   - No backdrop: the studio stays exactly as it is behind. */
+   Strip boxes 1–5 open their work sheet, and the artworks (ART 1–6)
+   their artwork sheet: the same dialog and behaviour for both (below). */
 
 // Where a wall item's image is right now, on screen: its centre, size
 // and turn (deg). Read from the image's live transform, so it includes
@@ -47,208 +30,7 @@ function straightOf(item) {
   return { cx: box.left + box.width / 2, cy: box.top + box.height / 2, w: box.width, h: box.height, turn: 0 };
 }
 
-(function () {
-  const dialog = document.querySelector('.art-view');
-  const frames = document.querySelectorAll('.studio-art');
-  if (!dialog || !frames.length) return;
-
-  const media = dialog.querySelector('.art-view-media');
-  const image = media.querySelector('img');
-  const text = dialog.querySelector('.art-view-text');
-  const title = dialog.querySelector('.art-view-title');
-  const note = dialog.querySelector('.art-view-note');
-  const closeButton = dialog.querySelector('.art-view-close');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-  const EASE = 'cubic-bezier(.2, .8, .2, 1)';
-  const LIFT = 150;          // ms, off the wall
-  const MOVE = 400;          // ms, wall to centre
-  const TEXT_IN = 200;       // ms
-  const TEXT_OUT = 150;      // ms
-  const HEIGHT = .62;        // of the screen height
-  const MAX_WIDTH = .6;      // of the screen width (960px and up)
-  const GAP = 32;            // between the artwork and the text
-  const TEXT_WIDTH = 260;
-  const EDGE = 16;           // the page's side gutter on small screens
-
-  let opener = null;
-  let state = 'closed';      // closed | opening | open | closing
-  let target = null;         // the large view's final box
-
-  const fades = () => [text, closeButton];
-
-  // Final place and size: centred, 62% of the screen height, frame's shape
-  function layout(frame) {
-    const vw = dialog.clientWidth;
-    const vh = dialog.clientHeight;
-    const ratio = frame.offsetWidth / frame.offsetHeight;
-    const maxWidth = vw < 960 ? vw - 2 * EDGE : vw * MAX_WIDTH;
-    let height = vh * HEIGHT;
-    let width = height * ratio;
-    if (width > maxWidth) {
-      width = maxWidth;
-      height = width / ratio;
-    }
-    const left = (vw - width) / 2;
-    const top = (vh - height) / 2;
-    target = { left, top, width, height };
-
-    Object.assign(media.style, {
-      left: left + 'px', top: top + 'px', width: width + 'px', height: height + 'px'
-    });
-
-    // Text: right of the artwork, top-aligned; under it if no room
-    if (left + width + GAP + TEXT_WIDTH <= vw - EDGE) {
-      Object.assign(text.style, { left: left + width + GAP + 'px', top: top + 'px', maxWidth: '' });
-    } else {
-      Object.assign(text.style, {
-        left: Math.max(EDGE, left) + 'px',
-        top: top + height + EDGE + 'px',
-        maxWidth: Math.min(TEXT_WIDTH, vw - 2 * EDGE) + 'px'
-      });
-    }
-
-    // ×: just above the artwork's top-right corner
-    Object.assign(closeButton.style, {
-      left: left + width - 44 + 10 + 'px',
-      top: Math.max(0, top - 44 - 4) + 'px'
-    });
-  }
-
-  // The transform that puts the large view exactly over the frame's
-  // image (tilted: where the image is now, tilt and any hover lift
-  // included; otherwise straight, lifted by px and grown), with the
-  // origin in the middle
-  function onWall(frame, lift = 0, grow = 1, tilted = true) {
-    const from = tilted ? poseOf(frame) : straightOf(frame);
-    const dx = from.cx - (target.left + target.width / 2);
-    const dy = from.cy - (target.top + target.height / 2) + lift;
-    const sx = from.w / target.width * grow;
-    const sy = from.h / target.height * grow;
-    return `translate(${dx}px, ${dy}px) rotate(${from.turn}deg) scale(${sx}, ${sy})`;
-  }
-
-  function stopAll() {
-    [media, ...fades()].forEach(el => el.getAnimations().forEach(a => a.cancel()));
-  }
-
-  function fadeTo(value, duration) {
-    return Promise.all(fades().map(el => {
-      const from = getComputedStyle(el).opacity;
-      el.getAnimations().forEach(a => a.cancel());
-      el.style.opacity = value;
-      return el.animate([{ opacity: from }, { opacity: value }], { duration, easing: 'ease' })
-        .finished.catch(() => {});
-    }));
-  }
-
-  async function open(frame) {
-    if (state !== 'closed') return;
-    state = 'opening';
-    opener = frame;
-
-    const source = frame.querySelector('img');
-    image.src = source ? source.currentSrc || source.src : '';
-    image.alt = source ? source.alt : '';
-    title.textContent = frame.dataset.title || '';
-    note.textContent = frame.dataset.note || '';
-    if (source) await image.decode().catch(() => {});
-
-    fades().forEach(el => { el.style.opacity = 0; });
-    dialog.showModal();
-    closeButton.focus();
-    layout(frame);
-
-    if (reduceMotion.matches) {
-      frame.classList.add('is-lifted');
-      fades().forEach(el => { el.style.opacity = 1; });
-      state = 'open';
-      return;
-    }
-
-    const move = media.animate([
-      { transform: onWall(frame), easing: EASE },
-      { transform: onWall(frame, -6, 1.03, false), easing: EASE, offset: LIFT / (LIFT + MOVE) },
-      { transform: 'none' }
-    ], { duration: LIFT + MOVE, fill: 'backwards' });
-    frame.classList.add('is-lifted');
-
-    try {
-      await move.finished;
-    } catch (e) {
-      return; // closed while moving
-    }
-    if (state !== 'opening') return;
-    state = 'open';
-    fadeTo(1, TEXT_IN);
-  }
-
-  async function close() {
-    if (state !== 'opening' && state !== 'open') return;
-    state = 'closing';
-    const frame = opener;
-
-    if (reduceMotion.matches) {
-      finish();
-      return;
-    }
-
-    await fadeTo(0, TEXT_OUT);
-    if (state !== 'closing') return;
-
-    // From wherever it is now (it may still be on its way out)
-    const now = getComputedStyle(media).transform;
-    media.getAnimations().forEach(a => a.cancel());
-    const back = media.animate([
-      { transform: now === 'none' ? 'none' : now, easing: EASE },
-      { transform: onWall(frame, -6, 1.03, false), easing: EASE, offset: MOVE / (LIFT + MOVE) },
-      { transform: onWall(frame) }
-    ], { duration: LIFT + MOVE, fill: 'forwards' });
-
-    try {
-      await back.finished;
-    } catch (e) {
-      return;
-    }
-    finish();
-  }
-
-  // Back on the wall: show the frame, close the dialog, focus the frame
-  function finish() {
-    if (state === 'closed') return;
-    state = 'closed';
-    const frame = opener;
-    if (frame) frame.classList.remove('is-lifted');
-    if (dialog.open) dialog.close();
-    stopAll();
-    fades().forEach(el => { el.style.opacity = ''; });
-    if (frame) frame.focus();
-  }
-
-  frames.forEach(frame => frame.addEventListener('click', () => open(frame)));
-
-  // Escape: our close (text out, then back to the wall)
-  dialog.addEventListener('cancel', event => {
-    event.preventDefault();
-    close();
-  });
-
-  // Anywhere but the artwork closes it (the × too)
-  dialog.addEventListener('click', event => {
-    if (!media.contains(event.target)) close();
-  });
-
-  // If the browser closes the dialog itself, still put the frame back
-  dialog.addEventListener('close', finish);
-
-  // Resized while open: re-centre (no animation)
-  window.addEventListener('resize', () => {
-    if (state === 'open' && opener) layout(opener);
-  });
-})();
-
-
-/* B. Work sheets (strip boxes 1–5).
+/* Work sheets (strip boxes 1–5) and artwork sheets (ART 1–6).
    - Every sheet comes from SHEETS below: its design height, how it
      fits, the text block (subtitle optional), the title block and the
      images (px from the
@@ -273,7 +55,17 @@ function straightOf(item) {
    - Close (Escape, a click outside the sheet, or ×): the sheet fades
      out, then the cover goes back to its box and settles. Focus goes
      back to the box.
-   - Reduced motion: it simply appears and disappears. */
+   - Reduced motion: it simply appears and disappears.
+   - Artwork sheets (.studio-art): built from the frame itself (its
+     image, data-title, data-note), not from SHEETS. Only the artwork
+     and, to its right, a 300px text column (handwritten title and
+     description), 48px inside the inner frame and 48px apart. 600px
+     and up: laid out in screen px, not scaled: the image is as tall as
+     the space below the header allows (minus the 20px margins, the
+     frames and the padding), at its own proportions, uncropped; the
+     sheet's width follows. If that is wider than the screen, the image
+     gets narrower instead. Below 600px: the work sheets' one column,
+     the image first, then the text. */
 
 const SHEETS = {
   elle: {
@@ -375,7 +167,7 @@ const SHEETS = {
 
 (function () {
   const dialog = document.querySelector('.sheet-view');
-  const openers = document.querySelectorAll('.studio-work[data-sheet]');
+  const openers = document.querySelectorAll('.studio-work[data-sheet], .studio-art');
   if (!dialog || !openers.length) return;
 
   const scroller = dialog.querySelector('.sheet-scroll');
@@ -394,6 +186,12 @@ const SHEETS = {
   const FADE_IN = 200;
   const FADE_OUT = 150;
   const STEPS = 36;           // keyframes per movement (for the counter-scale)
+  // Artwork sheets (screen px)
+  const ART_INSET = 12;       // outer edge to inside the inner frame (1 + 10 + 1)
+  const ART_PAD = 48;         // inside the inner frame
+  const ART_GAP = 48;         // artwork to text
+  const ART_TEXT = 300;       // text column width
+  const ART_EDGE = ART_INSET + ART_PAD;
 
   let state = 'closed';       // closed | opening | open | closing
   let opener = null;          // the strip box that opened it
@@ -433,17 +231,61 @@ const SHEETS = {
     }
   }
 
+  // An artwork sheet's entry, from its frame on the wall
+  function artEntry(frame) {
+    const img = frame.querySelector('img');
+    return {
+      art: true,
+      title: frame.dataset.title || '',
+      note: frame.dataset.note || '',
+      src: img ? img.currentSrc || img.src : '',
+      alt: img ? img.alt : ''
+    };
+  }
+
+  function closeButtonFor() {
+    const button = el('button', 'sheet-close', '×');
+    button.type = 'button';
+    button.setAttribute('aria-label', 'Close');
+    button.addEventListener('click', close);
+    return button;
+  }
+
+  // Artwork sheet: the × , the artwork's slot and the text column
+  function buildArt(entry) {
+    sheet.replaceChildren();
+    sheet.classList.add('sheet--art');
+    sheet.style.removeProperty('--sheet-h');
+    dialog.setAttribute('aria-label', entry.title);
+
+    rest = el('div', 'sheet-rest');
+    closeButton = closeButtonFor();
+    slot = el('div', 'sheet-slot');
+    const text = el('div', 'sheet-text art-sheet-text');
+    text.append(el('h2', 'art-sheet-title', entry.title), el('p', 'art-sheet-note', entry.note));
+    rest.append(closeButton, slot, text);
+
+    cover = el('div', 'sheet-cover');
+    coverImage = el('img');
+    coverImage.src = entry.src;
+    coverImage.alt = entry.alt;
+    cover.append(coverImage);
+
+    sheet.append(rest, cover);
+  }
+
   // Build the sheet from its SHEETS entry
   function build(entry) {
+    if (entry.art) return buildArt(entry);
     sheet.replaceChildren();
+    sheet.classList.remove('sheet--art');
+    sheet.style.width = '';
+    sheet.style.height = '';
     sheet.style.setProperty('--sheet-h', entry.height + 'px');
     dialog.setAttribute('aria-label', entry.title);
 
     rest = el('div', 'sheet-rest');
-    closeButton = el('button', 'sheet-close', '×');
-    closeButton.type = 'button';
-    closeButton.setAttribute('aria-label', 'Close');
-    closeButton.addEventListener('click', close);
+    closeButton = closeButtonFor();
 
     const text = el('div', 'sheet-text');
     // No subtitle: no line, the text sits 24px under the title
@@ -494,14 +336,45 @@ const SHEETS = {
     scroller.style.top = top + 'px';
 
     let width, height;
-    if (column.matches) {
+    const ratio = coverImage.naturalWidth / coverImage.naturalHeight || 4 / 5;
+    if (data.art && !column.matches) {
+      // Artwork sheet, in screen px: the image as tall as the space
+      // allows, the sheet's width from it; narrower if too wide
+      k = 1;
+      sheet.style.transform = '';
+      let imageH = available - 2 * MARGIN - 2 * ART_EDGE;
+      let imageW = imageH * ratio;
+      const room = vw - 2 * MARGIN - 2 * ART_EDGE - ART_GAP - ART_TEXT;
+      if (imageW > room) {
+        imageW = room;
+        imageH = imageW / ratio;
+      }
+      width = imageW + 2 * ART_EDGE + ART_GAP + ART_TEXT;
+      height = imageH + 2 * ART_EDGE;
+      sheet.style.width = width + 'px';
+      sheet.style.height = height + 'px';
+      // (positions inside the sheet start inside its 1px border)
+      const inside = ART_EDGE - 1;
+      place(slot, { left: inside, top: inside, width: imageW, height: imageH });
+      place(rest.querySelector('.art-sheet-text'), { left: inside + imageW + ART_GAP, top: inside, width: ART_TEXT });
+      sizer.style.width = width + 'px';
+      sizer.style.height = height + 'px';
+    } else if (column.matches) {
       // One column, not scaled: the screen width minus 16px each side
       k = 1;
       sheet.style.transform = '';
+      if (data.art) {
+        sheet.style.width = '';
+        sheet.style.height = '';
+        ['--l', '--t', '--w', '--h'].forEach(name => {
+          slot.style.removeProperty(name);
+          rest.querySelector('.art-sheet-text').style.removeProperty(name);
+        });
+      }
       width = vw - 32;
       sizer.style.width = width + 'px';
       sizer.style.height = '';
-      slot.style.setProperty('--ratio', coverImage.naturalWidth / coverImage.naturalHeight || 16 / 10);
+      slot.style.setProperty('--ratio', ratio);
       height = sheet.offsetHeight;
     } else {
       const maxWidth = Math.min(W, vw - 40);
@@ -616,7 +489,7 @@ const SHEETS = {
 
   async function open(box) {
     if (state !== 'closed') return;
-    const entry = SHEETS[box.dataset.sheet];
+    const entry = box.classList.contains('studio-art') ? artEntry(box) : SHEETS[box.dataset.sheet];
     if (!entry) return;
     state = 'opening';
     opener = box;

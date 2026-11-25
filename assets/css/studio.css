@@ -1,7 +1,7 @@
 /* Studio page: a hand-drawn studio (studio-bg.svg) with the wall
    images placed on top of it.
-   1. Stage   2. Wall frames   3. Work sheet (strip box 1)
-   4. Artwork view (artworks) */
+   1. Stage   2. Wall frames   3. Work sheet (strip boxes)
+   4. Artwork sheet (artworks) */
 
 
 /* ---------- 0. Page colour ---------- */
@@ -267,9 +267,9 @@
 }
 
 
-/* ---------- 3. Work sheet (dialog) ---------- */
+/* ---------- 3. Work sheet (dialog; also the artwork sheet, 4) ---------- */
 /* One dialog for every work sheet, filled from SHEETS in studio.js.
-   Like the artwork view, it covers the screen but draws nothing, so
+   It covers the screen but draws nothing, so
    the studio stays exactly as it is behind it. A click anywhere but
    the sheet closes it. */
 .sheet-view {
@@ -515,114 +515,47 @@
 }
 
 
-/* ---------- 4. Artwork view (dialog) ---------- */
-/* The dialog covers the whole screen but draws nothing: no backdrop,
-   no colour, so the studio stays exactly as it is behind the artwork.
-   A click anywhere but the artwork closes it (studio.js). The
-   artwork, the text and the × are placed by studio.js (left, top,
-   width, height, set once per open); only transform and opacity
-   animate. */
-.art-view {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  max-height: none;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  overflow: hidden;
-}
-
-.art-view::backdrop {
-  background: transparent;
-}
-
-.art-view-media {
-  position: fixed;
-  transform-origin: 50% 50%;
-  will-change: transform;
-}
-
-.art-view-media img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Title and note: next to the artwork, faded in once it has landed */
-.art-view-text {
-  position: fixed;
-  max-width: 260px;
-  opacity: 0;
-}
-
-/* Small screens: the text sits under the artwork, where the page
-   behind it can be the black footer, so it keeps the paper colour
-   behind it (only the text block, not the screen) */
-@media (max-width: 959px) {
-  .art-view-text {
-    padding: 8px 10px;
-    background: var(--bg);
-  }
+/* ---------- 4. Artwork sheet ---------- */
+/* The work sheet (above) for an artwork: the same dialog, border,
+   inner frame and ×; studio.js sizes it in screen px (not scaled) and
+   places the artwork's slot and the text column. The artwork shows
+   whole, at its own proportions, with no outline (like on the wall). */
+.sheet--art .sheet-cover {
+  outline: none;
 }
 
 /* Title and description: handwritten, like the note on the wall
    (Architects Daughter, site blue). They scale with the drawing the
    same way the note does: --art-u is one drawing unit, worked out from
-   the screen because the dialog sits outside the stage (desktop: the
+   the screen because the sheet sits outside the stage (desktop: the
    stage is the full width and the screen height minus the 78px
    header; below 960px it is 960 x 540). Title 26.7 units, description
    20.7 units: 22px and 17px at 1440 x 900; never smaller than 18px
-   and 15px. The title is not uppercase (it overrides .mono-label). */
-.art-view {
+   and 15px. */
+.sheet--art {
   --art-u: calc(min(540px, 960px * 900 / 1750) / 900);
 }
 
 @media (min-width: 960px) {
-  .art-view {
+  .sheet--art {
     --art-u: calc(min(100svh - 78px, 100vw * 900 / 1750) / 900);
   }
 }
 
-.art-view .art-view-title,
-.art-view .art-view-note {
+.art-sheet-title,
+.art-sheet-note {
   font-family: 'Architects Daughter', var(--font-label);
   font-weight: 400;
-  text-transform: none;
-  letter-spacing: normal;
   line-height: 1.3;
   color: var(--blue);
 }
 
-.art-view .art-view-title {
+.art-sheet-title {
   margin: 0 0 8px;
   font-size: max(18px, calc(26.7 * var(--art-u)));
 }
 
-.art-view .art-view-note {
+.art-sheet-note {
   margin: 0;
   font-size: max(15px, calc(20.7 * var(--art-u)));
-}
-
-/* Small ×, above the artwork's top-right corner */
-.art-view-close {
-  position: fixed;
-  width: 44px;
-  height: 44px;
-  padding: 0;
-  border: 0;
-  background: none;
-  font-size: 28px;
-  line-height: 1;
-  color: var(--ink);
-  cursor: pointer;
-  opacity: 0;
-}
-
-.art-view-close:hover {
-  color: var(--red);
 }

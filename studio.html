@@ -52,12 +52,12 @@
             <!-- Handwritten note, below the floor line (assets/css/studio.css) -->
             <p class="studio-note">Some of the prints, drawings and sets I've made over the years.<br>Take anything off the wall to look closer.</p>
 
-            <!-- Artworks: each opens in its own large view, lifted off the
-                 wall (assets/js/studio.js). Every wall item is taped up:
+            <!-- Artworks: each opens in its own artwork sheet, lifted off
+                 the wall (assets/js/studio.js). Every wall item is taped up:
                  --tilt is its fixed slight tilt, the .tape spans are the
                  tape strips (assets/css/studio.css). x can be negative: ART 2 and ART 6
                  sit on the extended paper on the left. data-title and
-                 data-note are the text shown next to the large view. -->
+                 data-note are the text shown next to it on the sheet. -->
             <button class="studio-frame studio-art" type="button" style="--x: 18; --y: 393; --w: 96; --h: 103; --tilt: -1.1deg" aria-label="Open Untitled, blind drawing on paper" data-title="Untitled" data-note="Blind drawing on paper, digitally refined"><img src="assets/img/studio/artwork1.png" alt="Untitled, blind drawing on paper, digitally refined"><span class="tape tape-tl" aria-hidden="true"></span><span class="tape tape-br" aria-hidden="true"></span></button>
             <button class="studio-frame studio-art" type="button" style="--x: -50; --y: 539; --w: 98; --h: 138; --tilt: 0.8deg" aria-label="Open Untitled, linocut on paper (1 of 2)" data-title="Untitled" data-note="Linocut on paper"><img src="assets/img/studio/artwork2.png" alt="Untitled, linocut on paper"><span class="tape tape-tl" aria-hidden="true"></span><span class="tape tape-br" aria-hidden="true"></span></button>
             <button class="studio-frame studio-art" type="button" style="--x: 478; --y: 379; --w: 100; --h: 125; --tilt: 1.3deg" aria-label="Open Untitled, linocut on paper (2 of 2)" data-title="Untitled" data-note="Linocut on paper"><img src="assets/img/studio/artwork3.png" alt="Untitled, linocut on paper"><span class="tape tape-tl" aria-hidden="true"></span><span class="tape tape-br" aria-hidden="true"></span></button>
@@ -79,21 +79,11 @@
       </section>
     </div>
 
-    <!-- Large view for the artworks: the artwork is taken off the wall
-         and moves to the centre; no backdrop (assets/js/studio.js) -->
-    <dialog class="art-view" aria-labelledby="art-view-title">
-      <div class="art-view-media"><img src="" alt=""></div>
-      <div class="art-view-text">
-        <p class="art-view-title mono-label" id="art-view-title">[TITLE]</p>
-        <p class="art-view-note">[NOTE]</p>
-      </div>
-      <button class="art-view-close" type="button" aria-label="Close">×</button>
-    </dialog>
-
-    <!-- Work sheet: one dialog for every work. studio.js fills it from
-         SHEETS (images, text, title block) when a strip box opens it.
-         The cover grows from the box into its place; the rest of the
-         sheet fades in around it. -->
+    <!-- Sheet: one dialog for every work and every artwork. studio.js
+         fills it when a wall item opens it: a work from SHEETS (images,
+         text, title block), an artwork from its frame (image, data-title,
+         data-note). The cover (or the artwork) grows from the wall into
+         its place; the rest of the sheet fades in around it. -->
     <dialog class="sheet-view">
       <div class="sheet-scroll">
         <div class="sheet-sizer">
