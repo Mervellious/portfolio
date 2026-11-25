@@ -65,6 +65,7 @@
     left: calc(100% + 20px);
     width: 176px;
     height: 220px;
+    z-index: 2;               /* above the dividing lines (they're transformed, so they'd paint on top) */
     pointer-events: none;
     box-shadow: 0 0 0 6px var(--bg), 0 0 0 8px var(--red);
     opacity: 0;
@@ -87,13 +88,23 @@
 
 
 /* ---------- Dividing lines ---------- */
-/* Each line draws in from the left on load.
-   --i (set in the HTML on case-study lines) staggers them by .15s. */
+/* Each line draws in from the left the first time it comes into view
+   (straight away if it's already on screen). main.js adds .is-waiting
+   (collapsed) and then .is-drawn; --draw-delay staggers lines that
+   come into view together by .15s. Without JS, or with reduced
+   motion, the lines are simply there. */
 .line {
   height: 1px;
   background: var(--ink);
   transform-origin: left;
-  animation: line-draw 1.2s cubic-bezier(.7, 0, .2, 1) calc(var(--i, 0) * .15s) both;
+}
+
+.line.is-waiting {
+  transform: scaleX(0);
+}
+
+.line.is-drawn {
+  animation: line-draw .9s cubic-bezier(.2, .8, .2, 1) var(--draw-delay, 0s) both;
 }
 
 @keyframes line-draw {

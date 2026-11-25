@@ -1066,3 +1066,29 @@ initWorkPeeks();
 initHeroVideo();
 initStripControls();
 initCvSheet();
+initWorkLines();
+
+
+/* =========================================================
+   8. Work lines (homepage): each dividing line under a case-study row
+   draws in from the left the first time it comes into view (at once
+   if it's already on screen). Lines that come into view together
+   start .15s apart. Reduced motion: no animation, they're just there.
+   ========================================================= */
+function initWorkLines() {
+  const lines = document.querySelectorAll('.work-section--cases .line');
+  if (!lines.length || reducedMotion.matches || !('IntersectionObserver' in window)) return;
+
+  lines.forEach((line) => line.classList.add('is-waiting'));
+  const observer = new IntersectionObserver((entries) => {
+    let n = 0;
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const line = entry.target;
+      line.style.setProperty('--draw-delay', (n++ * 0.15) + 's');
+      line.classList.replace('is-waiting', 'is-drawn');
+      observer.unobserve(line);
+    });
+  }, { rootMargin: '0px 0px -10% 0px' });
+  lines.forEach((line) => observer.observe(line));
+}
