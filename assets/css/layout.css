@@ -1,0 +1,1184 @@
+/* =========================================================
+   layout.css
+   Page sections, top to bottom. Written mobile first:
+   each section's base rules are for small screens, and the
+   @media (min-width: 900px) block adds the desktop layout.
+   ========================================================= */
+
+
+/* ---------- 1. Header ---------- */
+.site-header {
+  /* Mobile: sticky with a solid background */
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 20px var(--gutter);
+  background: var(--bg);
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.brand-name {
+  font-weight: 500;
+}
+
+.brand-role {
+  color: var(--blue);
+}
+
+.header-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  transition: opacity .3s, visibility .3s;
+}
+
+/* The page you're on (e.g. Work on a case study page) */
+.header-nav a[aria-current] {
+  color: var(--blue);
+}
+
+.header-nav a[aria-current]:hover {
+  color: var(--red);
+}
+
+@media (min-width: 900px) {
+  /* Desktop: the header scrolls away with the page.
+     position: relative (not static) so its z-index works and it stays
+     above anything that reaches up into it, e.g. the Work page peek images. */
+  .site-header {
+    position: relative;
+  }
+
+  /* Homepage, two-column hero: no background, so the cover column
+     (pulled up behind the header) shows through. The header's z-index
+     keeps its links on top and clickable. */
+  @media (min-width: 1100px) {
+    .site-header--clear {
+      background: none;
+    }
+  }
+
+  /* When the side menu is pinned, hide the header nav,
+     so there's only ever one menu on screen. */
+  .side-menu-pinned .header-nav {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+
+/* ---------- 2. Hero ---------- */
+.hero {
+  display: flex;
+  flex-wrap: wrap;            /* columns stack when there isn't room */
+  gap: 40px;
+  padding: clamp(24px, 4vw, 56px) var(--gutter) 40px;
+}
+
+.hero-text {
+  flex: 1 1 360px;
+  min-width: 0;
+}
+
+.hero-title {
+  font-size: clamp(44px, 5.4vw, 84px);
+  line-height: .98;
+  letter-spacing: -.045em;
+  font-weight: 600;
+}
+
+.hero-title .accent {
+  color: var(--blue);
+}
+
+/* Fade-up on page load */
+.fade-up {
+  animation: fade-up .9s cubic-bezier(.2, .8, .2, 1) .2s both;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-covers {
+  flex: 1 1 460px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+/* ---------- 2b. Cover column ---------- */
+
+/* Wrapper for the name label, the stage and the role label.
+   Mobile: stacked (name above, role below).
+   All cover sizes live here as variables; desktop overrides them below.
+   main.js reads the step (tile height + gap) from the rendered CSS. */
+.covers {
+  --cover-gap: 20px;                               /* space between tiles */
+  --cover-w: 300px;
+  --cover-h: calc(var(--cover-w) * 1.25);          /* 4:5 ratio → 375px */
+  --cover-col-h: 620px;                            /* height of the scrolling column */
+  /* Top/bottom padding: lets the first and last tile reach the centre.
+     Mobile keeps the original 122px: (620 - 375) / 2 - 0.5 */
+  --cover-pad: calc((var(--cover-col-h) - var(--cover-h)) / 2 - 0.5px);
+  --frame-w: calc(var(--cover-w) + 28px);          /* crop frame = tile + 14px each side */
+  --frame-h: calc(var(--cover-h) + 28px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 520px;
+}
+
+/* The box that holds the column and the crop marks */
+.cover-stage {
+  position: relative;
+  width: 100%;
+  height: var(--cover-col-h);
+}
+
+/* The scrollable column itself */
+.cover-column {
+  position: relative;             /* tiles measure their offsetTop from here (main.js) */
+  height: 100%;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  overscroll-behavior: contain;   /* don't scroll the page when the column hits its end */
+  scroll-behavior: auto;          /* JS decides when to scroll smoothly */
+  scrollbar-width: none;          /* hide scrollbar: Firefox */
+  /* Fade the top and bottom out */
+  -webkit-mask-image: linear-gradient(transparent, #000 16%, #000 84%, transparent);
+  mask-image: linear-gradient(transparent, #000 16%, #000 84%, transparent);
+}
+
+.cover-column::-webkit-scrollbar {
+  display: none;                  /* hide scrollbar: Chrome, Safari */
+}
+
+/* The mask also fades out the focus outline, so draw the
+   outline on the stage instead (only where :has() works). */
+@supports selector(:has(*)) {
+  .cover-column:focus-visible {
+    outline: none;
+  }
+
+  .cover-stage:has(.cover-column:focus-visible) {
+    outline: 3px solid var(--red);
+    outline-offset: 4px;
+  }
+}
+
+.cover-track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--cover-gap);
+  padding: var(--cover-pad) 0;
+}
+
+/* One cover tile (built by main.js). Every tile always has the same
+   layout size and is never transformed itself, so its snap point
+   (its centre) never moves. The active / inactive look is only an
+   opacity and a scale on the image or video inside it. */
+.cover-tile {
+  display: block;
+  flex: 0 0 var(--cover-h);
+  width: var(--cover-w);
+  height: var(--cover-h);
+  scroll-snap-align: center;
+}
+
+/* The cover itself. Inactive by default. */
+.cover-tile img,
+.cover-tile video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .35;
+  transform: scale(.9);
+  transition: opacity .6s, transform .6s, transform-origin .6s;
+}
+
+.cover-tile.is-active img,
+.cover-tile.is-active video {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Added by main.js for one frame during the invisible loop jump */
+.cover-column.no-transition .cover-tile img,
+.cover-column.no-transition .cover-tile video {
+  transition: none;
+}
+
+/* Crop marks: fixed over the centre tile, does not scroll */
+.crop-frame {
+  position: absolute;
+  top: calc(50% - var(--frame-h) / 2);
+  left: 50%;
+  width: var(--frame-w);
+  height: var(--frame-h);
+  margin-left: calc(var(--frame-w) / -2);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.corner {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 0 solid var(--ink);
+}
+
+.corner--tl { top: 0;    left: 0;  border-top-width: 2px;    border-left-width: 2px; }
+.corner--tr { top: 0;    right: 0; border-top-width: 2px;    border-right-width: 2px; }
+.corner--bl { bottom: 0; left: 0;  border-bottom-width: 2px; border-left-width: 2px; }
+.corner--br { bottom: 0; right: 0; border-bottom-width: 2px; border-right-width: 2px; }
+
+/* Project name and role labels (text is updated by main.js) */
+.cover-label {
+  font-family: var(--font-label);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--ink);
+  text-align: center;
+}
+
+.cover-name {
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.cover-role {
+  font-size: 11px;
+  line-height: 1.5;
+  white-space: pre;   /* keeps the line break between the two roles */
+}
+
+/* Very small screens (e.g. 320px): shrink the tile to the space
+   between the gutters. Frame, padding and step follow automatically.
+   From about 332px up this is 300px anyway, so nothing changes there. */
+@media (max-width: 399.98px) {
+  .covers {
+    --cover-w: min(300px, 100vw - 2 * var(--gutter));
+  }
+}
+
+@media (min-width: 900px) {
+  .hero-text {
+    flex: 1 1 360px;
+  }
+
+  .hero-covers {
+    flex: 1.3 1 560px;
+  }
+
+  /* Desktop: the tile height follows the screen height (340–500px),
+     and a slice ("peek") of the previous and next tile stays visible
+     above and below the active one. */
+  .covers {
+    --cover-peek: 96px;                            /* visible height of prev/next tile slice */
+    --cover-h: clamp(340px, calc(100vh - 140px - 2 * (var(--cover-peek) + var(--cover-gap))), 500px);
+    --cover-w: calc(var(--cover-h) * 0.8);         /* keep 4:5 */
+    --cover-pad: calc(var(--cover-peek) + var(--cover-gap));
+    --cover-col-h: calc(var(--cover-h) + 2 * var(--cover-pad));
+
+    position: relative;
+    display: block;
+    max-width: 700px;
+    height: var(--cover-col-h);
+  }
+
+  /* Only fade the outer part of the peeks, so they stay visible */
+  .cover-column {
+    -webkit-mask-image: linear-gradient(transparent 0, #000 calc(var(--cover-peek) * .7), #000 calc(100% - var(--cover-peek) * .7), transparent 100%);
+    mask-image: linear-gradient(transparent 0, #000 calc(var(--cover-peek) * .7), #000 calc(100% - var(--cover-peek) * .7), transparent 100%);
+  }
+
+  /* Inactive tiles shrink toward the active one, so the peek edge
+     stays next to the frame instead of drifting away.
+     (main.js marks tiles above the active one .is-before, below .is-after) */
+  .cover-tile.is-before img,
+  .cover-tile.is-before video { transform-origin: center bottom; }
+  .cover-tile.is-after img,
+  .cover-tile.is-after video  { transform-origin: center top; }
+
+  /* Labels sit left and right of the crop frame, vertically centred */
+  .cover-label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* Half the frame + 16px space */
+  .cover-name {
+    right: calc(50% + var(--frame-w) / 2 + 16px);
+    text-align: right;
+  }
+
+  .cover-role {
+    left: calc(50% + var(--frame-w) / 2 + 16px);
+    text-align: left;
+  }
+}
+
+/* Below 1100px the hero is always one column: headline, then covers.
+   (Without this the columns would sit side by side from about 1044px.) */
+@media (max-width: 1099.98px) {
+  .hero-text,
+  .hero-covers {
+    flex-basis: 100%;
+  }
+}
+
+/* Two-column hero: the active tile is as tall as the headline.
+   main.js measures the headline (cap top of the first line to the
+   baseline of the last line) and sets three variables on .covers:
+     --cover-h      tile height = headline height (width stays 4:5)
+     --cover-gap    4% of the tile height, rounded
+     --cover-pad    32% of the tile height, rounded
+     --cover-shift  margin-top that puts the tile's centre on the
+                    headline's centre (the column's top ends up
+                    behind the header)
+   Everything else (padding, column height, crop frame, labels, fade)
+   is derived from --cover-h here. Without JS the values from the
+   900px block above are used, with the old -120px pull-up. */
+@media (min-width: 1100px) {
+  .hero-covers {
+    align-items: flex-start;
+  }
+
+  /* Keep the headline on the same 6 lines at every desktop width:
+     "I used to / design sets / for films. / Now I design /
+     screens for / people." The widest of these lines is about 5.6em,
+     and "design sets for" needs more than 6.4em, so a 6em cap sits
+     safely between the two. em follows the headline's own font size. */
+  .hero-title {
+    max-width: 6em;
+  }
+
+  .covers {
+    --cover-gap: calc(var(--cover-h) * .04);
+    /* Space above and below the active tile: gap + the visible slice
+       of the previous / next tile */
+    --cover-pad: calc(var(--cover-h) * .32);
+    --cover-col-h: calc(var(--cover-h) + 2 * var(--cover-pad));
+    margin-top: var(--cover-shift, -120px);
+  }
+
+  /* Previous and next tiles are clearly smaller than the active one
+     (.is-active still sets scale(1), it is more specific) */
+  .cover-tile img,
+  .cover-tile video {
+    transform: scale(.78);
+  }
+
+  /* Fade the outer part of the peeks */
+  .cover-column {
+    -webkit-mask-image: linear-gradient(transparent 0, #000 calc(var(--cover-pad) * .6), #000 calc(100% - var(--cover-pad) * .6), transparent 100%);
+    mask-image: linear-gradient(transparent 0, #000 calc(var(--cover-pad) * .6), #000 calc(100% - var(--cover-pad) * .6), transparent 100%);
+  }
+}
+
+/* Two invisible, zero-size marks that main.js puts at the start and
+   end of the headline. An empty inline-block sits exactly on the text
+   baseline, so their position gives the first and last baseline. */
+.baseline-probe {
+  display: inline-block;
+  width: 0;
+  height: 0;
+}
+
+/* When the cover column is under 560px wide there is no room for
+   the labels beside the frame. There, put them above and below, as
+   on mobile. (Safety net: the two-column hero never gets that narrow,
+   because the tile follows the headline and is small at 1100px.) */
+.hero-covers {
+  container-type: inline-size;
+}
+
+@container (max-width: 559.98px) {
+  .covers {
+    display: flex;
+    height: auto;
+  }
+
+  .cover-label {
+    position: static;
+    transform: none;
+    text-align: center;
+  }
+}
+
+/* ---------- 3. Side menu (desktop only) ---------- */
+.side-menu {
+  display: none;
+}
+
+.side-name {
+  font-family: var(--font-label);
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.side-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+/* Current section */
+.side-nav a[aria-current="true"] {
+  color: var(--blue);
+}
+
+.side-nav a:hover {
+  color: var(--red);
+}
+
+/* Over the blue band (main.js adds .is-on-dark to each item
+   separately): white text, current item underlined. Hover and
+   keyboard focus turn the text red with no underline, like the
+   rest of the page. */
+.side-name,
+.side-nav a {
+  transition: color .3s;
+}
+
+.side-name.is-on-dark,
+.side-nav a.is-on-dark {
+  color: var(--white);
+}
+
+.side-nav a.is-on-dark[aria-current="true"] {
+  color: var(--white);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.side-nav a.is-on-dark:hover,
+.side-nav a.is-on-dark:focus-visible,
+.side-name.is-on-dark a:hover,
+.side-name.is-on-dark a:focus-visible {
+  color: var(--red);
+  text-decoration: none;
+}
+
+.side-nav a.is-on-dark:focus-visible,
+.side-name.is-on-dark a:focus-visible {
+  outline-color: var(--white);
+}
+
+/* Second, smaller nav under the main one: the About sub-list on the
+   homepage, "On this page" on case study pages */
+.side-subnav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--ink);
+  font-family: var(--font-label);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--grey);
+  transition: border-color .3s;
+}
+
+.side-subnav a {
+  transition: color .3s;
+}
+
+.side-subnav a:hover {
+  color: var(--red);
+}
+
+/* The section you're in */
+.side-subnav a[aria-current="location"] {
+  color: var(--blue);
+}
+
+/* A sub-list item's own sub-items (case study: Research's sub-headings),
+   indented 12px under it. Shown only while that item is current. */
+.side-subgroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding-left: 12px;
+}
+
+.side-subgroup[hidden] {
+  display: none;
+}
+
+/* Hidden sub-list (homepage: shown only while About is current) */
+.side-subnav[hidden] {
+  display: none;
+}
+
+/* Over the blue band: same switch as the main links (white text,
+   current item underlined, white line above the list) */
+.side-subnav.is-on-dark {
+  border-top-color: var(--white);
+}
+
+.side-subnav a.is-on-dark {
+  color: var(--white);
+}
+
+.side-subnav a.is-on-dark[aria-current="location"] {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.side-subnav a.is-on-dark:hover,
+.side-subnav a.is-on-dark:focus-visible {
+  color: var(--red);
+  text-decoration: none;
+}
+
+.side-subnav a.is-on-dark:focus-visible {
+  outline-color: var(--white);
+}
+
+@media (min-width: 900px) {
+  /* The anchor sits where the menu should start: at the top of the
+     Work section on the homepage, right after the header on a case study.
+     The menu starts there and scrolls up with the page... */
+  .side-menu-anchor {
+    position: relative;
+  }
+
+  /* Anchor placed inside a case study's page column (WaitWell, after
+     its full-width hero): pulled back to the left edge of the screen.
+     It sits 2px higher than the section that follows it, so jumping to
+     that section (its top lands exactly on the top of the screen)
+     always counts as "the anchor has reached the top". */
+  .side-menu-anchor--in-page {
+    top: -2px;
+    margin-left: calc(-1 * var(--side-menu-w));
+  }
+
+  .side-menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    width: var(--side-menu-w);
+    padding: 96px var(--gutter) 24px;
+    color: var(--ink);
+  }
+
+  /* ...then main.js pins it here when it reaches the top. */
+  .side-menu.is-pinned {
+    position: fixed;
+  }
+
+  /* Showing and hiding (main.js adds .is-hidden near the footer, and on
+     case study pages until the header has scrolled away).
+     Hiding: fade out over .3s, THEN switch visibility off (the .3s delay),
+     so it can't be focused or clicked once it's gone.
+     Showing: visibility comes back at once, then it fades in.
+     The menu column stays reserved either way, so nothing shifts.
+     Reduced motion: base.css turns transitions off, so it's instant. */
+  .side-menu {
+    transition: opacity .3s, visibility 0s;
+  }
+
+  .side-menu.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .3s, visibility 0s linear .3s;
+  }
+}
+
+
+/* ---------- 4. My story ---------- */
+.about {
+  /* How far the text blocks are pushed right (all 0 on mobile) */
+  --about-spacer: 0px;   /* empty column before the text, wide screens only */
+  --about-near: 0px;     /* the three intro paragraphs */
+  --about-far: 0px;      /* the paragraph after the statement, the card */
+
+  display: flex;
+  flex-direction: column;
+  gap: 96px;
+  padding: 96px var(--gutter) 40px;
+}
+
+.about p {
+  font-size: 19px;
+  line-height: 1.45;
+}
+
+.about-intro p + p {
+  margin-top: 18px;
+}
+
+/* Big blue statement. Mobile: aligned left and a little smaller */
+.about .statement {
+  font-size: clamp(40px, 10vw, 57px);
+  line-height: .98;
+  letter-spacing: -.045em;
+  font-weight: 700;
+  color: var(--blue);
+}
+
+/* Notebook paper: white with blue ruled lines every 32px and a red
+   margin line. Text inside uses line-height 32px so it sits on the lines.
+   Used by the About card and the "How I work with AI" page. */
+.notebook {
+  --note-margin: 28px;   /* where the red margin line sits */
+  position: relative;
+  background: var(--white) repeating-linear-gradient(#FFFFFF 0 31px, #DDE3F7 31px 32px);
+  box-shadow: 0 2px 0 var(--ink), 0 18px 40px rgba(0, 0, 0, .10);
+}
+
+.notebook::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: var(--note-margin);
+  width: 1px;
+  height: 100%;
+  background: var(--red);
+}
+
+.note-card {
+  margin-top: 40px;
+  padding: 32px 32px 40px;
+}
+
+.about .note-card p {
+  margin-left: 20px;
+  line-height: 32px;
+}
+
+@media (min-width: 900px) {
+  /* Left padding = the side menu column */
+  .about {
+    --about-near: clamp(0px, 8vw, 120px);
+    --about-far: clamp(0px, 22vw, 340px);
+    padding-left: var(--side-menu-w);
+  }
+
+  .about-near {
+    max-width: 520px;
+    margin-left: calc(var(--about-spacer) + var(--about-near));
+  }
+
+  /* The paragraph after the statement, and the card under it */
+  .about-far {
+    max-width: 420px;
+    margin-left: calc(var(--about-spacer) + var(--about-far));
+  }
+
+  /* Centred in the main column (the area right of the side menu) */
+  .about .statement {
+    align-self: center;
+    text-align: center;
+    font-size: clamp(48px, 6.4vw, 100px);
+  }
+}
+
+/* Wide screens: an extra empty column (140px + 48px gap) before the text */
+@media (min-width: 1200px) {
+  .about {
+    --about-spacer: 188px;
+  }
+}
+
+
+/* ---------- 5. What I bring: blue band ---------- */
+/* A normal full-width section, so the blue runs edge to edge and
+   behind the side menu; on desktop the left padding lines the content
+   up with the main column. */
+.bring-band {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 48px;
+  margin-top: 120px;
+  padding: 96px var(--gutter);
+  background: var(--blue);
+  color: var(--white);
+}
+
+.bring-title {
+  flex: 0 0 180px;
+  font-size: 26px;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  font-weight: 700;
+}
+
+.bring-grid {
+  flex: 1 1 560px;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px 40px;
+}
+
+.bring-num {
+  display: block;
+  margin-bottom: 14px;
+  font-family: var(--font-label);
+  font-size: 12px;
+  opacity: .8;
+}
+
+.bring-item-title {
+  margin-bottom: 12px;
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -.02em;
+  font-weight: 500;
+}
+
+.bring-text {
+  font-size: 15px;
+  line-height: 1.5;
+  opacity: .85;
+}
+
+@media (min-width: 600px) {
+  .bring-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .bring-band {
+    padding-left: var(--side-menu-w);
+  }
+}
+
+@media (min-width: 1100px) {
+  .bring-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+
+/* ---------- 6. Education: Education row, then Design | Build | Tools ---------- */
+.skills-section {
+  padding: 120px var(--gutter) 80px;
+}
+
+.skills {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px 24px;
+  margin-top: 72px;
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+/* Heading with a line that fills the rest of the row */
+.skill-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+  font-size: 22px;
+  line-height: 1.75;
+}
+
+.skill-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--ink);
+}
+
+.education {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.education strong,
+.education span {
+  display: block;
+}
+
+.education strong {
+  font-weight: 600;
+}
+
+.edu-place {
+  font-size: 13px;
+  color: var(--grey);
+}
+
+.status {
+  font-family: var(--font-label);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.status--ongoing   { color: var(--blue); }
+.status--completed { color: var(--grey); }
+
+@media (min-width: 600px) {
+  .education {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .skills {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .skills-section {
+    padding-left: var(--side-menu-w);
+  }
+
+  .skills-inner {
+    margin-left: clamp(0px, 20vw, 300px);
+  }
+
+  /* Jumping to #skills (the Design | Build | Tools row): leave the
+     same 96px above it that the side menu has */
+  .skills {
+    scroll-margin-top: 96px;
+  }
+}
+
+/* The four schools side by side */
+@media (min-width: 1200px) {
+  .education {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+
+/* ---------- 6b. How I work with AI: notebook page + ticker ---------- */
+.ai {
+  padding: 40px var(--gutter) 160px;   /* 160px before the footer */
+}
+
+/* The notebook and the ticker share this width */
+.ai-inner {
+  --ai-pad: clamp(32px, 5vw, 72px);
+  max-width: calc(1040px + 2 * var(--ai-pad));
+}
+
+.ai-page {
+  --note-margin: clamp(20px, 3vw, 44px);
+  padding: 32px var(--ai-pad) 64px;
+  padding-left: calc(var(--ai-pad) + 20px);   /* text starts 20px after the padding */
+  font-size: 17px;
+  line-height: 32px;       /* one ruled line */
+}
+
+.ai-title {
+  margin-bottom: 32px;
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 64px;       /* two ruled lines */
+  letter-spacing: -.02em;
+  font-weight: 700;
+}
+
+.ai-lead {
+  margin-bottom: 32px;
+}
+
+.ai-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: 32px 64px;
+}
+
+.ai-list-title {
+  font-weight: 600;
+}
+
+.ai-list li {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+}
+
+.ai-num {
+  font-family: var(--font-label);
+  font-size: 12px;
+  color: var(--blue);
+}
+
+/* Ticker: label on the left, names scrolling on the right.
+   The track holds two identical lists and slides left by exactly one
+   list (-50%), so the loop is seamless. */
+.ticker {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--blue);
+  color: var(--white);
+}
+
+.ticker-label {
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 1;
+  padding: 22px clamp(20px, 3vw, 44px);
+  border-right: 1px solid rgba(255, 255, 255, .4);
+  background: var(--blue);
+  font-family: var(--font-label);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.ticker-window {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  padding: 18px 0;
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker 24s linear infinite;   /* reduced motion: switched off in base.css */
+}
+
+.ticker:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.ticker-list {
+  display: flex;
+  gap: 36px;
+  padding-left: 36px;
+  font-size: clamp(22px, 2.2vw, 30px);
+  letter-spacing: -.02em;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Name, then a faint dot */
+.ticker-list li {
+  display: flex;
+  gap: 36px;
+}
+
+.ticker-list li::after {
+  content: "·";
+  opacity: .5;
+}
+
+@media (min-width: 900px) {
+  .ai {
+    padding-left: var(--side-menu-w);
+  }
+}
+
+
+/* ---------- 7. Project row (Work page list, "Next project" on case pages) ---------- */
+/* One big link per project: info block, title, arrow.
+   Work-page extras (peek image) live in work.css. */
+.row {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;          /* on small screens the title drops below the info block */
+  align-items: center;
+  gap: 24px;
+  padding: 24px 0;
+  color: var(--ink);
+  text-decoration: none;
+  transition: color .35s;
+}
+
+/* Info block: number, sentence, role */
+.row-info {
+  flex: 0 0 210px;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+/* Below 900px the info block always takes its own line, so every
+   title sits below it (short titles like "Apple" would otherwise
+   squeeze in beside it). */
+@media (max-width: 899.98px) {
+  .row-info {
+    flex-basis: 100%;
+  }
+}
+
+.row-num {
+  display: block;
+  margin-bottom: 10px;
+  font-family: var(--font-label);
+  font-size: 12px;
+}
+
+.row-role {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--font-label);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.row-title {
+  font-weight: 500;
+  transition: transform .5s cubic-bezier(.2, .8, .2, 1);
+}
+
+/* Arrow: always visible, faint until hover */
+.row-arrow {
+  display: inline-block;
+  line-height: 1;
+  opacity: .4;
+  transition: transform .5s cubic-bezier(.2, .8, .2, 1), opacity .35s;
+}
+
+/* Case-study size */
+.row--case .row-title {
+  font-size: clamp(64px, 7.5vw, 156px);
+  letter-spacing: -.05em;
+  line-height: .95;
+}
+
+.row--case .row-arrow {
+  font-size: 64px;
+}
+
+/* Hover and keyboard focus (same state) */
+.row:hover,
+.row:focus-visible {
+  color: var(--red);
+}
+
+.row:hover .row-title,
+.row:focus-visible .row-title {
+  transform: translateX(28px);
+}
+
+.row:hover .row-arrow,
+.row:focus-visible .row-arrow {
+  opacity: 1;
+  transform: translate(8px, -8px);
+}
+
+/* Reduced motion: no slide, the colour change stays */
+@media (prefers-reduced-motion: reduce) {
+  .row:hover .row-title,
+  .row:focus-visible .row-title,
+  .row:hover .row-arrow,
+  .row:focus-visible .row-arrow {
+    transform: none;
+  }
+}
+
+
+/* ---------- 8. Footer ---------- */
+.site-footer {
+  min-height: 640px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 96px;
+  padding: clamp(72px, 9vw, 140px) var(--gutter) 40px;
+  background: var(--ink);
+  color: var(--white);
+}
+
+.footer-top {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.footer-title {
+  font-size: clamp(40px, 5vw, 80px);
+  line-height: .92;
+  letter-spacing: -.05em;
+  font-weight: 700;
+}
+
+.footer-email {
+  align-self: flex-start;
+  font-size: clamp(22px, 2.4vw, 34px);
+  letter-spacing: -.02em;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 8px;
+}
+
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px 40px;
+  padding-top: 24px;
+  border-top: 1px solid #3A3A3A;
+}
+
+.footer-copy {
+  font-weight: 500;
+}
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+
+/* On black, hover = underline instead of red */
+.site-footer a:hover {
+  color: var(--white);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.site-footer .footer-email:hover {
+  text-underline-offset: 8px;
+}
+
+@media (min-width: 900px) {
+  /* Leave room for the pinned side menu */
+  .site-footer {
+    padding-left: var(--side-menu-w);
+  }
+}

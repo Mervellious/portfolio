@@ -1,0 +1,114 @@
+/* =========================================================
+   work.css
+   The Work section of the homepage (index.html#work): its
+   column, the dividing lines and the hover "peek" image.
+   Header, side menu, footer, tokens, fonts and the shared
+   project row (.row) come from base.css and layout.css.
+   ========================================================= */
+
+
+/* ---------- Section column ---------- */
+/* Mobile: normal gutters (there's no side menu below 900px) */
+.work-page {
+  padding: 0 var(--gutter) 24px;   /* + My story's 96px = 120px between sections */
+}
+
+@media (min-width: 900px) {
+  /* Desktop: the side menu column sits on the left */
+  .work-page {
+    padding-left: var(--side-menu-w);
+  }
+}
+
+/* Space between the landing and the first row.
+   Mobile: 48px. Desktop: 96px, the same as the side menu's
+   padding-top, so the first row lines up with the menu. */
+.work-section--cases {
+  padding-top: 48px;
+}
+
+@media (min-width: 900px) {
+  .work-section--cases {
+    padding-top: 96px;
+  }
+}
+
+/* ---------- Project rows: Work-page extras ---------- */
+/* The row itself (.row, .row--case) is shared and lives in layout.css. */
+
+/* Holds the arrow and the peek image. The wrapper never moves:
+   on hover only the arrow inside it nudges, so the peek stays put. */
+.row-arrow-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+/* Peek image: hidden below 1280px */
+.row-peek {
+  display: none;
+}
+
+.row-peek img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (min-width: 1280px) {
+  /* Decorative image right after this row's arrow (20px gap),
+     vertically centred on the row (= on the title), with a red frame:
+     a ring of page colour, then a thin red ring. */
+  .row-peek {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: calc(100% + 20px);
+    width: 176px;
+    height: 220px;
+    pointer-events: none;
+    box-shadow: 0 0 0 6px var(--bg), 0 0 0 8px var(--red);
+    opacity: 0;
+    transform: translateY(-50%) scale(.92);
+    transition: opacity .3s, transform .45s cubic-bezier(.2, .8, .2, 1);
+  }
+
+  /* main.js adds .peek-off to a row when its peek wouldn't fit
+     inside the main column at this window width */
+  .row.peek-off .row-peek {
+    visibility: hidden;
+  }
+}
+
+.row:hover .row-peek,
+.row:focus-visible .row-peek {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+
+
+/* ---------- Dividing lines ---------- */
+/* Each line draws in from the left on load.
+   --i (set in the HTML on case-study lines) staggers them by .15s. */
+.line {
+  height: 1px;
+  background: var(--ink);
+  transform-origin: left;
+  animation: line-draw 1.2s cubic-bezier(.7, 0, .2, 1) calc(var(--i, 0) * .15s) both;
+}
+
+@keyframes line-draw {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+
+/* ---------- Reduced motion ---------- */
+/* base.css turns off animations and transitions, layout.css removes
+   the row slide. Here we also remove the peek's scale. */
+@media (prefers-reduced-motion: reduce) {
+  .row-peek,
+  .row:hover .row-peek,
+  .row:focus-visible .row-peek {
+    transform: translateY(-50%);
+  }
+}

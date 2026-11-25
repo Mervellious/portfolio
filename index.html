@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Merve Uzuner, Art Director and UX/UI Designer</title>
+  <meta name="description" content="Portfolio of Merve Uzuner, a UX/UI designer who codes, with ten years of art direction and set design for film, fashion and advertising.">
+
+  <!-- Open Graph (link previews) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Merve Uzuner, Art Director and UX/UI Designer">
+  <meta property="og:description" content="Portfolio of Merve Uzuner, a UX/UI designer who codes, with ten years of art direction and set design for film, fashion and advertising.">
+
+  <!-- Fonts: Geist (text) and Instrument Sans (labels) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/work.css">
+  <link rel="stylesheet" href="assets/css/cv.css">
+  <script src="assets/js/main.js" defer></script>
+</head>
+<body>
+
+  <!-- 1. Header (--clear: no background on desktop, so the
+       cover column shows behind it) -->
+  <header class="site-header site-header--clear mono-label">
+    <p class="brand">
+      <a class="brand-name" href="index.html" aria-label="Merve Uzuner — home">Merve Uzuner</a>
+      <span class="brand-role">Art Director · UX/UI Designer</span>
+    </p>
+    <nav class="header-nav" aria-label="Main">
+      <a href="index.html#work">Work</a>
+      <a href="studio.html">Studio</a>
+      <a href="index.html#my-story">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- 2. Landing: headline + cover column -->
+    <section class="hero" data-nav="work" aria-labelledby="hero-title">
+      <div class="hero-text">
+        <h1 id="hero-title" class="hero-title fade-up">I used to design sets for films.<br><span class="accent">Now I design screens for people.</span></h1>
+      </div>
+
+      <div class="hero-covers">
+        <h2 class="visually-hidden">Selected work</h2>
+        <div class="covers">
+          <!-- Active project name and role: updated by main.js -->
+          <p class="cover-label cover-name" aria-live="polite">WaitWell</p>
+
+          <div class="cover-stage">
+            <!-- Decorative crop marks around the centre tile -->
+            <div class="crop-frame" aria-hidden="true">
+              <span class="corner corner--tl"></span>
+              <span class="corner corner--tr"></span>
+              <span class="corner corner--bl"></span>
+              <span class="corner corner--br"></span>
+            </div>
+
+            <div class="cover-column" tabindex="0" role="region" aria-label="Project covers, scroll to browse">
+              <div class="cover-track">
+                <!-- The 6 cover tiles are built by main.js from the PROJECTS array -->
+              </div>
+            </div>
+          </div>
+
+          <p class="cover-label cover-role">UX/UI Design
+UX Research</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Side menu (desktop only). Starts at the top of the
+         Work section, then main.js pins it to the screen.
+         The About sub-list is hidden in the HTML; main.js shows it
+         while About is the current item (data-subnav-for="about"), and
+         marks the sub-item whose section is in view (data-spy; the first
+         one is marked here so it's current as soon as the list appears). -->
+    <div class="side-menu-anchor">
+      <aside class="side-menu" aria-label="Side menu">
+        <p class="side-name"><a href="index.html" aria-label="Merve Uzuner — home">Merve Uzuner</a></p>
+        <nav class="side-nav mono-label" aria-label="Sections">
+          <a href="#work" data-nav-link="work">Work</a>
+          <a href="studio.html">Studio</a>
+          <a href="#my-story" data-nav-link="about">About</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <nav class="side-subnav" aria-label="About" data-spy data-spy-line="25" data-subnav-for="about" hidden>
+          <a href="#my-story" aria-current="location">— My story</a>
+          <a href="#what-i-bring">— What I bring</a>
+          <a href="#education">— Education</a>
+          <a href="#skills">— Skills</a>
+          <a href="#cv">— CV</a>
+          <a href="#ai">— How I work with AI</a>
+        </nav>
+      </aside>
+    </div>
+
+    <!-- 4. Work: case studies -->
+    <section class="work-page" id="work" data-nav="work" aria-labelledby="work-title">
+      <h2 id="work-title" class="visually-hidden">Work</h2>
+
+      <!-- Case studies -->
+      <section class="work-section work-section--cases" id="case-studies" aria-labelledby="cases-title">
+        <h3 id="cases-title" class="visually-hidden">Case studies</h3>
+
+        <a class="row row--case" href="work/waitwell.html" aria-labelledby="case-1-title case-1-text case-1-role">
+          <span class="row-info">
+            <span id="case-1-text">Live NHS A&amp;E care tracking</span>
+            <span class="row-role" id="case-1-role">Case study</span>
+          </span>
+          <span class="row-title" id="case-1-title">WaitWell</span>
+          <!-- Arrow + hover image. The image sits right after the arrow;
+               only the arrow moves on hover, the wrapper stays put. -->
+          <span class="row-arrow-wrap" aria-hidden="true">
+            <span class="row-arrow">↗</span>
+            <span class="row-peek"><img src="assets/img/covers/waitwell-cover.jpg" alt=""></span>
+          </span>
+        </a>
+        <div class="line" style="--i: 1" aria-hidden="true"></div>
+
+        <a class="row row--case" href="work/dreamlab.html" aria-labelledby="case-2-title case-2-text case-2-role">
+          <span class="row-info">
+            <span id="case-2-text">Clinical dream tracking.</span>
+            <span class="row-role" id="case-2-role">Case study</span>
+          </span>
+          <span class="row-title" id="case-2-title">Dreamlab</span>
+          <!-- Arrow + hover image. The image sits right after the arrow;
+               only the arrow moves on hover, the wrapper stays put. -->
+          <span class="row-arrow-wrap" aria-hidden="true">
+            <span class="row-arrow">↗</span>
+            <span class="row-peek"><img src="assets/video/dreamlab/dreamlab-cover-poster.jpg" alt="Dreamlab landing page with patient and specialist login"></span>
+          </span>
+        </a>
+        <div class="line" style="--i: 2" aria-hidden="true"></div>
+      </section>
+
+    </section>
+
+    <!-- 5. My story -->
+    <section class="about" id="my-story" data-nav="about" aria-labelledby="story-title">
+      <h2 id="story-title" class="visually-hidden">My story</h2>
+
+      <!-- Intro: three paragraphs in one column -->
+      <div class="about-intro">
+        <p class="about-near">Before moving into UX/UI, I spent ten years working across film, fashion and advertising, sourcing, styling and designing for different creative projects. It was a world I loved, and one that taught me to think visually, solve problems and bring ideas to life.</p>
+        <p class="about-near">But there was something I kept coming back to. So much of what I created was temporary, often centred around entertainment and consumption. Once a shoot was over, sets were dismantled, materials were cleared away and the work became a memory.</p>
+        <p class="about-near">I started thinking about what it would mean to create something more lasting, something people return to, use as part of their everyday lives, and that ultimately makes their lives a little easier. That curiosity eventually led me to UX/UI design.</p>
+      </div>
+
+      <p class="statement">Curious first.<br>Designer second.</p>
+
+      <!-- Paragraph + notebook card, same left edge as paragraph 3 -->
+      <div class="about-more">
+        <p class="about-far">I've always been fascinated by what drives people's decisions, why we choose one thing over another, what influences our behaviour and what's going on in our minds when we make those choices.</p>
+        <div class="notebook note-card about-far">
+          <p>As a kid, I used to make random little surveys for family and friends, just for fun. Looking back, it was the researcher in me.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5b. What I bring: blue band, edge to edge (data-dark turns
+         the side menu white while it's over the band) -->
+    <section class="bring-band" id="what-i-bring" data-nav="about" data-dark aria-labelledby="bring-title">
+      <h2 id="bring-title" class="bring-title">What I bring</h2>
+      <ol class="bring-grid">
+        <li>
+          <span class="bring-num" aria-hidden="true">01</span>
+          <h3 class="bring-item-title">Professional experience</h3>
+          <p class="bring-text">Ten years in production taught me how the professional world works. I've worked with clients, managed deadlines, collaborated with crews, teams and stakeholders, and taken projects from the first brief to final delivery.</p>
+        </li>
+        <li>
+          <span class="bring-num" aria-hidden="true">02</span>
+          <h3 class="bring-item-title">Visual thinking</h3>
+          <p class="bring-text">Years in Art Direction and Set Design have given me a strong eye for composition, colour, typography and visual communication.</p>
+        </li>
+        <li>
+          <span class="bring-num" aria-hidden="true">03</span>
+          <h3 class="bring-item-title">Build</h3>
+          <p class="bring-text">I'm a designer who codes. Currently studying Web Development, I'm building my understanding of both front-end and back-end development, learning how things work behind the interfaces.</p>
+        </li>
+        <li>
+          <span class="bring-num" aria-hidden="true">04</span>
+          <h3 class="bring-item-title">Storytelling</h3>
+          <p class="bring-text">Coming from a film background, I've developed an instinct for how people connect with stories and how to communicate ideas visually.</p>
+        </li>
+        <li>
+          <span class="bring-num" aria-hidden="true">05</span>
+          <h3 class="bring-item-title">Problem solving</h3>
+          <p class="bring-text">Working across different mediums, I've had to adapt to all kinds of briefs, unexpected challenges and changing priorities.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 6. Education row (id="education"), then the
+         Design | Build | Tools row (id="skills") 72px below it -->
+    <section class="skills-section" id="education" data-nav="about" aria-labelledby="education-title">
+      <h2 id="education-title" class="visually-hidden">Education and skills</h2>
+      <div class="skills-inner">
+
+        <div>
+          <h3 class="skill-heading">Education <span class="skill-rule" aria-hidden="true"></span></h3>
+          <ul class="education">
+            <li>
+              <strong>SAE Institute London</strong>
+              <span>BA/BSc (Hons) Web Development</span>
+              <span class="edu-place">London, UK</span>
+              <span class="status status--ongoing">Ongoing</span>
+            </li>
+            <li>
+              <strong>Google UX Design Certificate</strong>
+              <span>Coursera</span>
+              <span class="status status--ongoing">Ongoing</span>
+            </li>
+            <li>
+              <strong>The Skills Network</strong>
+              <span>Level 3, Digital Marketing</span>
+              <span class="status status--completed">Completed</span>
+            </li>
+            <li>
+              <strong>Mimar Sinan Fine Arts University</strong>
+              <span>BA, Film &amp; TV</span>
+              <span class="edu-place">Istanbul, Turkey</span>
+              <span class="status status--completed">Completed</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="skills" id="skills">
+          <div>
+            <h3 class="skill-heading">Design <span class="skill-rule" aria-hidden="true"></span></h3>
+            <ul>
+              <li>UX research</li>
+              <li>Competitor analysis</li>
+              <li>Personas</li>
+              <li>Empathy maps</li>
+              <li>User journeys</li>
+              <li>User flows</li>
+              <li>Information architecture</li>
+              <li>Sketching</li>
+              <li>Storyboarding</li>
+              <li>Wireframing</li>
+              <li>Prototyping</li>
+              <li>UI design</li>
+              <li>Design systems</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="skill-heading">Build <span class="skill-rule" aria-hidden="true"></span></h3>
+            <ul>
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>JavaScript</li>
+              <li>Python</li>
+              <li>Flask</li>
+              <li>MySQL</li>
+              <li>GitHub</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="skill-heading">Tools <span class="skill-rule" aria-hidden="true"></span></h3>
+            <ul>
+              <li>Figma</li>
+              <li>Claude</li>
+              <li>VS Code</li>
+              <li>Canva</li>
+              <li>Miro</li>
+              <li>InDesign</li>
+              <li>SketchUp</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- View my CV: styled like the Work rows (arrow, hover slide,
+             peek), at the skill-heading size. Opens the CV sheet
+             (main.js, section 7). The peek is filled from CV_PAGES. -->
+        <button class="row row--cv" id="cv" type="button" aria-haspopup="dialog">
+          <span class="row-title">View my CV</span>
+          <span class="row-arrow-wrap" aria-hidden="true">
+            <span class="row-arrow">↗</span>
+            <span class="row-peek cv-peek"></span>
+          </span>
+        </button>
+
+      </div>
+    </section>
+
+    <!-- 7. How I work with AI: notebook page + ticker -->
+    <section class="ai" id="ai" data-nav="about" aria-labelledby="ai-title">
+      <div class="ai-inner">
+
+        <div class="notebook ai-page">
+          <h2 id="ai-title" class="ai-title">How I work with AI</h2>
+          <p class="ai-lead">I use different prompting techniques depending on the project. The ones I use most are the CO-STAR framework, the CREATE framework, RTF (Role, Task, Format) and meta prompting. Alongside these, this is my essential prompt checklist:</p>
+
+          <div class="ai-columns">
+            <div>
+              <h3 class="ai-list-title">My prompt checklist:</h3>
+              <ol class="ai-list">
+                <li><span class="ai-num" aria-hidden="true">01</span><span>Stack and versions (e.g. PHP 8, Bootstrap 5)</span></li>
+                <li><span class="ai-num" aria-hidden="true">02</span><span>Constraints: e.g. mobile-first, accessible, no inline styles</span></li>
+                <li><span class="ai-num" aria-hidden="true">03</span><span>Output format: files, comments, explanation</span></li>
+                <li><span class="ai-num" aria-hidden="true">04</span><span>Security requirements: prepared statements, escaped output</span></li>
+                <li><span class="ai-num" aria-hidden="true">05</span><span>Ask it to explain its choices</span></li>
+                <li><span class="ai-num" aria-hidden="true">06</span><span>Ask for a plan first, and approve it before any code is written</span></li>
+                <li><span class="ai-num" aria-hidden="true">07</span><span>Give it a visual reference, not just words</span></li>
+              </ol>
+            </div>
+            <div>
+              <h3 class="ai-list-title">What I always do myself:</h3>
+              <ol class="ai-list">
+                <li><span class="ai-num" aria-hidden="true">01</span><span>Check the result at different screen sizes before I accept it</span></li>
+                <li><span class="ai-num" aria-hidden="true">02</span><span>Write my own copy, using AI only to tidy grammar</span></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ticker: the first list is the real one; the second is a
+             copy for the seamless loop, hidden from screen readers. -->
+        <div class="ticker">
+          <p class="ticker-label" id="ticker-label">AI tools I use</p>
+          <div class="ticker-window">
+            <div class="ticker-track">
+              <ul class="ticker-list" aria-label="AI tools I use">
+                <li>Claude</li>
+                <li>Claude Code</li>
+                <li>Figma Make</li>
+                <li>ChatGPT</li>
+                <li>Gemini</li>
+                <li>Lovable</li>
+                <li>Cursor</li>
+              </ul>
+              <ul class="ticker-list" aria-hidden="true">
+                <li>Claude</li>
+                <li>Claude Code</li>
+                <li>Figma Make</li>
+                <li>ChatGPT</li>
+                <li>Gemini</li>
+                <li>Lovable</li>
+                <li>Cursor</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 8. Footer -->
+  <footer class="site-footer" id="contact">
+    <div class="footer-top">
+      <h2 class="footer-title">Let's talk.</h2>
+      <!-- TODO: real email address (text and href) -->
+      <a class="footer-email" href="mailto:">[your@email] <span aria-hidden="true">→</span></a>
+    </div>
+
+    <div class="footer-bottom mono-label">
+      <p class="footer-copy">© 2026 Merve Uzuner</p>
+      <nav class="footer-nav" aria-label="Contact links">
+        <a href="mailto:">Email</a><!-- TODO: real email address -->
+        <a href="#">LinkedIn</a><!-- TODO: LinkedIn profile URL -->
+        <a href="#cv" data-cv-open>CV</a>
+      </nav>
+      <a href="#top">Back to top <span aria-hidden="true">↑</span></a>
+    </div>
+  </footer>
+
+  <!-- CV sheet: filled from CV_PAGES in main.js (section 7). Like the
+       Studio sheets, it draws no backdrop: the page stays as it is
+       behind it. The Download link stays hidden until
+       assets/cv/merve-uzuner-cv.pdf exists (see README). -->
+  <dialog class="cv-view" aria-label="CV">
+    <div class="cv-scroll">
+      <div class="cv-sheet">
+        <div class="cv-paper" aria-hidden="true"></div>
+        <div class="cv-bar">
+          <a class="cv-download" href="assets/cv/merve-uzuner-cv.pdf" download hidden>Download PDF</a>
+          <button class="cv-close" type="button" aria-label="Close">×</button>
+        </div>
+        <div class="cv-pages"></div>
+      </div>
+    </div>
+  </dialog>
+
+</body>
+</html>

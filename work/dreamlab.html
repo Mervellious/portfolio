@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DreamLab case study: Merve Uzuner, UX/UI Designer</title>
+  <meta name="description" content="DreamLab: turning dreams that fade by breakfast into records a specialist can actually use. A UX/UI case study by Merve Uzuner, designed in Figma and built in Flask.">
+
+  <!-- Open Graph (link previews) -->
+  <!-- TODO: once the site is live, make og:image an absolute URL (link previews need one) -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="DreamLab case study: Merve Uzuner, UX/UI Designer">
+  <meta property="og:description" content="Turning dreams that fade by breakfast into records a specialist can actually use.">
+  <meta property="og:image" content="../assets/video/dreamlab/cover-poster.jpg">
+
+  <!-- Fonts: Geist (text) and Instrument Sans (labels) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/case.css">
+  <!-- reveal.js: no defer on purpose, it marks <html> with .js before anything is drawn -->
+  <script src="../assets/js/reveal.js"></script>
+  <script src="../assets/js/main.js" defer></script>
+</head>
+<body>
+
+  <!-- Header (same as the Work page, Work is the current section) -->
+  <header class="site-header mono-label">
+    <p class="brand">
+      <a class="brand-name" href="../index.html" aria-label="Merve Uzuner — home">Merve Uzuner</a>
+      <span class="brand-role">Art Director · UX/UI Designer</span>
+    </p>
+    <nav class="header-nav" aria-label="Main">
+      <a href="../index.html#work" aria-current="true">Work</a>
+      <a href="../studio.html">Studio</a>
+      <a href="../index.html#my-story">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Side menu (desktop only). Hidden until the
+       header has scrolled away, then pinned; hidden again at the footer.
+       data-spy: main.js turns the current "On this page" link red. -->
+  <div class="side-menu-anchor">
+    <aside class="side-menu is-hidden" aria-label="Side menu" data-reveal-on-pin inert>
+      <p class="side-name"><a href="../index.html" aria-label="Merve Uzuner — home">Merve Uzuner</a></p>
+      <nav class="side-nav mono-label" aria-label="Sections">
+        <a href="../index.html#work" data-nav-link="work">Work</a>
+        <a href="../studio.html">Studio</a>
+        <a href="../index.html#my-story">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <nav class="side-subnav" aria-label="On this page" data-spy>
+        <a href="#what">— What is Dreamlab</a>
+        <a href="#why">— Why DreamLab</a>
+        <a href="#audience">— Who it's for</a>
+        <a href="#problem">— The problem</a>
+        <a href="#research">— Research</a>
+        <!-- Research's sub-headings: shown only while Research is the
+             current item (main.js), one marked as you scroll past it -->
+        <div class="side-subgroup" hidden>
+          <a href="#research-methodology">— Methodology</a>
+          <a href="#research-asked">— What I Asked</a>
+          <a href="#research-learned">— What I Learned</a>
+          <a href="#research-test">— Usability Test Tasks</a>
+          <a href="#research-findings">— Findings</a>
+          <a href="#research-improvements">— Changes After Testing</a>
+        </div>
+        <a href="#process">— Design process</a>
+        <!-- Design process's sub-headings, same as Research's above -->
+        <div class="side-subgroup" hidden>
+          <a href="#process-look">— Look &amp; Feel</a>
+          <a href="#process-ia">— Information Architecture</a>
+          <a href="#process-wireframes">— Wireframes</a>
+          <a href="#process-patient-flow">— Patient Flow</a>
+          <a href="#process-specialist-flow">— Specialist Flow</a>
+          <a href="#process-iterations">— Iterations</a>
+        </div>
+        <a href="#development">— Development</a>
+        <a href="#final">— Final product</a>
+      </nav>
+    </aside>
+  </div>
+
+  <main class="case-page case-page--hero-top case-page--caps-titles" data-nav="work">
+
+    <!-- Hero: phone on the left, title / tagline / facts on the right
+         (desktop). The text column comes first in the HTML so the h1 leads;
+         CSS puts the phone on the left, and on mobile orders them
+         title, tagline, phone, facts.
+         The row and the column are not animated (the row holds a blended
+         video); each item fades up on its own. -->
+    <section class="case-hero" id="overview" aria-labelledby="case-title">
+      <div class="case-hero-row">
+        <div class="case-hero-text">
+          <h1 class="case-title load-up load-1" id="case-title"><img src="../assets/img/dreamlab/dreamlab-logo.svg" alt="DreamLab" width="560" height="50"></h1>
+          <p class="case-subtitle load-up load-2">A dream journal built for clinical dream research</p>
+          <p class="case-kind small-label load-up load-2">Case study</p>
+          <dl class="case-facts load-up load-4">
+            <div class="case-fact--role"><dt class="small-label">Role</dt><dd>Designed and built end to end:<br>Product concept<br>UX research<br>UX/UI design<br>Full-stack development</dd></div>
+            <div><dt class="small-label">Type</dt><dd>Academic project,<br>SAE Institute</dd></div>
+            <div><dt class="small-label">Timeline</dt><dd>Jan–May 2026</dd></div>
+            <div><dt class="small-label">Tools</dt><dd>Figma · VS Code · Claude Code<br>Flask · MariaDB · Chart.js · GitHub</dd></div>
+          </dl>
+        </div>
+        <video class="phone-video phone-video--cover load-up load-3" data-play-in-view
+               src="../assets/video/dreamlab/cover.mp4"
+               poster="../assets/video/dreamlab/cover-poster.jpg"
+               width="706" height="1302"
+               autoplay muted loop playsinline
+               aria-label="DreamLab mobile landing page: Capture dreams before they fade. Review them with your specialist."></video>
+      </div>
+    </section>
+
+    <!-- 01 What is Dreamlab -->
+    <section class="case-section" id="what" aria-labelledby="what-label">
+      <h2 class="section-title" id="what-label" data-reveal><span class="section-name">What is Dreamlab</span></h2>
+      <p class="case-body" data-reveal>Dreamlab is a digital platform designed to help dream researchers, sleep specialists, neurologists, and mental health professionals track and analyse patients' dreams to explore potential triggers and gain deeper insights into the causes of sleep-related conditions.</p>
+    </section>
+
+    <!-- Patient flow at a glance: the flow video, then two of its
+         screens. The row itself is not animated (it holds a blended
+         video); each item fades up on its own. -->
+    <div class="flow-row" data-reveal-group>
+      <video class="phone-video" data-play-in-view
+             src="../assets/video/dreamlab/patient-flow.mp4"
+             poster="../assets/video/dreamlab/patient-flow-poster.jpg"
+             width="706" height="1408" preload="metadata"
+             autoplay muted loop playsinline
+             aria-label="Patient flow demo: sign in, daily check-in, writing a dream, guided questions, rating sleep, submitted"></video>
+      <img src="../assets/img/dreamlab/screens/05.png" width="420" height="862" loading="lazy"
+           alt="Patient dashboard: Welcome back, Matthew. Do you remember what you dreamed of last night? Buttons to write your dream or say I forgot, then reports and total dreams recorded.">
+      <img src="../assets/img/dreamlab/screens/17.png" width="420" height="862" loading="lazy"
+           alt="Submitted screen: Thanks for sharing your dream. It has been sent to your clinician. Back to homepage button.">
+    </div>
+
+    <!-- 02 Why DreamLab -->
+    <section class="case-section" id="why" aria-labelledby="why-label">
+      <h2 class="section-title" id="why-label" data-reveal><span class="section-name">Why DreamLab</span></h2>
+      <figure class="pullquote" data-reveal>
+        <blockquote>
+          <p>"It is a common experience that a problem difficult at night is resolved in the morning after the committee of sleep has worked on it."</p>
+        </blockquote>
+        <figcaption>John Steinbeck</figcaption>
+      </figure>
+      <p class="case-body" data-reveal>Dreams have always fascinated me. We spend around two hours dreaming every night, even if we don't remember it. I believe they are often underrated, even though they hold profound psychological value. They help us process emotions and consolidate memories, and offer insights into sleep disorders, trauma, creativity and subconscious conflicts.</p>
+      <p class="case-statement" data-reveal-group=":scope > .mask > span">
+        <span class="mask"><span>There is a lack of clinically focused platforms</span></span>
+        <span class="mask"><span>for professionals researching and working on dreams.</span></span>
+      </p>
+      <p class="case-body" data-reveal>I reviewed many dream journal applications and websites currently available in the market. Although many of them are highly developed and offer impressive features, I noticed that they are primarily designed for individual users. Existing platforms are not tailored specifically to the needs of professionals who work on dreams, such as psychiatrists, researchers and neuroscientists.</p>
+    </section>
+
+    <!-- 03 Who it's for -->
+    <section class="case-section" id="audience" aria-labelledby="audience-label">
+      <h2 class="section-title" id="audience-label" data-reveal><span class="section-name">Who it's for</span></h2>
+      <!-- Each audience starts with a small map-pin (decorative) -->
+      <div class="audience" data-reveal-group>
+        <p><svg class="audience-pin" viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 19C8 19 15 12.6 15 8A7 7 0 0 0 1 8C1 12.6 8 19 8 19Z"/><circle cx="8" cy="8" r="2.5"/></svg><span>Specialists, such as psychologists, neuroscientists and oneirologists, who conduct dream research and need consistent, structured dream data from their patients.</span></p>
+        <p><svg class="audience-pin" viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 19C8 19 15 12.6 15 8A7 7 0 0 0 1 8C1 12.6 8 19 8 19Z"/><circle cx="8" cy="8" r="2.5"/></svg><span>Individuals living with sleep disorders or mental health conditions who are asked to keep a record of their dreams.</span></p>
+      </div>
+
+      <h3 class="case-h3 case-h3--sub" data-reveal>Pain Points</h3>
+      <div class="cols pain-points" data-reveal-group>
+        <div class="crop-corner"><p class="mono-label card-label">01</p><p>Patients record their dreams in phone notes or on paper, making them difficult to organise and keep secure.</p></div>
+        <div class="crop-corner"><p class="mono-label card-label">02</p><p>They skip details, or can't describe the dream, so specialists miss what they need.</p></div>
+        <div class="crop-corner"><p class="mono-label card-label">03</p><p>Researchers spend hours sorting unstructured reports, open to interpretation bias.</p></div>
+      </div>
+
+      <h3 class="case-h3 case-h3--sub" data-reveal>Personas</h3>
+      <div class="personas" data-reveal-group>
+        <div class="card persona">
+          <p class="persona-quote">“I wish I had more control over what happens during my sleep.”</p>
+          <p class="card-text">Matthew, 63, is a teacher in Devon with REM sleep behaviour disorder. He acts out his dreams, sometimes hitting his partner. His doctor wants a consistent dream record; he never knows what to write.</p>
+        </div>
+        <div class="card persona">
+          <p class="persona-quote">“I want to spend my time on therapy, not paperwork.”</p>
+          <p class="card-text">Nora, 42, is a clinical psychologist in Munich who uses EMDR. Dream notes reach her through messages, emails and handwriting, and sorting them is a job of its own.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 The problem -->
+    <section class="case-section" id="problem" aria-labelledby="problem-label">
+      <h2 class="section-title" id="problem-label" data-reveal><span class="section-name">The problem</span></h2>
+      <p class="case-body" data-reveal>Patients often struggle to accurately recall and record their dreams, making it difficult for researchers and mental health professionals to collect consistent and structured data for analysis.</p>
+    </section>
+
+    <!-- 05 Research -->
+    <section class="case-section" id="research" aria-labelledby="research-label">
+      <h2 class="section-title" id="research-label" data-reveal><span class="section-name">Research</span></h2>
+      <p class="case-body" data-reveal>I conducted remote qualitative surveys to understand the challenges users face when recording and recalling their dreams. My main focus was to identify which details matter most in dream tracking and how they could be collected effectively for research purposes.</p>
+
+      <h3 class="case-h3 case-h3--sub case-h3--part" id="research-methodology" data-reveal>Methodology</h3>
+      <div class="cols methods case-wide" data-reveal-group>
+        <div class="crop-corner"><p class="mono-label card-label">01</p><p class="col-title">Desk research</p><p>I read forums, research articles, expert publications and dream databases. They provided insights into the language people use to describe their dreams and the gaps professionals identified, which became the starting point for developing my personas.</p></div>
+        <div class="crop-corner"><p class="mono-label card-label">02</p><p class="col-title">Remote qualitative surveys</p><p>I sent out questions via Google Forms, one form for potential patients and another for clinicians and mental health professionals. I gathered responses from 3 potential patients and 8 clinicians. I also ran informal sessions with classmates. They weren't the target audience, but they still provided me with valuable insights.</p></div>
+        <div class="crop-corner"><p class="mono-label card-label">03</p><p class="col-title">Usability testing</p><p>I tested the prototype in two rounds.</p>
+          <p class="method-step"><span class="small-label small-label--blue">In person · moderated</span><br>6 classmates completed the tasks in class while I observed and took notes.</p>
+          <p class="method-step"><span class="small-label small-label--blue">Remote · unmoderated</span><br>5 of the surveyed clinicians received the prototype link and a task list, completed it in their own time and setting, and sent their feedback by message.</p></div>
+      </div>
+
+      <h3 class="case-h3 case-h3--sub" id="research-asked" data-reveal>What I Asked</h3>
+      <div class="case-measure q-block">
+        <p class="q-title" data-reveal>Patient survey</p>
+        <ol class="num-list num-list--sm" data-reveal-group>
+          <li>How often do you remember your dreams, and do you usually write them down or record them in some way?</li>
+          <li>What challenges do you face when writing down your dreams? How do these challenges make you feel?</li>
+          <li>How do you think these challenges could be resolved?</li>
+          <li>What would make it easier for you to track, understand or share your dreams?</li>
+          <li>If there was an online platform to record, explore and reflect on your dreams, what features would be most valuable to you?</li>
+        </ol>
+      </div>
+      <div class="case-measure q-block">
+        <p class="q-title" data-reveal>Clinician survey</p>
+        <ol class="num-list num-list--sm" data-reveal-group>
+          <li>Do you ask your clients to write down their dreams?</li>
+          <li>Where do your clients usually record their dreams? (Paper, a notebook, digital tools such as a phone, etc.)</li>
+          <li>What are the most challenging parts of working with your clients' dreams? (For example, not remembering the dream, or not enough detail.)</li>
+          <li>How do you think these challenges could be overcome?</li>
+          <li>If there was an app where your clients could regularly record their dreams and easily share them with you, would you consider using it?</li>
+          <li>What features should such an app have to make your dream work and analysis easier? (For example, questions that guide the client to describe the dream in more detail: mood before the dream, feelings on waking, key people or symbols.)</li>
+        </ol>
+      </div>
+
+      <h3 class="case-h3 case-h3--sub case-h3--part" id="research-learned" data-reveal>What I Learned</h3>
+      <div class="case-measure">
+        <p class="case-body" data-reveal>Based on the survey results, I set the must-have features around four ideas:</p>
+        <ol class="num-list" data-reveal-group>
+          <li>If patients are guided by short questions instead of a blank page, then they will recall more of the dream.</li>
+          <li>If the questions ask for the details specialists need, then they get captured even when patients would skip them.</li>
+          <li>If emotions and themes are chosen from predefined tags, then entries become consistent and comparable across patients.</li>
+          <li>If every entry is stored in one organised, searchable system, then specialists spend less time sorting data and make fewer errors.</li>
+        </ol>
+      </div>
+
+      <h3 class="case-h3 case-h3--sub case-h3--part" id="research-test" data-reveal>Usability Test Tasks</h3>
+      <div class="cols tasks case-wide" data-reveal-group>
+        <div class="crop-corner"><p class="mono-label card-label">01</p><p class="col-title">Onboarding</p>
+          <ul class="task-list"><li><span class="task-num">1.1</span>Sign up as a participant</li><li><span class="task-num">1.2</span>Sign up as a professional</li></ul></div>
+        <div class="crop-corner"><p class="mono-label card-label">02</p><p class="col-title">“I forgot my dream”</p>
+          <ul class="task-list"><li><span class="task-num">2.1</span>Submit the dream entry form</li></ul></div>
+        <div class="crop-corner"><p class="mono-label card-label">03</p><p class="col-title">Dream submission</p>
+          <ul class="task-list"><li><span class="task-num">3.1</span>Describe your dream in the text field</li><li><span class="task-num">3.2</span>Follow the instructions and complete the questionnaire</li></ul></div>
+        <div class="crop-corner"><p class="mono-label card-label">04</p><p class="col-title">Profile &amp; dreams</p>
+          <ul class="task-list"><li><span class="task-num">4.1</span>Go to your profile</li><li><span class="task-num">4.2</span>Find your previously recorded dreams</li><li><span class="task-num">4.3</span>Delete one of your saved dreams</li></ul></div>
+      </div>
+
+      <h3 class="case-h3 case-h3--sub case-h3--part" id="research-findings" data-reveal>Findings</h3>
+      <div class="findings" data-reveal-group>
+        <div class="finding">
+          <div><p class="mono-label card-label">01</p><p class="card-title">An extra login step slowed everyone down.</p><p class="card-text">Users went through a repeated login step when entering DreamLab.</p></div>
+        </div>
+        <div class="finding">
+          <div><p class="mono-label card-label">02</p><p class="card-title">Too many emotion tags.</p><p class="card-text">Users felt overwhelmed by the number of emotion tags.</p></div>
+        </div>
+        <div class="finding">
+          <div><p class="mono-label card-label">03</p><p class="card-title">Nobody could find Edit.</p><p class="card-text">Users struggled to find the Edit and Delete actions for their dreams.</p></div>
+        </div>
+      </div>
+
+      <h3 class="case-h3 case-h3--sub case-h3--part" id="research-improvements" data-reveal>Changes After Testing</h3>
+      <!-- Before/after screens. Each image keeps its own aspect ratio
+           (width/height attributes); the screens in a row are equally
+           wide, so the ones with the same shape are equally tall. -->
+      <div class="cols improvements case-wide" data-reveal-group>
+        <div class="crop-corner"><p class="mono-label card-label">01</p><p class="col-title">Login: <span class="card-text ba-note">Allowed direct access to Dreamlab by removing an extra step from the login flow.</span></p>
+          <div class="ba-pair ba-pair--trio">
+            <figure><img src="../assets/img/dreamlab/iterations/landing-before.png" width="390" height="844" loading="lazy" alt="Landing page before testing: Unlock the science of your dreams, with one Enter DreamLab button."><figcaption class="small-label">Before</figcaption></figure>
+            <figure><img src="../assets/img/dreamlab/iterations/signin-before.png" width="780" height="1688" loading="lazy" alt="Sign-in page before testing: email, password and Continue, with sign-up options for participants and professionals."><figcaption class="small-label">Before</figcaption></figure>
+            <span class="ba-arrow" aria-hidden="true">→</span>
+            <figure><img src="../assets/img/dreamlab/iterations/landing-after.png" width="780" height="1688" loading="lazy" alt="Landing page after testing: Unlock the science of your dreams, with Patient login and Clinician login buttons."><figcaption class="small-label">After</figcaption></figure>
+          </div></div>
+        <div class="crop-corner"><p class="mono-label card-label">02</p><p class="col-title">Emotion tags: <span class="card-text ba-note">Grouped the emotion tags under main categories with dropdowns.</span></p>
+          <div class="ba-pair">
+            <figure><img src="../assets/img/dreamlab/iterations/emotion-tags-before.png" width="390" height="1064" loading="lazy" alt="Emotion question before testing: 24 emotion tags in one long grid."><figcaption class="small-label">Before</figcaption></figure>
+            <span class="ba-arrow" aria-hidden="true">→</span>
+            <figure><img src="../assets/img/dreamlab/iterations/emotion-tags-after.png" width="780" height="2128" loading="lazy" alt="Emotion question after testing: five groups (Joyful, Calm, Fearful, Upset, Other), each opening to its emotions."><figcaption class="small-label">After</figcaption></figure>
+          </div></div>
+      </div>
+    </section>
+
+    <!-- 06 Design process -->
+    <section class="case-section" id="process" aria-labelledby="process-label">
+      <h2 class="section-title" id="process-label" data-reveal><span class="section-name">Design process</span></h2>
+      <h3 class="case-h3 case-h3--sub" id="process-look" data-reveal>Look &amp; Feel</h3>
+      <!-- Tiles: --x/--y/--w/--h place them on desktop. Below 900px they
+           become a 2-column grid and the text comes first. -->
+      <div class="collage" data-reveal-group=":scope > .tile > img">
+        <div class="collage-text">
+          <h4 class="collage-title">Futuristic, calm, clear.</h4>
+          <p>Semi-transparent layers, glass cards and soft light play. Gradients blend ice blue into lavender for an iridescent, slightly dreamlike feel.</p>
+        </div>
+        <div class="tile" style="--x: 0;   --y: 4%;  --w: 20%; --h: 40%"><img src="../assets/img/dreamlab/mood-01.jpg" alt="" loading="lazy"></div>
+        <div class="tile" style="--x: 26%; --y: 0;   --w: 15%; --h: 26%"><img src="../assets/img/dreamlab/mood-02.jpg" alt="" loading="lazy"></div>
+        <div class="tile" style="--x: 48%; --y: 8%;  --w: 11%; --h: 18%"><img src="../assets/img/dreamlab/mood-03.jpg" alt="" loading="lazy"></div>
+        <div class="tile" style="--x: 74%; --y: 2%;  --w: 23%; --h: 28%"><img src="../assets/img/dreamlab/mood-04.jpg" alt="" loading="lazy"></div>
+        <div class="tile" style="--x: 2%;  --y: 60%; --w: 18%; --h: 24%"><img src="../assets/img/dreamlab/mood-05.jpg" alt="" loading="lazy"></div>
+        <div class="tile" style="--x: 24%; --y: 72%; --w: 12%; --h: 25%"><img src="../assets/img/dreamlab/mood-06.jpg" alt="" loading="lazy"></div>
+        <div class="tile" style="--x: 59%; --y: 70%; --w: 12%; --h: 22%"><img src="../assets/img/dreamlab/mood-07.jpg" alt="" loading="lazy"></div>
+        <div class="tile" style="--x: 82%; --y: 34%; --w: 15%; --h: 14%"><img src="../assets/img/dreamlab/mood-08.jpg" alt="" loading="lazy"></div>
+        <div class="tile" style="--x: 75%; --y: 50%; --w: 10%; --h: 18%"><img src="../assets/img/dreamlab/mood-09.jpg" alt="" loading="lazy"></div>
+        <div class="tile" style="--x: 87%; --y: 58%; --w: 12%; --h: 32%"><img src="../assets/img/dreamlab/mood-10.jpg" alt="" loading="lazy"></div>
+      </div>
+
+      <!-- TODO: the site map image still says "clinician"; its alt text
+           matches the image until it's re-exported. -->
+      <h3 class="case-h3 case-h3--sub case-h3--loose" id="process-ia" data-reveal>Information Architecture</h3>
+      <img class="diagram-img" data-reveal src="../assets/img/dreamlab/sitemap.png" width="2000" height="1125" loading="lazy"
+           alt="DreamLab site map: Home branches to What is DreamLab, How it works and Contact; Patient login leads to writing a dream, the questionnaire, submitting, and a dashboard with My dreams, Edit my dreams, Nightmares and Settings; Clinician login leads to Generate report, Add a patient, Patients, Dream records, Pattern analysis, Sleep insights, Therapies, Reports, Settings, and a dashboard with total patients, pending reviews, sleep alerts and recent dream records.">
+
+      <h3 class="case-h3 case-h3--sub case-h3--loose" id="process-wireframes" data-reveal>Wireframes</h3>
+      <!-- Same approach as the WaitWell wireframes image: .ww-flow-img
+           sizing (full column width, never bigger than its natural size,
+           centred) on the link, which opens the PNG full size -->
+      <a class="ww-flow-img ww-flow-link" data-reveal style="--natural-w: 1330px" href="../assets/img/dreamlab/dreamlab-patient-flow.png" target="_blank" rel="noopener">
+        <img src="../assets/img/dreamlab/dreamlab-patient-flow.png" width="1330" height="1246" loading="lazy"
+             alt="Dreamlab patient flow: from the landing page and sign-in to the patient dashboard, then writing a dream, answering the guided questions one by one, and submitting. A separate path records a night when the patient doesn't remember a dream. Prototype arrows show how the screens connect.">
+        <span class="visually-hidden">Open the patient flow at full size</span>
+      </a>
+      <!-- TODO: the task flow images still say "clinician"; their alt
+           texts match the images until they're re-exported. -->
+      <h3 class="case-h3 case-h3--sub case-h3--loose" id="process-patient-flow" data-reveal>Patient Flow</h3>
+      <img class="diagram-img" data-reveal src="../assets/img/dreamlab/taskflow-patient.png" width="1656" height="1104" loading="lazy"
+           alt="Patient task flow: log in, then asked if they remember last night's dream. No leads to Recorded. Yes leads to Write your dream, then Complete questionnaire, then Submit your dream; no loops back to writing, yes leads to Submitted.">
+
+      <h3 class="case-h3 case-h3--sub case-h3--loose" id="process-specialist-flow" data-reveal>Specialist Flow</h3>
+      <img class="diagram-img" data-reveal src="../assets/img/dreamlab/taskflow-specialist.png" width="1808" height="1078" loading="lazy"
+           alt="Specialist task flow: log in, select patient, review data, generate report, then submit report; no loops back to review data, yes leads to Submitted.">
+
+      <h3 class="case-h3 case-h3--sub case-h3--loose" id="process-iterations" data-reveal>Iterations</h3>
+      <!-- Same as the wireframes image: .ww-flow-img sizing on the link,
+           opens the SVG full size in a new tab -->
+      <a class="ww-flow-img ww-flow-link" data-reveal style="--natural-w: 1800px" href="../assets/img/dreamlab/iterations/dream-iterations.svg" target="_blank" rel="noopener">
+        <img src="../assets/img/dreamlab/iterations/dream-iterations.svg" width="1800" height="959" loading="lazy"
+             alt="Three iterations of the Dreamlab &quot;write your dream&quot; screen. Version 1 is a plain wireframe with grey buttons. Version 2 adds a light blue card and rounded option buttons. Version 3 refines the visual style with a soft gradient and a glass-like card, adds a progress bar, strengthens the input borders to pass contrast checks, enlarges the buttons and writing box, and turns Back and Next into clear buttons, with Next in navy.">
+        <span class="visually-hidden">Open the iterations at full size</span>
+      </a>
+    </section>
+
+    <!-- 07 Development -->
+    <section class="case-section" id="development" aria-labelledby="development-label">
+      <h2 class="section-title" id="development-label" data-reveal><span class="section-name">Development</span></h2>
+      <div class="case-band" data-reveal data-reveal-group=":scope > h3, :scope > .case-band-body > *">
+        <h3 class="case-band-title">From clickable prototype to working app</h3>
+        <div class="case-band-body">
+          <p>After testing the prototype, I built Dreamlab as a full-stack web app: HTML, CSS and JavaScript on the front end, Python and Flask on the back end, and a MySQL database. The screens on this page are my mobile designs; the working build was developed for desktop.</p>
+          <p><strong>One login, two dashboards.</strong> The app checks each user's role at sign-in and opens the right dashboard. Patients can write entries, look back through their dreams and nightmares, and follow their mood and sleep trends in charts. Specialists have their own dashboard for patients and reports.</p>
+          <p><strong>A live database.</strong> Every entry is saved to MySQL. Patients can create, view, edit and delete their dreams and nightmares, and answers from the eight question screens are only saved when they submit.</p>
+          <p><strong>Next steps.</strong> Dreamlab is an academic prototype, not a clinical product. A real version would need stronger data protection and access control, compliance with UK GDPR and NHS standards, testing with real users, and a responsive build for mobile.</p>
+          <ul class="chips mono-label" aria-label="Stack">
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>Python</li>
+            <li>Flask</li>
+            <li>Jinja2</li>
+            <li>MySQL</li>
+            <li>Chart.js</li>
+            <li>Git</li>
+            <li>GitHub</li>
+          </ul>
+          <a class="mono-label" href="https://github.com/Mervellious/DreamLab" target="_blank" rel="noopener">View the code on GitHub <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 Final product -->
+    <section class="case-section" id="final" aria-labelledby="final-label">
+      <h2 class="section-title" id="final-label" data-reveal><span class="section-name">Final product</span> <span class="kicker-hint" aria-hidden="true">scroll →</span></h2>
+      <div class="strip" id="dl-screens" tabindex="0" role="region" aria-label="DreamLab screens, scroll horizontally" data-reveal-group data-reveal-visible-only>
+        <figure><img src="../assets/img/dreamlab/screens/01.png" width="420" height="862" alt="DreamLab mobile landing page: Capture dreams before they fade. Review them with your specialist. Patient login and specialist login buttons"><figcaption class="small-label">01 · Landing</figcaption></figure>
+        <figure><img src="../assets/img/dreamlab/screens/02.png" width="420" height="862" alt="Sign in form with sign-up options for participants and professionals"><figcaption class="small-label">02 · Sign in</figcaption></figure>
+        <figure><img src="../assets/img/dreamlab/screens/03.png" width="420" height="862" alt="Participant sign-up form"><figcaption class="small-label">03 · Patient sign-up</figcaption></figure>
+        <figure><img src="../assets/img/dreamlab/screens/04.png" width="420" height="862" alt="Professional sign-up form with licence number and work email"><figcaption class="small-label">04 · Specialist sign-up, verified</figcaption></figure>
+        <figure><img src="../assets/img/dreamlab/screens/05.png" width="420" height="862" alt="Patient dashboard asking if they remember last night's dream" loading="lazy"><figcaption class="small-label">05 · Patient dashboard</figcaption></figure>
+        <figure><img src="../assets/img/dreamlab/screens/06.png" width="420" height="862" alt="Recorded confirmation for a night with no recall" loading="lazy"><figcaption class="small-label">06 · “I forgot”, still recorded</figcaption></figure>
+        <figure><img src="../assets/img/dreamlab/screens/07.png" width="420" height="862" alt="First question: date and dream type, with a text box" loading="lazy"><figcaption class="small-label">07 · Write the dream</figcaption></figure>
+        <figure><img src="../assets/img/dreamlab/screens/08.png" width="420" height="862" alt="Question about the most memorable part of the dream" loading="lazy"><figcaption class="small-label">08 · Q1 · What stands out</figcaption></figure>
+        <figure><img src="../assets/img/dreamlab/screens/09.png" width="420" height="862" alt="Question about symbols and recurring elements" loading="lazy"><figcaption class="small-label">09 · Q2 · Symbols</figcaption></figure>
+        <figure><img src="../assets/img/dreamlab/screens/10.png" width="420" height="862" alt="Question about who appeared in the dream" loading="lazy"><figcaption class="small-label">10 · Q3 · People</figcaption></figure>
+        <figure><img src="../assets/img/dreamlab/screens/11.png" width="420" height="862" alt="Question about the dreamer's role in the dream" loading="lazy"><figcaption class="small-label">11 · Q4 · Active or observer</figcaption></figure>
+        <figure><img src="../assets/img/dreamlab/screens/12.png" width="420" height="862" alt="Emotion groups: joyful, calm, fearful, upset, other" loading="lazy"><figcaption class="small-label">12 · Q5 · Emotions, grouped</figcaption></figure>
+        <figure><img src="../assets/img/dreamlab/screens/13.png" width="420" height="862" alt="Joyful group expanded with two emotions selected" loading="lazy"><figcaption class="small-label">13 · Q5 · Group opened</figcaption></figure>
+        <figure><img src="../assets/img/dreamlab/screens/14.png" width="420" height="862" alt="Question about mood the day before" loading="lazy"><figcaption class="small-label">14 · Q6 · Mood the day before</figcaption></figure>
+        <figure><img src="../assets/img/dreamlab/screens/15.png" width="420" height="862" alt="Question about whether the dream has happened before" loading="lazy"><figcaption class="small-label">15 · Q7 · Recurring</figcaption></figure>
+        <figure><img src="../assets/img/dreamlab/screens/16.png" width="420" height="862" alt="Sleep quality rating with submit button" loading="lazy"><figcaption class="small-label">16 · Q8 · Sleep quality, submit</figcaption></figure>
+        <figure><img src="../assets/img/dreamlab/screens/17.png" width="420" height="862" alt="Confirmation that the dream was sent to the clinician" loading="lazy"><figcaption class="small-label">17 · Submitted</figcaption></figure>
+        <figure><img src="../assets/img/dreamlab/screens/18.png" width="420" height="862" alt="Clinician dashboard with pending reviews and sleep alerts" loading="lazy"><figcaption class="small-label">18 · Specialist dashboard</figcaption></figure>
+        <figure><img src="../assets/img/dreamlab/screens/19.png" width="420" height="862" alt="Clinician navigation menu" loading="lazy"><figcaption class="small-label">19 · Specialist menu</figcaption></figure>
+        <figure><img src="../assets/img/dreamlab/screens/20.png" width="420" height="862" alt="Recent dream records with condition, tags and sleep quality" loading="lazy"><figcaption class="small-label">20 · Recent dream records</figcaption></figure>
+      </div>
+      <!-- Arrow buttons under the strip: an alternative to scrolling it
+           sideways (main.js, initStripControls) -->
+      <div class="strip-controls" data-strip-controls="dl-screens" data-reveal>
+        <button class="strip-btn" type="button" data-strip-prev aria-label="Previous screens" aria-controls="dl-screens"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 3 5 8l5 5"/></svg></button>
+        <button class="strip-btn" type="button" data-strip-next aria-label="Next screens" aria-controls="dl-screens"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 3 5 5-5 5"/></svg></button>
+      </div>
+    </section>
+
+    <!-- Next project (same row as the Work page) -->
+    <div class="next-project" data-reveal="next">
+      <!-- TODO: case study page not built yet -->
+      <a class="row row--case" href="waitwell.html" aria-labelledby="next-num next-title next-text">
+        <span class="row-info">
+          <span class="row-num mono-label" id="next-num">Next · 01</span>
+          <span id="next-text">NHS A&amp;E concept. Making the wait less invisible.</span>
+        </span>
+        <span class="row-title" id="next-title">WaitWell</span>
+        <span class="row-arrow" aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer (same as the other pages) -->
+  <footer class="site-footer" id="contact">
+    <div class="footer-top">
+      <h2 class="footer-title">Let's talk.</h2>
+      <!-- TODO: real email address (text and href) -->
+      <a class="footer-email" href="mailto:">[your@email] <span aria-hidden="true">→</span></a>
+    </div>
+
+    <div class="footer-bottom mono-label">
+      <p class="footer-copy">© 2026 Merve Uzuner</p>
+      <nav class="footer-nav" aria-label="Contact links">
+        <a href="mailto:">Email</a><!-- TODO: real email address -->
+        <a href="#">LinkedIn</a><!-- TODO: LinkedIn profile URL -->
+        <a href="../index.html#cv">CV</a>
+      </nav>
+      <a href="#top">Back to top <span aria-hidden="true">↑</span></a>
+    </div>
+  </footer>
+
+</body>
+</html>

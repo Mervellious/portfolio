@@ -1,0 +1,135 @@
+/* =========================================================
+   base.css
+   Reset, design tokens (CSS variables) and typography.
+   Section layouts live in layout.css.
+   ========================================================= */
+
+/* ---------- Design tokens ---------- */
+:root {
+  --bg: #F7F7F5;        /* page background, plain, no pattern */
+  --ink: #0B0B0B;       /* text, footer background */
+  --blue: #1E3BFF;      /* accent, band background */
+  --red: #D42A1F;       /* hover, focus and the notebook margin line */
+  --grey: #555555;      /* secondary labels */
+  --white: #FFFFFF;
+  --font-sans: 'Geist', system-ui, sans-serif;
+  --font-label: 'Instrument Sans', system-ui, sans-serif;
+  --gutter: clamp(16px, 4vw, 56px);
+  --side-menu-w: 260px; /* width of the desktop side menu column */
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  /* Mobile: the sticky header covers the top of the screen,
+     so in-page links stop a little lower. */
+  scroll-padding-top: 110px;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+/* Headings get their size and weight from their class, not the browser */
+h1,
+h2,
+h3 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/* ---------- Links ---------- */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* On the light background, links turn red on hover.
+   (Dark areas override this with an underline, see layout.css.) */
+a:hover {
+  color: var(--red);
+}
+
+/* ---------- Focus ---------- */
+:focus-visible {
+  outline: 3px solid var(--red);
+  outline-offset: 3px;
+}
+
+/* ---------- Shared text styles ---------- */
+
+/* "Mono label": small uppercase label text (Instrument Sans) used across the page.
+   The class keeps its old name; the font is no longer monospace. */
+.mono-label {
+  font-family: var(--font-label);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+/* Hidden on screen but still read by screen readers */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Motion ---------- */
+
+/* Smooth jumps for in-page links, only if the user is fine with motion */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Reduced motion: no fade-ups, no transitions */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Desktop: the header is not sticky, so no offset is needed */
+@media (min-width: 900px) {
+  html {
+    scroll-padding-top: 0;
+  }
+}

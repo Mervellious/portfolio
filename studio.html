@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Studio: Merve Uzuner, UX/UI Designer</title>
+  <meta name="description" content="Studio: a hand-drawn studio space with Merve Uzuner's work on the walls.">
+
+  <!-- Fonts: Geist (text), Instrument Sans (labels) and, on this page,
+       Architects Daughter (the handwritten note on the stage) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&family=Architects+Daughter&display=swap">
+
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/studio.css">
+  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/studio.js" defer></script>
+</head>
+<body>
+
+  <!-- Header (same as the other pages, Studio is the current page) -->
+  <header class="site-header mono-label">
+    <p class="brand">
+      <a class="brand-name" href="index.html" aria-label="Merve Uzuner — home">Merve Uzuner</a>
+      <span class="brand-role">Art Director · UX/UI Designer</span>
+    </p>
+    <nav class="header-nav" aria-label="Main">
+      <a href="index.html#work">Work</a>
+      <a href="studio.html" aria-current="page">Studio</a>
+      <a href="index.html#my-story">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- The stage fills the screen below the header. The scene inside
+         it is the whole 2400 x 900 drawing, full height, centred, with
+         the sides cropped; the frames sit in its middle 1600 x 900 area
+         (assets/css/studio.css). Every frame is placed from its pixel
+         position on that 1600 x 900 area. Below 960px the stage is
+         960px wide and scrolls sideways. -->
+    <div class="studio-scroll">
+      <section class="studio" aria-label="Studio">
+        <div class="studio-scene">
+          <img class="studio-bg" src="assets/img/studio/studio-bg.svg" width="2400" height="900" alt="" aria-hidden="true">
+
+          <!-- The original 1600 x 900 area of the drawing; the frames are
+               placed on it -->
+          <div class="studio-content">
+            <!-- Handwritten note, below the floor line (assets/css/studio.css) -->
+            <p class="studio-note">Prints, drawings and sets I've made over the years.<br>Take anything off the wall to look closer.</p>
+
+            <!-- Artworks: each opens in its own large view, lifted off the
+                 wall (assets/js/studio.js). Every wall item is taped up:
+                 --tilt is its fixed slight tilt, the .tape spans are the
+                 tape strips (assets/css/studio.css). x can be negative: ART 2 sits
+                 on the extended paper on the left. data-title and
+                 data-note are the text shown next to the large view. -->
+            <button class="studio-frame studio-art" type="button" style="--x: 18; --y: 393; --w: 96; --h: 103; --tilt: -1.1deg" aria-label="Open artwork 1" data-title="[TITLE]" data-note="[NOTE]"><img src="assets/img/studio/artwork1.png" alt="Artwork 1"><span class="tape tape-tl" aria-hidden="true"></span><span class="tape tape-br" aria-hidden="true"></span></button>
+            <button class="studio-frame studio-art" type="button" style="--x: -50; --y: 539; --w: 98; --h: 138; --tilt: 0.8deg" aria-label="Open artwork 2" data-title="[TITLE]" data-note="[NOTE]"><img src="assets/img/studio/artwork2.png" alt="Artwork 2"><span class="tape tape-tl" aria-hidden="true"></span><span class="tape tape-br" aria-hidden="true"></span></button>
+            <button class="studio-frame studio-art" type="button" style="--x: 478; --y: 379; --w: 100; --h: 125; --tilt: 1.3deg" aria-label="Open artwork 3" data-title="[TITLE]" data-note="[NOTE]"><img src="assets/img/studio/artwork3.png" alt="Artwork 3"><span class="tape tape-tl" aria-hidden="true"></span><span class="tape tape-br" aria-hidden="true"></span></button>
+            <button class="studio-frame studio-art" type="button" style="--x: 614; --y: 379; --w: 99; --h: 132; --tilt: -0.6deg" aria-label="Open artwork 4" data-title="[TITLE]" data-note="[NOTE]"><img src="assets/img/studio/artwork4.png" alt="Artwork 4"><span class="tape tape-tl" aria-hidden="true"></span><span class="tape tape-br" aria-hidden="true"></span></button>
+            <button class="studio-frame studio-art" type="button" style="--x: 478; --y: 557; --w: 99; --h: 136; --tilt: -1.4deg" aria-label="Open artwork 5" data-title="[TITLE]" data-note="[NOTE]"><img src="assets/img/studio/artwork5.png" alt="Artwork 5"><span class="tape tape-tl" aria-hidden="true"></span><span class="tape tape-br" aria-hidden="true"></span></button>
+
+            <!-- Strip: 5 boxes from y 316.8 to 712.8, 73.44 high, 7.2 apart.
+                 Each box opens a work sheet; data-sheet names its entry
+                 in SHEETS (assets/js/studio.js). -->
+            <button class="studio-frame studio-work" type="button" style="--x: 320; --y: 316.8; --w: 134; --h: 73.44; --tilt: 0.5deg; --tape: 2deg" aria-label="Open ELLE Magazine" data-sheet="elle"><img src="assets/img/studio/work1_cover.jpg" alt=""><span class="tape tape-top" aria-hidden="true"></span></button>
+            <button class="studio-frame studio-work" type="button" style="--x: 320; --y: 397.44; --w: 134; --h: 73.44; --tilt: -0.9deg; --tape: -1.5deg" aria-label="Open Nesine.com" data-sheet="nesine"><img src="assets/img/studio/work2_cover.jpg" alt=""><span class="tape tape-top" aria-hidden="true"></span></button>
+            <button class="studio-frame studio-work" type="button" style="--x: 320; --y: 478.08; --w: 134; --h: 73.44; --tilt: 1.1deg; --tape: 2.6deg" aria-label="Open London Fashion Week" data-sheet="lfw"><img src="assets/img/studio/work3_cover.jpg" alt=""><span class="tape tape-top" aria-hidden="true"></span></button>
+            <button class="studio-frame studio-work" type="button" style="--x: 320; --y: 558.72; --w: 134; --h: 73.44; --tilt: -0.4deg; --tape: -2.4deg" aria-label="Open Nike" data-sheet="nike"><img src="assets/img/studio/work4_cover.jpg" alt=""><span class="tape tape-top" aria-hidden="true"></span></button>
+            <button class="studio-frame studio-work" type="button" style="--x: 320; --y: 639.36; --w: 134; --h: 73.44; --tilt: 0.9deg; --tape: 1.2deg" aria-label="Open MacFit" data-sheet="macfit"><img src="assets/img/studio/work5_cover.jpg" alt=""><span class="tape tape-top" aria-hidden="true"></span></button>
+
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Large view for the artworks: the artwork is taken off the wall
+         and moves to the centre; no backdrop (assets/js/studio.js) -->
+    <dialog class="art-view" aria-labelledby="art-view-title">
+      <div class="art-view-media"><img src="" alt=""></div>
+      <div class="art-view-text">
+        <p class="art-view-title mono-label" id="art-view-title">[TITLE]</p>
+        <p class="art-view-note">[NOTE]</p>
+      </div>
+      <button class="art-view-close" type="button" aria-label="Close">×</button>
+    </dialog>
+
+    <!-- Work sheet: one dialog for every work. studio.js fills it from
+         SHEETS (images, text, title block) when a strip box opens it.
+         The cover grows from the box into its place; the rest of the
+         sheet fades in around it. -->
+    <dialog class="sheet-view">
+      <div class="sheet-scroll">
+        <div class="sheet-sizer">
+          <div class="sheet"></div>
+        </div>
+      </div>
+    </dialog>
+  </main>
+
+  <footer class="site-footer" id="contact">
+    <div class="footer-top">
+      <h2 class="footer-title">Let's talk.</h2>
+      <!-- TODO: real email address (text and href) -->
+      <a class="footer-email" href="mailto:">[your@email] <span aria-hidden="true">→</span></a>
+    </div>
+
+    <div class="footer-bottom mono-label">
+      <p class="footer-copy">© 2026 Merve Uzuner</p>
+      <nav class="footer-nav" aria-label="Contact links">
+        <a href="mailto:">Email</a><!-- TODO: real email address -->
+        <a href="#">LinkedIn</a><!-- TODO: LinkedIn profile URL -->
+        <a href="index.html#cv">CV</a>
+      </nav>
+      <a href="#top">Back to top <span aria-hidden="true">↑</span></a>
+    </div>
+  </footer>
+
+</body>
+</html>

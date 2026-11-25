@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1373" height="730" viewBox="0 0 1373 730">
+<title>WaitWell user flow, part 2: any time from the bottom nav</title>
+<defs><style>@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&amp;display=swap');
+.l{font-family:'DM Sans',Helvetica,Arial,sans-serif;font-size:14px;font-weight:500}
+.s{font-family:'DM Sans',Helvetica,Arial,sans-serif;font-size:12px;font-weight:400}</style>
+<marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#9AA3B2"/></marker></defs>
+<text x="70" y="76" class="l" style="font-weight:600" fill="#1F2A44">2. Any time from the bottom nav</text>
+<g transform="translate(-515,-778)">
+<rect x="625.0" y="898.0" width="150.0" height="44" rx="6" fill="#2350D2"/>
+<text x="700.0" y="920.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Status (home)</text>
+<path d="M835.0,1020.0 L904.8,1020.0" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M835.0,1100.0 L931.7,1100.0" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M1105.3,1100.0 L1192.0,1100.0" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M835.0,1180.0 L913.8,1180.0" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M1123.2,1180.0 L1192.0,1180.0" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M1020.0,1222.0 L1020.0,1275.0" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M1345.0,1180.0 L1422.0,1180.0" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M1575.0,1180.0 L1659.4,1180.0" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M1740.0,1202.0 L1740.0,1255.0" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M1095.0,1300.0 L1192.0,1300.0" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="685.0" y="998.0" width="150" height="44" rx="6" fill="#2350D2"/>
+<text x="760.0" y="1020.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Care team</text>
+<rect x="907.8" y="998.0" width="224.5" height="44" rx="6" fill="#DCE5FB"/>
+<text x="1020.0" y="1020.0" class="l" fill="#1A3BA0" text-anchor="middle" dominant-baseline="central">Clinician names and roles</text>
+<rect x="685.0" y="1078.0" width="150" height="44" rx="6" fill="#2350D2"/>
+<text x="760.0" y="1100.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Share</text>
+<rect x="934.7" y="1078.0" width="170.6" height="44" rx="6" fill="#E3F4EA"/>
+<text x="1020.0" y="1100.0" class="l" fill="#1E6B3E" text-anchor="middle" dominant-baseline="central">Invite a companion</text>
+<rect x="1195.0" y="1078.0" width="150" height="44" rx="6" fill="#2350D2"/>
+<text x="1270.0" y="1100.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Companion view</text>
+<rect x="685.0" y="1158.0" width="150" height="44" rx="6" fill="#2350D2"/>
+<text x="760.0" y="1180.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Info</text>
+<polygon points="1020.0,1138.0 1123.2,1180.0 1020.0,1222.0 916.8,1180.0" fill="#E6E9F0"/>
+<text x="1020.0" y="1180.0" class="l" fill="#2E3A55" text-anchor="middle" dominant-baseline="central">Facilities or Help?</text>
+<rect x="1195.0" y="1158.0" width="150" height="44" rx="6" fill="#2350D2"/>
+<text x="1270.0" y="1180.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Facilities</text>
+<rect x="1425.0" y="1158.0" width="150" height="44" rx="6" fill="#2350D2"/>
+<text x="1500.0" y="1180.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Facility page</text>
+<rect x="1662.4" y="1158.0" width="155.2" height="44" rx="6" fill="#E3F4EA"/>
+<text x="1740.0" y="1180.0" class="l" fill="#1E6B3E" text-anchor="middle" dominant-baseline="central">See hospital map</text>
+<rect x="1665.0" y="1258.0" width="150" height="44" rx="6" fill="#2350D2"/>
+<text x="1740.0" y="1280.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Hospital map</text>
+<rect x="945.0" y="1278.0" width="150" height="44" rx="6" fill="#2350D2"/>
+<text x="1020.0" y="1300.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Help</text>
+<rect x="1195.0" y="1278.0" width="150" height="44" rx="6" fill="#2350D2"/>
+<text x="1270.0" y="1300.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Help page</text>
+<text x="1110.0" y="1170.0" class="s" fill="#2E3A55" font-weight="600">Facilities</text>
+<text x="1030.0" y="1242.0" class="s" fill="#2E3A55" font-weight="600">Help</text>
+<rect x="1415.0" y="950.0" width="170" height="128" rx="6" fill="#F1F2F5"/>
+<text x="1429.0" y="972.0" class="s" fill="#2E3A55" font-weight="600">Facility pages</text>
+<text x="1429.0" y="994.0" class="s" fill="#4A5468">• Pharmacy</text>
+<text x="1429.0" y="1012.0" class="s" fill="#4A5468">• Cafes and shops</text>
+<text x="1429.0" y="1030.0" class="s" fill="#4A5468">• Toilets and baby change</text>
+<text x="1429.0" y="1048.0" class="s" fill="#4A5468">• Prayer room</text>
+<text x="1429.0" y="1066.0" class="s" fill="#4A5468">• Wi-Fi and charging</text>
+<line x1="1500.0" y1="1158.0" x2="1500.0" y2="1078.0" stroke="#B4BAC6" stroke-width="1"/><circle cx="1500.0" cy="1078.0" r="3" fill="#B4BAC6"/>
+<rect x="1355.0" y="1300.0" width="170" height="128" rx="6" fill="#F1F2F5"/>
+<text x="1369.0" y="1322.0" class="s" fill="#2E3A55" font-weight="600">Help pages</text>
+<text x="1369.0" y="1344.0" class="s" fill="#4A5468">• BSL interpreter</text>
+<text x="1369.0" y="1362.0" class="s" fill="#4A5468">• Accessibility</text>
+<text x="1369.0" y="1380.0" class="s" fill="#4A5468">• Quiet room</text>
+<text x="1369.0" y="1398.0" class="s" fill="#4A5468">• PALS</text>
+<text x="1369.0" y="1416.0" class="s" fill="#4A5468">• Overseas visitors</text>
+<line x1="1345.0" y1="1300.0" x2="1355.0" y2="1300.0" stroke="#B4BAC6" stroke-width="1"/><circle cx="1355.0" cy="1300.0" r="3" fill="#B4BAC6"/><path d="M645,942 L645,1180" fill="none" stroke="#9AA3B2" stroke-width="1.5"/>
+<path d="M645,1020 L682,1020" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M645,1100 L682,1100" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M645,1180 L682,1180" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+
+</g>
+</svg>

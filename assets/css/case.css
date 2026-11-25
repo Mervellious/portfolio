@@ -1,0 +1,1603 @@
+/* =========================================================
+   case.css
+   Patterns shared by every case study page (DreamLab, WaitWell…).
+   Header, side menu, footer, tokens, fonts and the project row
+   (.row, used for "Next project") come from base.css and layout.css.
+
+   Contents
+   1. Page column and sections
+   2. Labels: section title, small label
+   3. Headings and text
+   4. Hero
+   5. Grids and cards
+   6. Phone videos and media rows
+   7. Moodboard collage
+   8. Screens strip
+   9. Research: stats, questions, tasks, findings, before → after
+   10. Blue band
+   11. Next project
+   12. Scroll reveal (reveal.js)
+   ========================================================= */
+
+:root {
+  --ease-out: cubic-bezier(.2, .8, .2, 1);
+  --ease-line: cubic-bezier(.7, 0, .2, 1);
+  /* Body text: shared by every 17px paragraph and list */
+  --case-text-size: 17px;
+  --case-text-lh: 1.5;
+  /* Smaller body text: Pain points and the Who it's for texts */
+  --case-text-sm-size: 16px;
+  --case-text-sm-lh: 1.45;
+  /* Hero subtitle type.
+     Below 900px the subtitle may wrap; from 900px it must fit the
+     right column on one line (see the media query below). */
+  --case-tagline-size: 16px;
+  --case-tagline-lh: 1.3;
+  /* DreamLab logo purple (the "LAB" in the logo) */
+  --dreamlab-purple: #5E4FC0;
+}
+
+/* The subtitle is 20.87em wide. The right column is 296px at 900px
+   (fits 14.2px), 392px at 1000 and 560px from ~1260px, so 1.4vw with
+   a 14px floor always fits; 21px cap. */
+@media (min-width: 900px) {
+  :root {
+    --case-tagline-size: clamp(14px, 1.4vw, 21px);
+  }
+}
+
+
+/* ---------- 1. Page column and sections ---------- */
+/* Mobile: gutters on both sides (no side menu below 900px) */
+.case-page {
+  padding: 48px var(--gutter) 120px;
+}
+
+@media (min-width: 900px) {
+  /* Desktop: the side menu column sits on the left */
+  .case-page {
+    padding: 96px var(--gutter) 120px var(--side-menu-w);
+  }
+}
+
+.case-section {
+  padding-top: 140px;
+}
+
+
+/* ---------- 2. Labels ---------- */
+
+/* Section title (h2) */
+.section-title {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 40px;
+  font-family: var(--font-label);
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: -.01em;
+  font-weight: 700;
+  color: var(--blue);
+}
+
+/* Small hint at the right end of the row (Final product: "scroll →") */
+.kicker-hint {
+  margin-left: auto;
+  align-self: center;
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+/* Small grey mono label (hero facts, captions, placeholders) */
+.small-label {
+  font-family: var(--font-label);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--grey);
+}
+
+.small-label--blue {
+  color: var(--blue);
+}
+
+
+/* ---------- 3. Headings and text ---------- */
+.case-h2 {
+  font-size: clamp(36px, 4vw, 60px);
+  line-height: 1;
+  letter-spacing: -.04em;
+  font-weight: 600;
+}
+
+.case-h2--sm {
+  margin-bottom: 28px;
+  font-size: clamp(32px, 3.4vw, 52px);
+}
+
+/* Sub-heading inside a section: smaller than the section title */
+.case-h3 {
+  margin-bottom: 20px;
+  font-size: 20px;
+  line-height: 1.3;
+  letter-spacing: -.01em;
+  font-weight: 600;
+  color: var(--blue);
+}
+
+/* A sub-heading the side menu links to (Research): on desktop, stop
+   96px below the top when jumping to it, level with the side menu */
+@media (min-width: 900px) {
+  .case-h3[id] {
+    scroll-margin-top: 96px;
+  }
+}
+
+/* h3 that opens a sub-part of a section (Pain points, Site map…) */
+.case-h3--sub {
+  margin-top: 64px;
+}
+
+/* Wider break before a major sub-part (Research) */
+.case-h3--part {
+  margin-top: 120px;
+}
+
+/* Between Design process sub-parts */
+.case-h3--loose {
+  margin-top: 96px;
+}
+
+/* 19px column title (Methodology, test tasks, improvements) */
+.col-title {
+  margin-bottom: 10px;
+  font-size: 19px;
+  font-weight: 600;
+}
+
+/* Centred reading column (Research: What I asked, What I learned) */
+.case-measure {
+  max-width: 760px;
+  margin-inline: auto;
+  padding: 24px 0;
+}
+
+/* Wide grid cap (Research: Methodology, test tasks) */
+.case-wide {
+  max-width: 1040px;
+}
+
+/* Plain body paragraph (shared body type) */
+.case-body {
+  max-width: 760px;
+  font-size: var(--case-text-size);
+  line-height: var(--case-text-lh);
+}
+
+.case-body + .case-body {
+  margin-top: 16px;
+}
+
+/* Numbered list (Research: What I learned, What I asked), numbers in blue mono */
+.num-list {
+  max-width: 760px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: num;
+  font-size: var(--case-text-size);
+  line-height: var(--case-text-lh);
+}
+
+/* The number sits in the 36px left padding; the text flows as one paragraph */
+.num-list li {
+  position: relative;
+  padding-left: 36px;
+  counter-increment: num;
+}
+
+.case-body + .num-list {
+  margin-top: 24px;
+}
+
+.num-list li + li {
+  margin-top: 16px;
+}
+
+.num-list li::before {
+  content: counter(num, decimal-leading-zero);
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-top: .35em;     /* sits on the first line of the 17px text */
+  font-family: var(--font-label);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--blue);
+}
+
+/* Directly under a section title, the first block needs no extra space */
+/* Dreamlab: section titles shown in capitals (CSS only, so screen
+   readers still read the words normally). h3 sub-headings and the
+   side nav are not affected. */
+.case-page--caps-titles .section-title .section-name {
+  text-transform: uppercase;
+}
+
+/* Dreamlab: section titles at 23px (line-height stays 1.2) */
+.case-page--caps-titles .section-title {
+  font-size: 23px;
+}
+
+.section-title + .case-h3--sub {
+  margin-top: 0;
+}
+
+/* Big blue statement (03 · The problem), left-aligned, one mask per
+   line. The longer line is 23.86 × the font size wide; (100vw - 316px)
+   is the column at 1400px+ and slightly more than it below, so
+   .0411 (= 1 / 24.3, ~2% spare) keeps each line on one line from
+   900px up (24px there: 572px in a 604px column). Phones wrap. */
+.case-statement {
+  margin-top: 64px;
+  font-size: clamp(24px, calc((100vw - 316px) * .0411), 72px);
+  line-height: .98;
+  letter-spacing: -.045em;
+  font-weight: 700;
+  color: var(--blue);
+}
+
+@media (min-width: 900px) {
+  .case-statement .mask > span {
+    white-space: nowrap;
+  }
+}
+
+.case-statement + .case-body {
+  margin-top: 48px;
+}
+
+.mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: .06em;   /* room for descenders inside the mask */
+}
+
+.mask > span {
+  display: block;
+}
+
+.accent {
+  color: var(--blue);
+  font-weight: 600;
+}
+
+
+
+/* ---------- 4. Hero ---------- */
+/* h1 holding the DreamLab logo (SVG, no side bearing, icon starts at
+   the very top of the file). Full column width on desktop, 300px cap
+   on mobile. */
+.case-title {
+  width: 100%;
+  max-width: 300px;
+}
+
+.case-title img {
+  display: block;
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+}
+
+.case-subtitle {
+  margin-top: 28px;
+  font-size: var(--case-tagline-size);
+  line-height: var(--case-tagline-lh);
+  letter-spacing: -.02em;
+  color: var(--dreamlab-purple);
+}
+
+@media (min-width: 900px) {
+  .case-subtitle {
+    white-space: nowrap;   /* the size above guarantees it fits */
+  }
+}
+
+/* "Case study": styled as a meta label (.small-label), under the subtitle */
+.case-kind {
+  margin-top: 10px;
+}
+
+/* Hero row. Mobile: one column, ordered title, tagline, phone, facts
+   (the text column steps aside with display: contents).
+   Desktop: phone on the left, text column on the right. */
+.case-hero-row {
+  --cover-h: clamp(520px, 50vw, 760px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.case-hero-text {
+  display: contents;
+}
+
+.case-title    { order: 1; }
+.case-subtitle,
+.case-kind     { order: 2; }
+.phone-video--cover { order: 3; margin-top: 40px; }
+
+.case-facts {
+  order: 4;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-top: 48px;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+@media (min-width: 900px) {
+  /* Only this page: the phone sits just under the header */
+  .case-page--hero-top {
+    padding-top: 24px;
+  }
+
+  .case-hero-row {
+    flex-direction: row;
+    gap: 56px;
+  }
+
+  .phone-video--cover {
+    order: -1;
+    margin-top: 0;
+  }
+
+  /* The phone starts 6.07% down the video frame. The logo's icon
+     starts at the top of the SVG, so this padding alone puts the top
+     of the icon on the top edge of the phone. */
+  .case-hero-text {
+    display: block;
+    flex: 1;
+    max-width: 560px;
+    padding-top: calc(var(--cover-h) * .0607);
+  }
+
+  .case-title {
+    max-width: none;
+  }
+}
+
+/* ----- WaitWell hero: video on top, then title | facts -----
+   Video. .hero-wide is full-bleed: negative margins cancel the page's
+   side padding (gutter on phones; side menu column and gutter on
+   desktop), so it runs edge to edge like the homepage's blue band,
+   without 100vw and so without a horizontal scrollbar. The side menu's
+   anchor comes after the hero, so the menu never sits on it.
+   Height: never taller than the screen below the header
+   (--hero-top, set by main.js, initHeroVideo: the distance from the
+   top of the page to the video). When the full-width 16:9 video is
+   taller than that, it keeps the full width and object-fit: cover
+   trims the top and bottom, but only up to 5% each: the phone in the
+   video starts 5.6% from each edge, so it is never cut. Past that the
+   video gets narrower instead, keeping 16:9 at that 5% crop, and is
+   centred on the page background (in effect: contain).
+
+   Info row (.hero-info). It stays in the main column and starts on its
+   left edge, right after the video.
+   The facts are .case-facts, so labels and values look exactly like the
+   Dreamlab hero facts; .case-facts--row only changes how they are laid
+   out: side by side, each column as wide as its content, 48px apart.
+   From 1280px the facts follow the title on the same row (48px gap);
+   900–1279px they go under it. If the row runs out of room, only the
+   last column (Tools) gets narrower and its value wraps.
+   Below 900px: two columns (Role, Type / Timeline, Tools). */
+.hero-wide {
+  --hero-room: calc(100svh - var(--hero-top, 102px));
+  margin-inline: calc(-1 * var(--gutter));
+}
+
+/* The video is shown as it is: no blend mode, no filter */
+.hero-video {
+  display: block;
+  width: min(100%, calc(var(--hero-room) * 16 / 9 / .9));
+  height: auto;
+  aspect-ratio: 16 / 9;
+  max-height: var(--hero-room);
+  margin-inline: auto;
+  object-fit: cover;
+}
+
+.hero-info {
+  margin-top: 48px;
+}
+
+/* Text title, for a case study without a logo */
+.case-title--text {
+  max-width: none;
+  font-size: clamp(56px, 6vw, 96px);
+  line-height: .9;
+  letter-spacing: -.04em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* "Case study" under the title */
+.hero-info .case-kind {
+  margin-top: 16px;
+  font-size: 12px;
+}
+
+.case-facts--row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 24px;
+  max-width: none;
+  margin-top: 40px;
+}
+
+@media (min-width: 900px) {
+  .hero-wide {
+    margin-left: calc(-1 * var(--side-menu-w));
+  }
+
+  .case-facts--row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 48px;
+    margin-top: 32px;
+  }
+
+  .case-facts--row > div {
+    flex: 0 0 auto;
+  }
+
+  .case-facts--row > div:last-child {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 48px;
+  }
+
+  .hero-info-title {
+    flex: none;
+  }
+
+  .case-facts--row {
+    flex: 0 1 auto;
+    min-width: 0;
+    margin-top: 0;
+  }
+}
+
+.case-facts dt {
+  margin-bottom: 6px;
+}
+
+/* Role: its text is as big as the body paragraphs (the label stays small) */
+.case-fact--role dd {
+  font-size: var(--case-text-size);
+  line-height: var(--case-text-lh);
+}
+
+/* Pull quote: a narrow 19px paragraph, indented on desktop.
+   (These sizes used to come from the homepage's old About paragraph.)
+   Below 900px it has no indent and runs full width. */
+.pullquote {
+  max-width: 420px;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 19px;
+  line-height: 1.3;
+}
+
+@media (max-width: 899.98px) {
+  .pullquote {
+    max-width: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .pullquote {
+    margin-left: clamp(0px, 20vw, 300px);
+  }
+}
+
+.pullquote + .case-body {
+  margin-top: 40px;
+}
+
+.pullquote blockquote {
+  margin: 0;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.pullquote figcaption {
+  margin-top: 12px;
+  font-family: var(--font-label);
+  font-size: 11px;
+  line-height: 1.45;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--grey);
+}
+
+/* Load animation: the only one on the page that runs on load.
+   It replays when the hero scrolls back on screen (reveal.js). */
+.load-up {
+  animation: case-load .9s var(--ease-out) both;
+}
+
+.load-1 { animation-delay: .1s; }
+.load-2 { animation-delay: .25s; }
+.load-3 { animation-delay: .4s; }
+.load-4 { animation-delay: .55s; }
+
+@keyframes case-load {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: none; }
+}
+
+
+/* ---------- 5. Grids and cards ---------- */
+/* Auto-fit grid. min() keeps columns from overflowing small screens. */
+.cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--min, 260px), 100%), 1fr));
+  gap: var(--gap, 40px 32px);
+}
+
+/* Who it's for: the two audience texts, same type as the pain points.
+   One under the other, in the same narrow column as the pull quote
+   (same max-width, indent and alignment; full width below 900px). */
+.audience {
+  display: grid;
+  gap: 24px;
+  max-width: 420px;
+  font-size: var(--case-text-sm-size);
+  line-height: var(--case-text-sm-lh);
+}
+
+@media (max-width: 899.98px) {
+  .audience {
+    max-width: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .audience {
+    margin-left: clamp(0px, 20vw, 300px);
+  }
+}
+
+/* Pin + text side by side, so wrapped lines stay clear of the pin */
+.audience p {
+  display: flex;
+  gap: .6em;
+}
+
+/* Map-pin: blue outline, as tall as a capital letter (about .72em),
+   pushed down so it sits level with the capitals of the first line.
+   The stroke stays 1.5px whatever the icon's size. */
+.audience-pin {
+  flex: none;
+  height: .72em;
+  width: auto;
+  aspect-ratio: 16 / 20;
+  margin-top: calc((var(--case-text-sm-lh) * 1em - .72em) / 2);
+  overflow: visible;
+  color: var(--blue);
+  stroke-width: 1.5px;
+}
+
+.audience-pin * {
+  vector-effect: non-scaling-stroke;
+}
+
+/* Pain points (Who it's for, under their h3) */
+.pain-points {
+  --min: 220px;
+  --gap: 24px 32px;
+  font-size: var(--case-text-sm-size);
+  line-height: var(--case-text-sm-lh);
+}
+
+/* Four pain points (WaitWell): two on top, two below; stacked on phones */
+.pain-points--two {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 600px) {
+  .pain-points--two {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Research methods */
+.methods {
+  --min: 260px;
+  --gap: 40px 48px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.method-step {
+  margin-top: 14px;
+}
+
+/* Crop-mark corner (echoes the crop marks on the homepage cover column).
+   Decorative ::before in the top-left; the content sits just inside it.
+   In a reveal group the corner draws in first, then the content fades up
+   (see "Scroll reveal"). */
+.crop-corner {
+  position: relative;
+  padding: 20px 0 0 20px;
+}
+
+.crop-corner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border-top: 1.5px solid var(--blue);
+  border-left: 1.5px solid var(--blue);
+  transform-origin: top left;
+}
+
+/* Personas: stacked, centred blocks. Each keeps the width a card had
+   in the old two-column grid (min 320px, 32px gap): half the column
+   minus 16px when the column is 672px+ wide, otherwise the full column.
+   A container query reads the column width, so this also holds at
+   900px, where the side menu narrows the column. */
+.personas {
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;              /* its h3 sets the space above */
+}
+
+.personas .persona {
+  width: 100%;
+  margin-inline: auto;
+  padding-top: 0;
+  border-top: 0;          /* no line above the persona blocks */
+}
+
+@container (min-width: 672px) {
+  .personas .persona {
+    max-width: calc((100% - 32px) / 2);
+  }
+}
+
+/* Card: 2px top line + blue mono label */
+.card {
+  padding-top: 18px;
+  border-top: 2px solid var(--ink);
+}
+
+.card-label {
+  margin-bottom: 10px;
+  color: var(--blue);   /* case studies: small mono labels are blue */
+}
+
+.card-title {
+  margin-bottom: 8px;
+  font-size: 22px;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -.01em;
+}
+
+.card-text {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* Persona card */
+.persona {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 24px;
+}
+
+.persona .card-label {
+  margin-bottom: 0;
+}
+
+.persona-name {
+  font-size: clamp(36px, 3.6vw, 56px);
+  line-height: .95;
+  letter-spacing: -.045em;
+  font-weight: 600;
+}
+
+.persona-quote {
+  font-size: 22px;
+  line-height: 1.3;
+  color: var(--blue);
+}
+
+
+/* ---------- 6. Phone videos and media rows ---------- */
+/* Phone videos are rendered on pure white. multiply turns the white
+   into the page background (--bg) and keeps the soft shadow.
+   Only ever place them on --bg.
+   Never animate a parent of a video (opacity or transform): that
+   would make the white show as a box. Animate the video itself. */
+.phone-video {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  mix-blend-mode: multiply;
+}
+
+/* The phone starts 5.76% of the frame height in from the left edge of
+   the video: the negative margin lines the phone up with the content
+   edge (and the "D" of the title). Below 900px the height is capped. */
+.phone-video--cover {
+  --cover-phone-h: min(var(--cover-h), 520px);
+  flex: 0 0 auto;
+  height: var(--cover-phone-h);
+  margin-left: calc(var(--cover-phone-h) * -.0576);
+}
+
+/* Row after "What is Dreamlab": the patient flow video and two of
+   its screens, all the same height, side by side with equal gaps.
+   Below 700px they stack, centred. */
+.flow-row {
+  --flow-h: clamp(360px, 36vw, 540px);
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(24px, 4vw, 56px);
+  margin-top: 64px;
+}
+
+.flow-row > * {
+  flex: 0 0 auto;
+  width: auto;
+  height: var(--flow-h);
+  max-width: 100%;
+}
+
+/* The video file has empty space around its phone (the phone fills
+   about 93% of the frame's height), the two screenshots have none.
+   So the video is drawn a little bigger and pulled back by that empty
+   space: its phone ends up exactly as tall as the other two, with the
+   same gaps. */
+.flow-row > video {
+  height: calc(var(--flow-h) * 1.077);
+  margin: calc(var(--flow-h) * -.023) calc(var(--flow-h) * -.029) calc(var(--flow-h) * -.054) calc(var(--flow-h) * -.031);
+}
+
+/* WaitWell screens in a .flow-row (532×1007 PNGs): the file has
+   transparent space around the phone for its shadow (37px left and
+   right, 22px above, 61px below; the phone itself is 458×924). Same
+   idea as the video: drawn bigger and pulled back by that space, so the
+   phone is exactly --flow-h tall, the first one starts on the left edge
+   of the column and the gaps between phones are the row's own gap. */
+.flow-row > .flow-shot--shadow {
+  height: calc(var(--flow-h) * 1.0898);
+  margin: calc(var(--flow-h) * -.0238) calc(var(--flow-h) * -.04) calc(var(--flow-h) * -.066);
+}
+
+@media (max-width: 699.98px) {
+  .flow-row {
+    --flow-h: 480px;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+}
+
+@media (min-width: 900px) {
+  .phone-video--cover {
+    --cover-phone-h: var(--cover-h);
+  }
+}
+
+/* Diagrams: site map and task flows */
+.diagram-img {
+  width: 100%;
+  max-width: 820px;
+  height: auto;
+}
+
+/* A tall diagram (WaitWell IA, 680 × 800) that must fit on one screen
+   on desktop, on its own (the sub-heading may scroll out of view):
+   64px less than the screen height, so 32px of air above and below.
+   The width follows from the height (aspect ratio kept), up to 820px.
+   Centred in the main column; its sub-heading stays on the left. */
+@media (min-width: 900px) {
+  .diagram-img--fit {
+    display: block;
+    width: auto;
+    max-height: calc(100svh - 64px);
+    margin: 0 auto;
+  }
+}
+
+
+/* ---------- 7. Moodboard collage ---------- */
+/* Mobile: text first, then a 2-column grid of tiles */
+.collage {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.collage-text {
+  grid-column: 1 / -1;
+  margin-bottom: 24px;
+}
+
+.collage-title {
+  font-size: clamp(34px, 4vw, 60px);
+  line-height: .98;
+  letter-spacing: -.045em;
+  font-weight: 600;
+}
+
+.collage-text p {
+  max-width: 360px;
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.tile {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  transition: transform .5s var(--ease-out), box-shadow .4s;
+}
+
+.tile:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, .14);
+}
+
+.tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (min-width: 900px) {
+  /* Desktop: free layout, tiles placed in % (--x, --y, --w, --h set in the HTML) */
+  .collage {
+    display: block;
+    position: relative;
+    max-width: 900px;
+    height: 720px;
+  }
+
+  .tile {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: var(--w);
+    height: var(--h);
+    aspect-ratio: auto;
+  }
+
+  .collage-text {
+    position: absolute;
+    left: 24%;
+    right: 24%;
+    top: 38%;
+    margin: 0;
+    text-align: center;
+  }
+
+  .collage-text p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+
+/* ---------- 8. Screens strip ---------- */
+/* Kicker: "scroll →" sits after the line */
+.strip {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 8px 0 24px;
+  scrollbar-width: thin;
+}
+
+.strip figure {
+  flex: 0 0 220px;
+  scroll-snap-align: start;
+}
+
+.strip img {
+  width: 220px;
+  height: auto;
+  transition: transform .5s var(--ease-out);
+}
+
+.strip figure:hover img {
+  transform: translateY(-6px);
+}
+
+.strip figcaption {
+  margin-top: 12px;
+}
+
+/* Arrow buttons under the strip (WaitWell), on the right of the main
+   column, 12px apart. The strip has 24px padding under the captions,
+   so 8px more makes 32px from the captions to the buttons. */
+.strip-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.strip-btn {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+  transition: color .2s, border-color .2s, opacity .2s;
+}
+
+.strip-btn:hover:not(:disabled),
+.strip-btn:focus-visible {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.strip-btn:disabled {
+  opacity: .3;
+  cursor: default;
+}
+
+/* WaitWell screens: the PNGs have transparent shadow space around the
+   phone (phone at x 38-494, y 22-942 of 532 x 1003). Same method as
+   .flow-shot--shadow: drawn bigger and pulled back by that space, so the
+   visible phone is as wide as a Dreamlab screen's phone (416 of 420px,
+   shown at 220px) and the strip's own gap and captions line up. */
+.strip > figure > .strip-shot--shadow {
+  --shot-s: calc(220px * 416 / 420 / 456);
+  width: calc(532 * var(--shot-s));
+  max-width: none;
+  margin: calc(-22 * var(--shot-s)) calc(-38 * var(--shot-s)) calc(-61 * var(--shot-s));
+}
+
+
+/* ---------- 9. Research ---------- */
+
+/* What I asked: a title, then the numbered questions */
+.q-block {
+  display: grid;
+  gap: 20px;
+}
+
+.q-title {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -.01em;
+}
+
+.num-list--sm {
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.num-list--sm li + li {
+  margin-top: 14px;
+}
+
+.num-list--sm li::before {
+  padding-top: 3px;
+}
+
+/* Usability test tasks: 1 column, then 2 + 2, then 4 on one row.
+   Long tasks wrap inside their column. */
+.tasks {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
+}
+
+@media (min-width: 600px) {
+  .tasks {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .tasks {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.tasks .col-title {
+  margin-bottom: 14px;
+}
+
+.task-list {
+  display: grid;
+  gap: 10px;
+  padding: 0;
+  list-style: none;
+}
+
+.task-list li {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 6px;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.task-num {
+  padding-top: 2px;
+  font-family: var(--font-label);
+  font-size: 12px;
+  color: var(--blue);
+}
+
+/* What testing showed: finding | recommendations, stacked below 900px */
+.finding {
+  display: grid;
+  gap: 24px 56px;
+  padding: 28px 0;
+}
+
+@media (min-width: 900px) {
+  .finding {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+
+/* Improvements: before → after pairs, stacked below 900px, then
+   3 on one row. Within a pair, before and after always sit side by
+   side; the phones shrink to fit the column instead of wrapping. */
+.improvements {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 56px;
+}
+
+.improvements .col-title {
+  margin-bottom: 18px;
+}
+
+/* Each improvement on its own row. All screens share one visible
+   height (--ba-h): 350px, or less when the three Login screens and
+   two arrows wouldn't fit the card (Login screens are 390 x 844, so
+   width x 844 / 390 = height). Each image keeps its aspect ratio
+   (width/height attributes). The card is the size container. */
+.improvements > .crop-corner {
+  container-type: inline-size;
+}
+
+/* No blue corner on these items; the padding stays, so the content
+   keeps its left edge */
+.improvements > .crop-corner::before {
+  content: none;
+}
+
+.ba-pair {
+  --ba-h: min(350px, calc((100cqi - 2 * (22px + 24px)) / 3 * 844 / 390));
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: start;
+  align-items: center;
+  gap: 12px;
+}
+
+.ba-pair figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.ba-pair img {
+  width: auto;
+  max-width: none;
+  height: var(--ba-h);
+}
+
+.ba-pair figcaption {
+  text-align: center;
+}
+
+.ba-arrow {
+  flex: 0 0 auto;
+  margin-bottom: 24px;    /* centres on the image, not image + caption */
+  font-size: 22px;
+  color: var(--blue);
+}
+
+/* Three screens (Login): Before, Before, arrow, After. The two
+   Before screens sit side by side with the grid's 12px gap. */
+.ba-pair--trio {
+  grid-template-columns: repeat(4, auto);
+}
+
+/* Description on the title's line, in body text style; wraps under
+   the title when it doesn't fit */
+.ba-note {
+  font-weight: 400;
+}
+
+.ba-pair figcaption {
+  text-align: center;
+}
+
+.ba-arrow {
+  flex: 0 0 auto;
+  margin-bottom: 24px;    /* centres on the image, not image + caption */
+  font-size: 22px;
+  color: var(--blue);
+}
+
+
+/* ---------- 10. Blue band ---------- */
+/* Sits inside the main column, so the side menu never covers it */
+.case-band {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 40px;
+  padding: clamp(32px, 5vw, 64px);
+  background: var(--blue);
+  color: var(--white);
+}
+
+.case-band-title {
+  flex: 1 1 420px;
+  align-self: flex-start;   /* top of the band, level with the first paragraph */
+  font-size: clamp(36px, 4.4vw, 68px);
+  line-height: .98;
+  letter-spacing: -.045em;
+  font-weight: 600;
+}
+
+.case-band-body {
+  flex: 1 1 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chips li {
+  padding: 6px 10px;
+  border: 1px solid var(--white);
+}
+
+/* On blue: underline on hover (red would fail contrast), white focus ring */
+.case-band a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.case-band a:hover {
+  color: var(--white);
+  text-decoration-thickness: 2px;
+}
+
+.case-band a:focus-visible {
+  outline-color: var(--white);
+}
+
+
+/* ---------- 10b. WaitWell: Research ----------
+   Only used on the WaitWell page (ww- = WaitWell). */
+:root {
+  --ww-line: #D9D6CF;        /* header line, abroad rows */
+  --ww-line-soft: #E6E3DC;   /* lines between timeline rows */
+  --ww-dot-empty: #CFCBC2;   /* stage not covered */
+  --ww-ring: #DDE3FF;        /* ring around WaitWell's dots */
+}
+
+/* Coverage timeline. One grid per row with the same columns, so the
+   columns line up: 250px names + 5 equal stages, no column gap.
+   Below 900px the box scrolls sideways (the page doesn't): names are
+   160px and sticky, stages at least 120px. */
+.ww-coverage-scroll {
+  --ww-name-w: 160px;
+  margin-top: 64px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+.ww-coverage {
+  min-width: calc(var(--ww-name-w) + 5 * 120px);
+}
+
+.ww-cov-row {
+  display: grid;
+  grid-template-columns: var(--ww-name-w) repeat(5, minmax(0, 1fr));
+  align-items: center;
+  min-height: 64px;
+  border-bottom: 1px solid var(--ww-line-soft);
+}
+
+.ww-cov-row:last-child {
+  border-bottom: 0;
+}
+
+.ww-cov-head {
+  align-items: end;
+  min-height: 0;
+  padding-bottom: 16px;
+  border-bottom-color: var(--ww-line);
+}
+
+.ww-cov-stage {
+  padding: 0 8px;
+  text-align: center;
+}
+
+.ww-cov-name {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  padding-right: 16px;
+  background: var(--bg);
+  font-weight: 600;          /* size: .card-text (15px / 1.5) */
+}
+
+.ww-cov-note {
+  font-weight: 400;
+  color: var(--grey);
+}
+
+.ww-cov-cell {
+  position: relative;
+  align-self: stretch;
+  display: grid;
+  place-items: center;
+}
+
+.ww-dot {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid var(--ww-dot-empty);
+  border-radius: 50%;
+}
+
+.ww-cov-cell.is-covered .ww-dot {
+  width: 16px;
+  height: 16px;
+  border: 0;
+  background: var(--ink);
+}
+
+/* Line between covered neighbours: each cell draws its half, from its
+   edge to its centre, so together they join dot centre to dot centre */
+.ww-cov-cell.join-l::before,
+.ww-cov-cell.join-r::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 50%;
+  height: var(--ww-join, 2px);
+  background: var(--ww-join-colour, var(--ink));
+  transform: translateY(-50%);
+}
+
+.ww-cov-cell.join-l::before { left: 0; }
+.ww-cov-cell.join-r::after  { right: 0; }
+
+/* WaitWell's own row */
+.ww-cov-row--ours {
+  --ww-join: 3px;
+  --ww-join-colour: var(--blue);
+}
+
+.ww-cov-row--ours .ww-cov-name {
+  color: var(--blue);
+}
+
+.ww-cov-row--ours .ww-cov-cell.is-covered .ww-dot {
+  width: 20px;
+  height: 20px;
+  background: var(--blue);
+  box-shadow: 0 0 0 5px var(--ww-ring);
+}
+
+@media (min-width: 900px) {
+  .ww-coverage-scroll {
+    --ww-name-w: 250px;
+    overflow-x: visible;
+  }
+
+  .ww-coverage {
+    min-width: 0;
+  }
+
+  .ww-cov-name {
+    position: static;
+  }
+}
+
+/* Cards: crop-corner, blue number, the same text size as the pain
+   point cards. One column below 900px. */
+.ww-cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 40px;
+  font-size: var(--case-text-sm-size);
+  line-height: var(--case-text-sm-lh);
+}
+
+.ww-cards--tools {
+  margin-top: 72px;
+}
+
+.ww-cards--tools .card-label {
+  margin-bottom: 12px;
+}
+
+.ww-cards--features {
+  row-gap: 48px;
+}
+
+@media (min-width: 900px) {
+  .ww-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* The gap: the UK paragraph, then the big statement (case-statement
+   type, centred, wrapping naturally inside a 900px box). The block spans
+   the column, so the paragraph can use the persona text's width and
+   centring (.personas .persona): full width, and half the column minus
+   16px from a 672px column up. Justified, with hyphenation. */
+.ww-gap {
+  container-type: inline-size;
+  margin-top: 120px;
+}
+
+.ww-gap-text {
+  width: 100%;
+  max-width: none;
+  margin: 0 auto 40px;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+@container (min-width: 672px) {
+  .ww-gap-text {
+    max-width: calc((100% - 32px) / 2);
+  }
+}
+
+.case-statement.ww-statement {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* WaitWell user flow diagrams: full column width, never bigger than
+   their natural size (--natural-w on the img), centred, no height
+   limit; 48px between the two */
+.ww-flow-img {
+  display: block;
+  width: 100%;
+  max-width: var(--natural-w, 100%);
+  height: auto;
+  margin-inline: auto;
+}
+
+.ww-flow-img + .ww-flow-img {
+  margin-top: 48px;
+}
+
+/* Wireframes overview: .ww-flow-img sits on the link, the image fills it */
+.ww-flow-link img {
+  width: 100%;
+  height: auto;
+}
+
+/* Lead-in before the feature cards */
+.ww-lead {
+  margin-top: 120px;
+  margin-bottom: 40px;
+  font-weight: 600;
+}
+
+
+/* ---------- 11. Next project ---------- */
+/* Uses the shared .row / .row--case from layout.css.
+   The top line is a pseudo-element so it can draw in on its own. */
+.next-project {
+  position: relative;
+  margin-top: 160px;
+}
+
+.next-project::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--ink);
+  transform-origin: left;
+}
+
+.next-project .row {
+  padding: 32px 0;
+  border-bottom: 1px solid var(--ink);
+}
+
+
+/* ---------- Reduced motion: no hover lifts ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .tile:hover,
+  .strip figure:hover img {
+    transform: none;
+  }
+}
+
+
+/* ---------- 12. Scroll reveal ----------
+   reveal.js adds .js to <html> (so without JS everything is visible),
+   then .is-in to each [data-reveal] / [data-reveal-group] as it enters.
+   Group children get .reveal-item and --i (0, 1, 2…) for the stagger.
+   Variants: data-reveal="" (fade up), "next" (next-project row).
+   With reduced motion none of this applies: everything is just there. */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* Hero off screen (reveal.js): hidden and reset, so the load
+     animation runs again from the start when it comes back */
+  .js .case-hero.is-out .load-up {
+    opacity: 0;
+    animation: none;
+  }
+
+  /* Default: fade up */
+  .js [data-reveal=""],
+  .js .reveal-item {
+    transition:
+      opacity .8s var(--ease-out),
+      transform .8s var(--ease-out);
+    transition-delay: calc(var(--i, 0) * var(--stagger, 80ms) + var(--delay, 0ms));
+  }
+
+  .js [data-reveal=""]:not(.is-in),
+  .js [data-reveal-group]:not(.is-in) .reveal-item {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  /* Crop corner in a reveal group: the item itself doesn't fade; its
+     corner draws in, then its content fades up 300ms later (the
+     corner's ease starts slowly, so this keeps it visibly first).
+     --i (the stagger index) is inherited from the item. */
+  .js [data-reveal-group] .reveal-item.crop-corner {
+    opacity: 1;
+    transform: none;
+  }
+
+  .js [data-reveal-group] .crop-corner::before {
+    transition: transform .6s var(--ease-line);
+    transition-delay: calc(var(--i, 0) * var(--stagger, 80ms));
+  }
+
+  .js [data-reveal-group] .crop-corner > * {
+    transition:
+      opacity .8s var(--ease-out),
+      transform .8s var(--ease-out);
+    transition-delay: calc(var(--i, 0) * var(--stagger, 80ms) + 300ms);
+  }
+
+  .js [data-reveal-group]:not(.is-in) .crop-corner::before {
+    transform: scale(0);
+  }
+
+  .js [data-reveal-group]:not(.is-in) .crop-corner > * {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  /* Big statement: each line slides up out of its mask */
+  .js .case-statement {
+    --stagger: 120ms;
+  }
+
+  .js .case-statement .reveal-item {
+    transition-duration: .9s;
+  }
+
+  .js .case-statement:not(.is-in) .reveal-item {
+    transform: translateY(105%);
+  }
+
+  /* Moodboard: tiles scale in, text follows 300ms later */
+  .js .collage {
+    --stagger: 70ms;
+  }
+
+  .js .collage:not(.is-in) .reveal-item {
+    transform: scale(.96);
+  }
+
+  .js .collage-text {
+    transition: opacity .8s var(--ease-out) .3s, transform .8s var(--ease-out) .3s;
+  }
+
+  .js .collage:not(.is-in) .collage-text {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  /* Screens strip: the figures visible at the start stagger in */
+  .js .strip {
+    --stagger: 60ms;
+  }
+
+  /* Blue band: the band fades up, then its content */
+  .js .case-band .reveal-item {
+    --delay: 300ms;
+  }
+
+  /* Next project: the top line draws, then the row fades up */
+  .js [data-reveal="next"]::before {
+    transition: transform 1.2s var(--ease-line);
+  }
+
+  .js [data-reveal="next"] .row {
+    transition:
+      color .35s,
+      opacity .8s var(--ease-out) .5s,
+      transform .8s var(--ease-out) .5s;
+  }
+
+  .js [data-reveal="next"]:not(.is-in)::before {
+    transform: scaleX(0);
+  }
+
+  .js [data-reveal="next"]:not(.is-in) .row {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}

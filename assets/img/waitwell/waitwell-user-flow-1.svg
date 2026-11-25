@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1312" viewBox="0 0 1200 1312">
+<title>WaitWell user flow, part 1: care journey</title>
+<defs><style>@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&amp;display=swap');
+.l{font-family:'DM Sans',Helvetica,Arial,sans-serif;font-size:14px;font-weight:500}
+.s{font-family:'DM Sans',Helvetica,Arial,sans-serif;font-size:12px;font-weight:400}</style>
+<marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#9AA3B2"/></marker></defs>
+<text x="70" y="76" class="l" style="font-weight:600" fill="#1F2A44">1. Care journey</text>
+<rect x="109.3" y="96.0" width="201.4" height="44" rx="22" fill="#1F2A44"/>
+<text x="210.0" y="118.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Start: patient triaged</text>
+<path d="M210,140 L210,159" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="109.3" y="162.0" width="201.4" height="44" rx="6" fill="#FFFFFF" stroke="#2350D2" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="210.0" y="184.0" class="l" fill="#2350D2" text-anchor="middle" dominant-baseline="central">SMS with WaitWell link</text>
+<path d="M210,206 L210,225" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="135.0" y="228.0" width="150.0" height="44" rx="6" fill="#2350D2"/>
+<text x="210.0" y="250.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Status · Triage</text>
+<path d="M210,272 L210,291" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="135.0" y="294.0" width="150.0" height="44" rx="6" fill="#DCE5FB"/>
+<text x="210.0" y="316.0" class="l" fill="#1A3BA0" text-anchor="middle" dominant-baseline="central">Estimated wait</text>
+<path d="M210,338 L210,357" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="113.2" y="360.0" width="193.7" height="44" rx="6" fill="#E3F4EA"/>
+<text x="210.0" y="382.0" class="l" fill="#1E6B3E" text-anchor="middle" dominant-baseline="central">Turn on notifications</text>
+<path d="M210,404 L210,423" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<polygon points="210,426 294,468 210,510 126,468" fill="#E6E9F0"/>
+<text x="210" y="468" class="l" fill="#2E3A55" text-anchor="middle" dominant-baseline="central">Feeling worse?</text>
+<path d="M210,510 L210,529" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="120.8" y="532.0" width="178.3" height="44" rx="6" fill="#E3F4EA"/>
+<text x="210.0" y="554.0" class="l" fill="#1E6B3E" text-anchor="middle" dominant-baseline="central">Tap the Triage step</text>
+<path d="M210,576 L210,595" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="132.4" y="598.0" width="155.2" height="44" rx="6" fill="#2350D2"/>
+<text x="210.0" y="620.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Triage · Waiting</text>
+<rect x="680.9" y="96.0" width="178.3" height="44" rx="6" fill="#FFFFFF" stroke="#2350D2" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="770.0" y="118.0" class="l" fill="#2350D2" text-anchor="middle" dominant-baseline="central">SMS: triage started</text>
+<path d="M770,140 L770,159" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="677.0" y="162.0" width="186.0" height="44" rx="6" fill="#2350D2"/>
+<text x="770.0" y="184.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Triage · In progress</text>
+<path d="M770,206 L770,225" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="673.1" y="228.0" width="193.7" height="44" rx="6" fill="#FFFFFF" stroke="#2350D2" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="770.0" y="250.0" class="l" fill="#2350D2" text-anchor="middle" dominant-baseline="central">SMS: triage completed</text>
+<path d="M770,272 L770,291" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="684.7" y="294.0" width="170.6" height="44" rx="6" fill="#1E7A46"/>
+<text x="770.0" y="316.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Triage · Completed</text>
+<path d="M770,338 L770,357" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="646.2" y="360.0" width="247.6" height="44" rx="6" fill="#2350D2"/>
+<text x="770.0" y="382.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Status · Clinical assessment</text>
+<path d="M770,404 L770,423" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="665.5" y="426.0" width="209.1" height="44" rx="6" fill="#FFFFFF" stroke="#2350D2" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="770.0" y="448.0" class="l" fill="#2350D2" text-anchor="middle" dominant-baseline="central">SMS: assessment started</text>
+<path d="M770,470 L770,489" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="661.6" y="492.0" width="216.8" height="44" rx="6" fill="#2350D2"/>
+<text x="770.0" y="514.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Assessment · In progress</text>
+<path d="M770,536 L770,555" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="669.3" y="558.0" width="201.4" height="44" rx="6" fill="#1E7A46"/>
+<text x="770.0" y="580.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Assessment · Completed</text>
+<path d="M294,468 L334,468" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="337.0" y="446.0" width="120.0" height="44" rx="6" fill="#FCE9E1"/>
+<text x="397.0" y="468.0" class="l" fill="#B93815" text-anchor="middle" dominant-baseline="central">Tell staff</text>
+<text x="298" y="460" class="s" fill="#1E7A46" font-weight="600">Yes</text>
+<text x="218" y="524" class="s" fill="#4A5468" font-weight="600">No</text>
+<rect x="360" y="198" width="170" height="126" rx="6" fill="#F1F2F5"/>
+<text x="374" y="220" class="s" fill="#2E3A55" font-weight="600">Status page</text>
+<text x="374" y="242" class="s" fill="#4A5468">• Current step</text>
+<text x="374" y="260" class="s" fill="#4A5468">• Estimated wait</text>
+<text x="374" y="278" class="s" fill="#4A5468">• Position in queue</text>
+<text x="374" y="296" class="s" fill="#4A5468">• If you feel worse</text>
+<text x="374" y="314" class="s" fill="#4A5468">• Care journey, 5 steps</text>
+<line x1="285" y1="250" x2="360" y2="250" stroke="#B4BAC6" stroke-width="1"/><circle cx="360" cy="250" r="3" fill="#B4BAC6"/>
+<path d="M210,642 L210,662 L610,662 L610,70 L770,70 L770,93" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="135.0" y="752.0" width="150.0" height="44" rx="6" fill="#2350D2"/>
+<text x="210.0" y="774.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Status · Tests</text>
+<path d="M210,796 L210,815" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="120.8" y="818.0" width="178.3" height="44" rx="6" fill="#2350D2"/>
+<text x="210.0" y="840.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Tests · In progress</text>
+<path d="M210,862 L210,881" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="132.4" y="884.0" width="155.2" height="44" rx="6" fill="#DCE5FB"/>
+<text x="210.0" y="906.0" class="l" fill="#1A3BA0" text-anchor="middle" dominant-baseline="central">Test 1 of 2 done</text>
+<path d="M210,928 L210,947" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<polygon points="210,950 302,992 210,1034 118,992" fill="#E6E9F0"/>
+<text x="210" y="992" class="l" fill="#2E3A55" text-anchor="middle" dominant-baseline="central">Running on time?</text>
+<path d="M210,1034 L210,1053" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="132.4" y="1056.0" width="155.2" height="44" rx="6" fill="#DCE5FB"/>
+<text x="210.0" y="1078.0" class="l" fill="#1A3BA0" text-anchor="middle" dominant-baseline="central">Test 2 of 2 done</text>
+<path d="M210,1100 L210,1119" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="97.8" y="1122.0" width="224.5" height="44" rx="6" fill="#2350D2"/>
+<text x="210.0" y="1144.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Status · Awaiting results</text>
+<path d="M210,1166 L210,1185" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="124.7" y="1188.0" width="170.6" height="44" rx="6" fill="#FFFFFF" stroke="#2350D2" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="210.0" y="1210.0" class="l" fill="#2350D2" text-anchor="middle" dominant-baseline="central">SMS: results ready</text>
+<rect x="665.5" y="752.0" width="209.1" height="44" rx="6" fill="#2350D2"/>
+<text x="770.0" y="774.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Status · Treatment plan</text>
+<path d="M770,796 L770,815" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="646.2" y="818.0" width="247.6" height="44" rx="6" fill="#2350D2"/>
+<text x="770.0" y="840.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Treatment plan · In progress</text>
+<path d="M770,862 L770,881" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="653.9" y="884.0" width="232.2" height="44" rx="6" fill="#1E7A46"/>
+<text x="770.0" y="906.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Treatment plan · Completed</text>
+<path d="M770,928 L770,947" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<polygon points="770,950 845,992 770,1034 695,992" fill="#E6E9F0"/>
+<text x="770" y="992" class="l" fill="#2E3A55" text-anchor="middle" dominant-baseline="central">Going home?</text>
+<path d="M770,1034 L770,1053" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="695.0" y="1056.0" width="150.0" height="44" rx="6" fill="#1E7A46"/>
+<text x="770.0" y="1078.0" class="l" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">Discharged</text>
+<path d="M770,602 L770,682 L210,682 L210,749" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M302,992 L336,992" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="339.0" y="970.0" width="150.0" height="44" rx="6" fill="#FCE9E1"/>
+<text x="414.0" y="992.0" class="l" fill="#B93815" text-anchor="middle" dominant-baseline="central">Delay notice</text>
+<text x="306" y="984" class="s" fill="#4A5468" font-weight="600">No</text>
+<text x="218" y="1048" class="s" fill="#1E7A46" font-weight="600">Yes</text>
+<path d="M414,1014 L414,1078 L290.6,1078" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="374" y="1118" width="170" height="90" rx="6" fill="#F1F2F5"/>
+<text x="388" y="1140" class="s" fill="#2E3A55" font-weight="600">Delay notice</text>
+<text x="388" y="1162" class="s" fill="#4A5468">• Apology</text>
+<text x="388" y="1180" class="s" fill="#4A5468">• Why it is late</text>
+<text x="388" y="1198" class="s" fill="#4A5468">• New estimate</text>
+<line x1="484" y1="1118" x2="484" y2="1014" stroke="#B4BAC6" stroke-width="1"/><circle cx="484" cy="1014" r="3" fill="#B4BAC6"/>
+<path d="M210,1232 L210,1252 L610,1252 L610,726 L770,726 L770,749" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M845,992 L879,992" fill="none" stroke="#9AA3B2" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="882.1" y="970.0" width="193.7" height="44" rx="6" fill="#DCE5FB"/>
+<text x="979.0" y="992.0" class="l" fill="#1A3BA0" text-anchor="middle" dominant-baseline="central">Admission or transfer</text>
+<text x="849" y="984" class="s" fill="#4A5468" font-weight="600">No</text>
+<text x="778" y="1048" class="s" fill="#1E7A46" font-weight="600">Yes</text>
+</svg>
