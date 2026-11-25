@@ -316,10 +316,12 @@
    The facts are .case-facts, so labels and values look exactly like the
    Dreamlab hero facts; .case-facts--row only changes how they are laid
    out: side by side, each column as wide as its content, 48px apart.
-   From 1280px the facts follow the title on the same row (48px gap);
-   900–1279px they go under it. If the row runs out of room, only the
-   last column (Tools) gets narrower and its value wraps.
-   Below 900px: two columns (Role, Type / Timeline, Tools). */
+   From 1280px the facts follow the title on the same row (48px gap)
+   when they fit beside it, otherwise they go under it; 900–1279px they
+   always go under it. Value lines never wrap: if the columns don't
+   fit, the facts row wraps instead.
+   Below 900px: Role on its own row, then two columns (Type, Timeline /
+   Tools). */
 .hero-wide {
   --hero-room: calc(100svh - var(--hero-top, 102px));
   margin-inline: calc(-1 * var(--gutter));
@@ -364,16 +366,28 @@
   margin-top: 40px;
 }
 
+/* Below 900px Role takes the full width, so its longest line
+   ("Designed and built end to end:") never breaks a word onto its own
+   line; Type | Timeline and Tools follow in the two columns. */
+@media (max-width: 899.98px) {
+  .case-facts--row > .case-fact--role {
+    grid-column: 1 / -1;
+  }
+}
+
 @media (min-width: 900px) {
   .hero-wide {
     margin-left: calc(-1 * var(--side-menu-w));
   }
 
+  /* Each value line stays on one line, and the columns are never
+     squeezed: if they don't all fit, the row wraps (28px between rows). */
   .case-facts--row {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: flex-start;
-    gap: 48px;
+    gap: 28px 48px;
     margin-top: 32px;
   }
 
@@ -381,17 +395,19 @@
     flex: 0 0 auto;
   }
 
-  .case-facts--row > div:last-child {
-    flex: 0 1 auto;
-    min-width: 0;
+  .case-facts--row dd {
+    white-space: nowrap;
   }
 }
 
 @media (min-width: 1280px) {
+  /* Title and facts on one row when the facts fit beside the title;
+     otherwise the facts go under it, 32px down (as at 900–1279px). */
   .hero-info {
     display: flex;
+    flex-wrap: wrap;
     align-items: flex-start;
-    gap: 48px;
+    gap: 32px 48px;
   }
 
   .hero-info-title {
@@ -400,7 +416,6 @@
 
   .case-facts--row {
     flex: 0 1 auto;
-    min-width: 0;
     margin-top: 0;
   }
 }
