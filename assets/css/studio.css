@@ -84,7 +84,9 @@
    centred top to bottom. In the site blue (--blue
    from base.css). 28.35 units: 1.5x the earlier 18.9 (whose caps
    were 1.3x the 10.4-unit caps of the drawing's "h = 2.40"). At this
-   size each sentence wraps onto two lines, so it's four lines. */
+   size the first sentence wraps onto three lines and the second onto
+   two (five in all); the text runs slightly past the area top and
+   bottom, still clear of the header, the arch and the wall items. */
 .studio-note {
   left: calc(-131 / 1600 * 100%);
   top: calc(122 / 900 * 100%);
