@@ -1140,9 +1140,22 @@
   align-self: flex-start;
   font-size: clamp(22px, 2.4vw, 34px);
   letter-spacing: -.02em;
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 8px;
+}
+
+/* The arrow is the Work / "View my CV" row arrow (.row-arrow, section 7):
+   same glyph, sized by the text, faint until hover, then it nudges up
+   and to the right like on the rows. */
+.footer-email:hover .row-arrow,
+.footer-email:focus-visible .row-arrow {
+  opacity: 1;
+  transform: translate(8px, -8px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-email:hover .row-arrow,
+  .footer-email:focus-visible .row-arrow {
+    transform: none;
+  }
 }
 
 .footer-bottom {
