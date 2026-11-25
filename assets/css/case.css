@@ -28,22 +28,6 @@
   /* Smaller body text: Pain points and the Who it's for texts */
   --case-text-sm-size: 16px;
   --case-text-sm-lh: 1.45;
-  /* Hero subtitle type.
-     Below 900px the subtitle may wrap; from 900px it must fit the
-     right column on one line (see the media query below). */
-  --case-tagline-size: 16px;
-  --case-tagline-lh: 1.3;
-  /* DreamLab logo purple (the "LAB" in the logo) */
-  --dreamlab-purple: #5E4FC0;
-}
-
-/* The subtitle is 20.87em wide. The right column is 296px at 900px
-   (fits 14.2px), 392px at 1000 and 560px from ~1260px, so 1.4vw with
-   a 14px floor always fits; 21px cap. */
-@media (min-width: 900px) {
-  :root {
-    --case-tagline-size: clamp(14px, 1.4vw, 21px);
-  }
 }
 
 
@@ -279,61 +263,19 @@
 
 
 /* ---------- 4. Hero ---------- */
-/* h1 holding the DreamLab logo (SVG, no side bearing, icon starts at
-   the very top of the file). Full column width on desktop, 300px cap
-   on mobile. */
+/* Both case studies (Dreamlab, WaitWell) use the same hero: the
+   taster video on top, then the title and the facts (below). */
 .case-title {
   width: 100%;
   max-width: 300px;
 }
 
-.case-title img {
-  display: block;
-  width: 100%;
-  max-width: 560px;
-  height: auto;
-}
-
-.case-subtitle {
-  margin-top: 28px;
-  font-size: var(--case-tagline-size);
-  line-height: var(--case-tagline-lh);
-  letter-spacing: -.02em;
-  color: var(--dreamlab-purple);
-}
-
-@media (min-width: 900px) {
-  .case-subtitle {
-    white-space: nowrap;   /* the size above guarantees it fits */
-  }
-}
-
-/* "Case study": styled as a meta label (.small-label), under the subtitle */
+/* "Case study": styled as a meta label (.small-label), under the title */
 .case-kind {
   margin-top: 10px;
 }
 
-/* Hero row. Mobile: one column, ordered title, tagline, phone, facts
-   (the text column steps aside with display: contents).
-   Desktop: phone on the left, text column on the right. */
-.case-hero-row {
-  --cover-h: clamp(520px, 50vw, 760px);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.case-hero-text {
-  display: contents;
-}
-
-.case-title    { order: 1; }
-.case-subtitle,
-.case-kind     { order: 2; }
-.phone-video--cover { order: 3; margin-top: 40px; }
-
 .case-facts {
-  order: 4;
   max-width: 420px;
   display: flex;
   flex-direction: column;
@@ -344,29 +286,9 @@
 }
 
 @media (min-width: 900px) {
-  /* Only this page: the phone sits just under the header */
+  /* The hero sits just under the header */
   .case-page--hero-top {
     padding-top: 24px;
-  }
-
-  .case-hero-row {
-    flex-direction: row;
-    gap: 56px;
-  }
-
-  .phone-video--cover {
-    order: -1;
-    margin-top: 0;
-  }
-
-  /* The phone starts 6.07% down the video frame. The logo's icon
-     starts at the top of the SVG, so this padding alone puts the top
-     of the icon on the top edge of the phone. */
-  .case-hero-text {
-    display: block;
-    flex: 1;
-    max-width: 560px;
-    padding-top: calc(var(--cover-h) * .0607);
   }
 
   .case-title {
@@ -748,16 +670,6 @@
   mix-blend-mode: multiply;
 }
 
-/* The phone starts 5.76% of the frame height in from the left edge of
-   the video: the negative margin lines the phone up with the content
-   edge (and the "D" of the title). Below 900px the height is capped. */
-.phone-video--cover {
-  --cover-phone-h: min(var(--cover-h), 520px);
-  flex: 0 0 auto;
-  height: var(--cover-phone-h);
-  margin-left: calc(var(--cover-phone-h) * -.0576);
-}
-
 /* Row after "What is Dreamlab": the patient flow video and two of
    its screens, all the same height, side by side with equal gaps.
    Below 700px they stack, centred. */
@@ -803,12 +715,6 @@
     flex-direction: column;
     align-items: center;
     gap: 32px;
-  }
-}
-
-@media (min-width: 900px) {
-  .phone-video--cover {
-    --cover-phone-h: var(--cover-h);
   }
 }
 

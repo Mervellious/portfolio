@@ -41,79 +41,81 @@
     </nav>
   </header>
 
-  <!-- Side menu (desktop only). Hidden until the
-       header has scrolled away, then pinned; hidden again at the footer.
-       data-spy: main.js turns the current "On this page" link red. -->
-  <div class="side-menu-anchor">
-    <aside class="side-menu is-hidden" aria-label="Side menu" data-reveal-on-pin inert>
-      <p class="side-name"><a href="../index.html" aria-label="Merve Uzuner — home">Merve Uzuner</a></p>
-      <nav class="side-nav mono-label" aria-label="Sections">
-        <a href="../index.html#work" data-nav-link="work">Work</a>
-        <a href="../studio.html">Studio</a>
-        <a href="../index.html#my-story">About</a>
-        <a href="#contact">Contact</a>
-      </nav>
-      <nav class="side-subnav" aria-label="On this page" data-spy>
-        <a href="#what">— What is Dreamlab</a>
-        <a href="#why">— Why DreamLab</a>
-        <a href="#audience">— Who it's for</a>
-        <a href="#problem">— The problem</a>
-        <a href="#research">— Research</a>
-        <!-- Research's sub-headings: shown only while Research is the
-             current item (main.js), one marked as you scroll past it -->
-        <div class="side-subgroup" hidden>
-          <a href="#research-methodology">— Methodology</a>
-          <a href="#research-asked">— What I Asked</a>
-          <a href="#research-learned">— What I Learned</a>
-          <a href="#research-test">— Usability Test Tasks</a>
-          <a href="#research-findings">— Findings</a>
-          <a href="#research-improvements">— Changes After Testing</a>
-        </div>
-        <a href="#process">— Design process</a>
-        <!-- Design process's sub-headings, same as Research's above -->
-        <div class="side-subgroup" hidden>
-          <a href="#process-look">— Look &amp; Feel</a>
-          <a href="#process-ia">— Information Architecture</a>
-          <a href="#process-wireframes">— Wireframes</a>
-          <a href="#process-patient-flow">— Patient Flow</a>
-          <a href="#process-specialist-flow">— Specialist Flow</a>
-          <a href="#process-iterations">— Iterations</a>
-        </div>
-        <a href="#development">— Development</a>
-        <a href="#final">— Final product</a>
-      </nav>
-    </aside>
-  </div>
-
   <main class="case-page case-page--hero-top case-page--caps-titles" data-nav="work">
 
-    <!-- Hero: phone on the left, title / tagline / facts on the right
-         (desktop). The text column comes first in the HTML so the h1 leads;
-         CSS puts the phone on the left, and on mobile orders them
-         title, tagline, phone, facts.
-         The row and the column are not animated (the row holds a blended
-         video); each item fades up on its own. -->
+    <!-- Hero: the taster video on top, then one row with the title and
+         the facts. Same markup, classes and JS as the WaitWell hero.
+         Video: full-bleed (edge to edge), 16:9, never taller than the
+         screen below the header (case.css; main.js, initHeroVideo).
+         It has its own background: no blend mode.
+         Info row: stays in the main column and starts on its left edge. -->
     <section class="case-hero" id="overview" aria-labelledby="case-title">
-      <div class="case-hero-row">
-        <div class="case-hero-text">
-          <h1 class="case-title load-up load-1" id="case-title"><img src="../assets/img/dreamlab/dreamlab-logo.svg" alt="DreamLab" width="560" height="50"></h1>
-          <p class="case-subtitle load-up load-2">A dream journal built for clinical dream research</p>
-          <p class="case-kind small-label load-up load-2">Case study</p>
-          <dl class="case-facts load-up load-4">
-            <div class="case-fact--role"><dt class="small-label">Role</dt><dd>Designed and built end to end:<br>Product concept<br>UX research<br>UX/UI design<br>Full-stack development</dd></div>
-            <div><dt class="small-label">Type</dt><dd>Academic project,<br>SAE Institute</dd></div>
-            <div><dt class="small-label">Timeline</dt><dd>Jan–May 2026</dd></div>
-            <div><dt class="small-label">Tools</dt><dd>Figma · VS Code · Claude Code<br>Flask · MariaDB · Chart.js · GitHub</dd></div>
-          </dl>
-        </div>
-        <video class="phone-video phone-video--cover load-up load-3" data-play-in-view
-               src="../assets/video/dreamlab/cover.mp4"
-               poster="../assets/video/dreamlab/cover-poster.jpg"
-               width="706" height="1302"
+      <div class="hero-wide" data-hero-video>
+        <video class="hero-video load-up load-1" data-play-in-view
+               src="../assets/video/dreamlab/dreamlab-taster.mp4?v=1"
+               poster="../assets/video/dreamlab/dreamlab-taster-poster.jpg?v=1"
+               width="1920" height="1080"
                autoplay muted loop playsinline
-               aria-label="DreamLab mobile landing page: Capture dreams before they fade. Review them with your specialist."></video>
+               aria-label="Dreamlab taster video: the DreamLab logo, &quot;A dream journal built for clinical dream research&quot;, then a phone on a soft pink and blue background goes through one dream entry: write your dream before it fades, go through a guided questionnaire, select how you felt, rate last night's sleep, and submit. It ends on &quot;Sent to your specialist&quot;."></video>
+      </div>
+      <div class="hero-info">
+        <div class="hero-info-title">
+          <h1 class="case-title case-title--text load-up load-2" id="case-title">Dreamlab</h1>
+          <p class="case-kind small-label load-up load-2">Case study</p>
+        </div>
+        <dl class="case-facts case-facts--row load-up load-3">
+          <div class="case-fact--role"><dt class="small-label">Role</dt><dd>Designed and built end to end:<br>Product concept<br>UX research<br>UX/UI design<br>Full-stack development</dd></div>
+          <div><dt class="small-label">Type</dt><dd>Academic project,<br>SAE Institute</dd></div>
+          <div><dt class="small-label">Timeline</dt><dd>Jan–May 2026</dd></div>
+          <div><dt class="small-label">Tools</dt><dd>Figma · VS Code · Claude Code<br>Flask · MariaDB · Chart.js · GitHub</dd></div>
+        </dl>
       </div>
     </section>
+
+    <!-- Side menu (desktop only). Its anchor sits after the hero, because
+         the hero uses the full width: the menu stays hidden until the
+         hero has scrolled away, then it is pinned; hidden again at the
+         footer. data-spy: main.js marks the current "On this page" link. -->
+    <div class="side-menu-anchor side-menu-anchor--in-page">
+      <aside class="side-menu is-hidden" aria-label="Side menu" data-reveal-on-pin inert>
+        <p class="side-name"><a href="../index.html" aria-label="Merve Uzuner — home">Merve Uzuner</a></p>
+        <nav class="side-nav mono-label" aria-label="Sections">
+          <a href="../index.html#work" data-nav-link="work">Work</a>
+          <a href="../studio.html">Studio</a>
+          <a href="../index.html#my-story">About</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <nav class="side-subnav" aria-label="On this page" data-spy>
+          <a href="#what">— What is Dreamlab</a>
+          <a href="#why">— Why DreamLab</a>
+          <a href="#audience">— Who it's for</a>
+          <a href="#problem">— The problem</a>
+          <a href="#research">— Research</a>
+          <!-- Research's sub-headings: shown only while Research is the
+               current item (main.js), one marked as you scroll past it -->
+          <div class="side-subgroup" hidden>
+            <a href="#research-methodology">— Methodology</a>
+            <a href="#research-asked">— What I Asked</a>
+            <a href="#research-learned">— What I Learned</a>
+            <a href="#research-test">— Usability Test Tasks</a>
+            <a href="#research-findings">— Findings</a>
+            <a href="#research-improvements">— Changes After Testing</a>
+          </div>
+          <a href="#process">— Design process</a>
+          <!-- Design process's sub-headings, same as Research's above -->
+          <div class="side-subgroup" hidden>
+            <a href="#process-look">— Look &amp; Feel</a>
+            <a href="#process-ia">— Information Architecture</a>
+            <a href="#process-wireframes">— Wireframes</a>
+            <a href="#process-patient-flow">— Patient Flow</a>
+            <a href="#process-specialist-flow">— Specialist Flow</a>
+            <a href="#process-iterations">— Iterations</a>
+          </div>
+          <a href="#development">— Development</a>
+          <a href="#final">— Final product</a>
+        </nav>
+      </aside>
+    </div>
 
     <!-- 01 What is Dreamlab -->
     <section class="case-section" id="what" aria-labelledby="what-label">
