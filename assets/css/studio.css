@@ -39,18 +39,19 @@
 /* The scene: the whole 2400 x 900 drawing (viewBox -400 0 2400 900; the
    original 1600 x 900 sits in the middle, only lines continue to the
    sides). It is as tall as the stage, so the whole height shows, but
-   no taller than lets the safe zone, x -140 to 1580 of the drawing
-   (1720 wide, so the note at x -131 and ART 2 at x -50 are never
-   cropped), fit the stage's width (100cqw = the stage's width). The
-   safe zone's middle (x 720, 46.667% of the 2400) sits at the stage's
+   no taller than lets the safe zone, x -170 to 1580 of the drawing
+   (1750 wide, so ART 6 at x -147 with its corner tape to about
+   x -167, the note at x -131 and ART 2 at x -50 are never cropped),
+   fit the stage's width (100cqw = the stage's width). The safe
+   zone's middle (x 705, 46.0417% of the 2400) sits at the stage's
    middle; top-aligned; the sides past the screen edges are cropped. */
 .studio-scene {
   position: absolute;
   top: 0;
   left: 50%;
-  height: min(100%, calc(100cqw * 900 / 1720));
+  height: min(100%, calc(100cqw * 900 / 1750));
   aspect-ratio: 2400 / 900;
-  transform: translateX(-46.6667%);
+  transform: translateX(-46.0417%);
 }
 
 .studio-bg {
@@ -72,7 +73,7 @@
   left: 16.6667%;
   width: 66.6667%;
   height: 100%;
-  --u: calc(min(100cqh, 100cqw * 900 / 1720) / 900);
+  --u: calc(min(100cqh, 100cqw * 900 / 1750) / 900);
 }
 
 .studio-content > * {
