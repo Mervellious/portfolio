@@ -1,6 +1,6 @@
 /* =========================================================
    case.css
-   Patterns shared by every case study page (DreamLab, WaitWell…).
+   Patterns shared by every case study page (Dreamlab, WaitWell…).
    Header, side menu, footer, tokens, fonts and the project row
    (.row, used for "Next project") come from base.css and layout.css.
 
@@ -91,18 +91,6 @@
 
 
 /* ---------- 3. Headings and text ---------- */
-.case-h2 {
-  font-size: clamp(36px, 4vw, 60px);
-  line-height: 1;
-  letter-spacing: -.04em;
-  font-weight: 600;
-}
-
-.case-h2--sm {
-  margin-bottom: 28px;
-  font-size: clamp(32px, 3.4vw, 52px);
-}
-
 /* Sub-heading inside a section: smaller than the section title */
 .case-h3 {
   margin-bottom: 20px;
@@ -253,11 +241,6 @@
 
 .mask > span {
   display: block;
-}
-
-.accent {
-  color: var(--blue);
-  font-weight: 600;
 }
 
 
@@ -484,7 +467,6 @@
 .load-1 { animation-delay: .1s; }
 .load-2 { animation-delay: .25s; }
 .load-3 { animation-delay: .4s; }
-.load-4 { animation-delay: .55s; }
 
 @keyframes case-load {
   from { opacity: 0; transform: translateY(32px); }
@@ -654,17 +636,6 @@
   flex-direction: column;
   gap: 16px;
   padding-top: 24px;
-}
-
-.persona .card-label {
-  margin-bottom: 0;
-}
-
-.persona-name {
-  font-size: clamp(36px, 3.6vw, 56px);
-  line-height: .95;
-  letter-spacing: -.045em;
-  font-weight: 600;
 }
 
 .persona-quote {

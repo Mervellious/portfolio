@@ -4,10 +4,10 @@
    2. Side menu: pins on desktop, adapts its colour,
       highlights the section in view
    3. Work section: hide a row's peek image if it doesn't fit
-   4. Work section: "Selected Art Direction Work" dropdown
-   5. WaitWell hero video: height limit below the header
-   6. Screens strip arrow buttons (WaitWell)
-   7. CV: "View my CV" row + CV sheet (homepage)
+   4. Case study hero video: height limit below the header
+   5. Screens strip arrow buttons (case studies)
+   6. CV: "View my CV" row + CV sheet (homepage)
+   7. Work lines (homepage): draw in when on screen
    ========================================================= */
 
 'use strict';
@@ -22,13 +22,13 @@ const PROJECTS = [
     alt: 'WaitWell splash screen: real-time A&E wait updates for NHS patients'
   },
   {
-    name: 'DreamLab',
+    name: 'Dreamlab',
     role: 'UX/UI Design\nFrontend Development\nBackend Development',
     href: 'work/dreamlab.html',
     // A project with `video` gets a looping video cover instead of an image
     video: 'assets/video/dreamlab/dreamlab-cover.mp4',
     poster: 'assets/video/dreamlab/dreamlab-cover-poster.jpg',
-    alt: 'DreamLab landing page and patient dashboard'
+    alt: 'Dreamlab landing page and patient dashboard'
   }
 ];
 
@@ -734,8 +734,8 @@ function initWorkPeeks() {
 
 /* ---------- Start ---------- */
 /* =========================================================
-   5. WaitWell hero video: its distance from the top of the page
-   [data-hero-video] is the full-bleed box of the hero video. case.css
+   4. Case study hero video: its distance from the top of the page
+   [data-hero-video] is the box around the hero video. case.css
    keeps the video no taller than the screen below that point
    (100svh - --hero-top); the header's height changes with the width
    (it wraps on phones) and with the fonts, so it is measured here.
@@ -758,7 +758,7 @@ function initHeroVideo() {
 
 
 /* =========================================================
-   6. Screens strip arrow buttons
+   5. Screens strip arrow buttons
    [data-strip-controls="<strip id>"] holds a previous and a next
    button. Each click moves the strip by about its visible width,
    landing on the start of a screen: next goes to the first screen
@@ -829,7 +829,7 @@ function initStripControls() {
 
 
 /* =========================================================
-   7. CV: "View my CV" row + CV sheet (homepage)
+   6. CV: "View my CV" row + CV sheet (homepage)
    The pages come from CV_PAGES (one image per page); the peek on the
    row shows a small page 1 (CV_PEEK). Opening:
    page 1 grows out of the peek (or the arrow below 1280px, where
@@ -1070,7 +1070,7 @@ initWorkLines();
 
 
 /* =========================================================
-   8. Work lines (homepage): each dividing line under a case-study row
+   7. Work lines (homepage): each dividing line under a case-study row
    draws in from the left (work.css) once per page view, when it is
    actually on screen (threshold .6). The second line starts at
    least 200ms after the first. Coming back with the Back button

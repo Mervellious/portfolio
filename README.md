@@ -15,52 +15,49 @@ Fonts (Geist and Instrument Sans) load from Google Fonts, so you need an interne
 ```
 index.html               the homepage
 work/dreamlab.html       the Dreamlab case study
-work/waitwell.html       the WaitWell case study (several sections are headings only for now)
+work/waitwell.html       the WaitWell case study
 studio.html              the Studio page: a hand-drawn studio with the wall images on top
-assets/css/case.css      patterns shared by the case study pages
-assets/js/reveal.js      scroll reveal on the case study pages
 assets/css/base.css      reset, design tokens (colours, fonts, gutter, side menu width), shared text styles
 assets/css/layout.css    shared parts (header, side menu, footer) + homepage sections
 assets/css/work.css      the homepage's Work section: project rows, lines, hover peek
 assets/css/cv.css        the homepage's "View my CV" row and CV sheet
-assets/cv/               the CV PDF and its page images (once the real CV is ready)
-assets/js/main.js        cover column loop (homepage) + side menu behaviour (both pages) + CV sheet (homepage)
-assets/css/studio.css    the Studio stage, wall frames and large view
-assets/js/studio.js      Studio: wall frames open large in a <dialog>
-assets/img/studio/       studio-bg.svg (the drawing) and, later, the wall images
-assets/img/covers/       project cover images
+assets/css/case.css      patterns shared by the case study pages
+assets/css/studio.css    the Studio stage, wall frames, work sheets and artwork sheets
+assets/js/main.js        cover column (homepage), side menu, hero video, screen strips, CV sheet, Work lines
+assets/js/reveal.js      scroll reveal on the case study pages
+assets/js/studio.js      Studio: wall items open in a sheet (<dialog>)
+assets/cv/               the CV PDF and its page images
+assets/img/covers/       the WaitWell cover (homepage column, hover peek, og:image)
+assets/img/dreamlab/     Dreamlab case study images
+assets/img/waitwell/     WaitWell case study images
+assets/img/studio/       studio-bg.svg (the drawing), the artworks and the work sheet images
+assets/video/dreamlab/   the homepage cover video, the case study hero video and the patient flow video, with posters
+assets/video/waitwell/   the WaitWell hero video and its poster
 ```
 
 ## Adding a page that uses the side menu
 
 Put `<div class="side-menu-anchor">` with the `<aside class="side-menu">` inside it where the menu should start (at the top of the Work section on the homepage, right after the header on a case study page). `main.js` pins the menu when that anchor reaches the top of the screen. Mark sections with `data-nav="work|about"` (matching each menu link's `data-nav-link`) and dark sections with `data-dark`.
 
-## How to swap the placeholder covers
+## Homepage covers
 
-WaitWell already uses its final cover, `assets/img/covers/waitwell-cover.jpg` (1200×1500). Dreamlab uses a looping video cover (`assets/video/dreamlab/dreamlab-cover.mp4`). The old SVG placeholders are no longer in the site.
+The cover column on the homepage has two projects, both set in the `PROJECTS` array at the top of `assets/js/main.js`: name, role, link, cover and alt text all live there.
 
-1. Export each real cover at **4:5** (for example 1200×1500 px, so it stays sharp on retina screens).
-2. Save them as `.jpg`, named like the WaitWell one: `dreamlab-cover.jpg`, `before-ux-cover.jpg`.
-3. Put them in `assets/img/covers/`.
-4. In `assets/js/main.js`, update the file extension in the `PROJECTS` array at the top:
-   ```js
-   image: 'assets/img/covers/before-ux-cover.jpg',
-   ```
-5. Check the `alt` text in the same array still describes the real image.
+- WaitWell uses an image: `assets/img/covers/waitwell-cover.jpg` (4:5, 1200×1500).
+- Dreamlab uses a looping video, `assets/video/dreamlab/dreamlab-cover.mp4`, with `dreamlab-cover-poster.jpg` as its poster.
 
-The tiles are built from that `PROJECTS` array, so the name, role, image and alt text for each project all live in one place.
+To change a cover, export it at **4:5** (for example 1200×1500 px, so it stays sharp on retina screens) and update its path and `alt` text in `PROJECTS`. A project with `video` (and `poster`) gets a video cover; one with `image` gets an image.
 
-**Work section (homepage):** the hover images use the same cover files (`assets/img/covers/`).
+**Work section (homepage):** the hover images are set in `index.html`, one `<img>` in each row's `.row-peek`: `waitwell-cover.jpg` and `dreamlab-cover-poster.jpg`.
 
-## How to add the Studio wall images
+## Studio wall items
 
-The wall frames in `studio.html` are placeholders (hatched boxes). For each one:
+The wall items in `studio.html` are buttons with an image inside. Each one's position and size come from the drawing's pixels (`--x`, `--y`, `--w`, `--h` on the button, on the original 1600 × 900 area, the middle of the 2400 × 900 drawing), and `--tilt` turns it slightly.
 
-1. Put the image in `assets/img/studio/`.
-2. In `studio.html`, inside that frame's `<button>`, replace the `<span class="studio-label">…</span>` (or the empty button, for the strip squares) with `<img src="assets/img/studio/your-file.jpg" alt="what the image shows">`.
-3. Update the button's `aria-label` (for example "Set design sketch — open large").
+- **Artworks (ART 1–6):** `class="studio-frame studio-art"`. The sheet shows the button's image uncropped, with `data-title` and `data-note` as the handwritten text beside it. Keep the button's `aria-label` and the image's `alt` in line with them.
+- **Work boxes (the strip, 1–5):** `class="studio-frame studio-work"` with `data-sheet="elle"` and so on. Each sheet's title, captions and images come from the `SHEETS` object in `assets/js/studio.js`. The images are in `assets/img/studio/` (`work1_cover.jpg`, `work1_a.jpg`…).
 
-Each frame's position and size come from the drawing's pixels (`--x`, `--y`, `--w`, `--h` on the button, on the original 1600 × 900 area, the middle of the 2400 × 900 drawing). The large view copies whatever is inside the button, so it shows the same image. On desktop the drawing fills the screen below the header at full height; the blank paper and lines at the sides are cropped. Below 960 px wide the stage is 960 px wide and scrolls sideways.
+On desktop the drawing fills the screen below the header at full height. It is sized so the safe zone, x −170 to 1580 of the drawing, always fits the width; the blank paper and lines beyond it are cropped. Below 960 px wide the stage is 960 px wide and scrolls sideways.
 
 ## CV
 
@@ -70,7 +67,7 @@ The sheet shows `assets/cv/merve-uzuner-cv.pdf` as images, one PNG per page, and
 
 1. Replace `assets/cv/merve-uzuner-cv.pdf` (keep the name).
 2. Convert each page to a PNG 1700 px wide (twice A4 at 850 px, so it stays sharp on retina screens): `cv-page-1.png`, `cv-page-2.png`… in the same folder. Also make `cv-peek.png` from page 1 at 312 px wide (the 156 × 220 hover peek at 2×). Any PDF-to-PNG tool that renders at that width (rather than enlarging a small image) will do.
-3. In `assets/js/main.js`, section 7, list one image per page in `CV_PAGES`:
+3. In `assets/js/main.js`, section 6, list one image per page in `CV_PAGES`:
    ```js
    const CV_PAGES = [
      'assets/cv/cv-page-1.png',
@@ -81,7 +78,7 @@ The sheet shows `assets/cv/merve-uzuner-cv.pdf` as images, one PNG per page, and
 
 ## How the cover column works (short version)
 
-- The three projects are repeated 3 times (9 tiles). The page starts on tile 4, the first tile of the middle copy.
+- The two projects are repeated 3 times (6 tiles). The page starts on tile 3, the first tile of the middle copy.
 - Every 3.2 s it scrolls one tile down. It pauses while the mouse is over the column, while the column has keyboard focus, and for 4 s after you scroll it yourself.
 - When scrolling stops in the first or last copy, the script jumps instantly to the same tile in the middle copy. The image and position are identical, so you never see the jump. Transitions are switched off for that one frame.
 - Every tile has the same layout size and is never transformed; the active / inactive look is an opacity and a scale on the image or video inside it. That keeps each tile's snap point fixed. Tile positions and the jump distance are read from the real layout (`offsetTop`), and scroll snapping is switched off while the script scrolls, then back on when the scroll has ended.
@@ -98,6 +95,6 @@ The sheet shows `assets/cv/merve-uzuner-cv.pdf` as images, one PNG per page, and
 
 ## TODO
 
-- Real email address (footer link text and both `mailto:` links, on both pages)
-- WaitWell case study (`work/waitwell.html`): hero subtitle; content for Design process, Development and Final product
-- Real cover images (see above)
+- Real email address (footer link text and both `mailto:` links, on all four pages)
+- Once the site is live: make `og:image` an absolute URL on both case study pages
+- Dreamlab: re-export the site map and task flow images, which still say "clinician"
