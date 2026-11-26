@@ -913,26 +913,19 @@
   font-weight: 700;
 }
 
-.ai-lead {
+/* One blank ruled line between paragraphs */
+.ai-text {
   margin-bottom: 32px;
 }
 
-.ai-columns {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
-  gap: 32px 64px;
+/* Checklist: the list's own numbers (1. 2. 3.), in the 36px left
+   column, in the label font and blue */
+.ai-list {
+  list-style: decimal outside;
+  padding-left: 36px;
 }
 
-.ai-list-title {
-  font-weight: 600;
-}
-
-.ai-list li {
-  display: grid;
-  grid-template-columns: 36px 1fr;
-}
-
-.ai-num {
+.ai-list li::marker {
   font-family: var(--font-label);
   font-size: 12px;
   color: var(--blue);
