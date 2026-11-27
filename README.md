@@ -95,6 +95,4 @@ The sheet shows `assets/cv/merve-uzuner-cv.pdf` as images, one PNG per page, and
 
 ## TODO
 
-- Real email address (footer link text and both `mailto:` links, on all four pages)
-- Once the site is live: make `og:image` an absolute URL on both case study pages
 - Dreamlab: re-export the site map and task flow images, which still say "clinician"
