@@ -40,7 +40,8 @@
          the sides cropped; the frames sit in its middle 1600 x 900 area
          (assets/css/studio.css). Every frame is placed from its pixel
          position on that 1600 x 900 area. Below 960px the stage is
-         960px wide and scrolls sideways. -->
+         960px wide and scrolls sideways (below 600px it ends after the
+         last artwork). -->
     <div class="studio-scroll">
       <section class="studio" aria-label="Studio">
         <div class="studio-scene">
@@ -51,6 +52,10 @@
           <div class="studio-content">
             <!-- Handwritten note, below the floor line (assets/css/studio.css) -->
             <p class="studio-note">Some of the prints, drawings and sets I've made over the years.<br>Take anything off the wall to look closer.</p>
+
+            <!-- Swipe hint, under the floor line; only shown where the
+                 stage scrolls sideways (assets/css/studio.css) -->
+            <p class="studio-hint" aria-hidden="true">Swipe to see more<svg viewBox="0 0 38 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10.2c6-.9 12.5-.4 19-.9 4.2-.3 8.3-.5 13.6-.6"/><path d="M28.4 3.6c2.2 1.9 4.2 3.6 6.1 5.2-2 1.6-4 3.4-6.4 5.6"/></svg></p>
 
             <!-- Artworks: each opens in its own artwork sheet, lifted off
                  the wall (assets/js/studio.js). Every wall item is taped up:

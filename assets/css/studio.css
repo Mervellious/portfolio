@@ -14,7 +14,9 @@
 /* Desktop (960px and up): the stage fills the screen below the header,
    edge to edge (the header is 78px: 20px padding top and bottom +
    37.6px of text, measured). Below 960px the stage is 960 x 540 and the
-   wrapper scrolls sideways, so the frames stay tappable. */
+   wrapper scrolls sideways, so the frames stay tappable; below 600px
+   the stage is narrower and the scroll ends after the last artwork
+   (see "Phones" below). */
 .studio-scroll {
   overflow-x: auto;
 }
@@ -78,6 +80,66 @@
 
 .studio-content > * {
   position: absolute;
+}
+
+/* Phones (below 600px): the scroll stops just after the last artwork.
+   The stage is 512px wide (ART 4's tape ends at 495.5px, plus 16px),
+   or the screen width if that is wider. The scene keeps exactly the
+   size, position and tape scale it has on the 960 x 540 stage, so the
+   frames don't move: its height and --u are fixed to the 960px
+   values (960 * 900 / 1750), and left: 480px is the 960px stage's
+   middle. The drawing past 512px is cropped, like the sides on
+   desktop. */
+@media (max-width: 599px) {
+  .studio {
+    width: max(512px, 100%);
+    height: 540px;
+    aspect-ratio: auto;
+  }
+
+  .studio-scene {
+    left: 480px;
+    height: calc(960px * 900 / 1750);
+  }
+
+  .studio-content {
+    --u: calc(960px / 1750);
+  }
+}
+
+/* "Swipe to see more": only where the stage scrolls sideways (below
+   512px, and 600–959px, where it is 960px wide). Inside the scene, so
+   it scrolls with it: in the gap between the long double floor line
+   (y 737–744 of the drawing) and the faint line below it (y 813),
+   centred in it, from x -147 (ART 6's left edge), ending before the
+   small arch (about x 174). Same handwriting, size and blue as the
+   note; the arrow is a thin hand-drawn line, about the text's height.
+   Visual only: hidden from screen readers. */
+.studio-hint {
+  display: none;
+  left: calc(-147 / 1600 * 100%);
+  top: calc(760 / 900 * 100%);
+  margin: 0;
+  align-items: center;
+  gap: .35em;
+  font-family: 'Architects Daughter', var(--font-label);
+  font-size: calc(28.35 * var(--u));
+  line-height: 1.3;
+  white-space: nowrap;
+  color: var(--blue);
+  pointer-events: none;
+}
+
+.studio-hint svg {
+  width: 1.9em;
+  height: .9em;
+  overflow: visible;
+}
+
+@media (max-width: 511px), (min-width: 600px) and (max-width: 959px) {
+  .studio-hint {
+    display: flex;
+  }
 }
 
 /* Handwritten note, in the empty paper at the top left, above the
